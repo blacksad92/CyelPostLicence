@@ -1,0 +1,151 @@
+module CyelPostLicence {
+
+	enum EtatCandidature {	valide, nonValide, refusee, acceptee, listeAttente, vide};
+	enum EnumReponse {oui, ouiMais, non, nonMais, vide};
+	enum EnumDecision  {acceptee, listeAttente, refusee, vide};
+	enum EnumOrdre {un, deux, trois, quatre, cinq, vide};	
+	
+	exception ResponsableInconnu{
+		long id;
+		string raison;
+	};
+	
+	
+	struct Licence{
+		long numLicence;
+		string nomLicence;
+	};
+	
+	typedef sequence<Licence> ListeLicences;
+	
+	struct Academie{
+		long numAcademie;
+		string nomAcademie;
+	};
+	
+	typedef sequence<Academie> ListeAcademies;
+	
+	struct Universite{
+		long numUniv;
+		string nomUniv;
+		Academie academie;
+	};
+	
+	typedef sequence<Universite> ListeUniversites;
+		
+	struct Etudiant{
+		long INE;
+		string nom;
+		string prenom;
+		Licence licence;
+		Universite universite;
+	};
+	
+	struct Reponse {
+		Etudiant etudiant;
+		short ordre;
+	};
+	
+	typedef sequence<Reponse> ListeReponse;
+	
+	typedef sequence<Etudiant> ListeCandidatures;
+
+	struct Master{
+		long numMaster;
+		string nomMaster;
+	};
+	
+	typedef sequence<Master> ListeMaster;
+	
+	struct Accreditation{
+		Universite universite;
+		Master master;
+	};
+
+	struct Decision{
+		Etudiant etudiant;
+		Master master;
+		EnumDecision decision;
+	};
+	
+	typedef sequence<Decision> ListeDecisions;
+
+	
+	struct Voeu{
+		long numVoeu;
+		Universite universite;
+		Master master;
+		EnumOrdre ordre;
+		EtatCandidature etatCandidature;
+		EnumReponse reponse;
+		long numLicence;
+	};
+	
+	typedef sequence<Voeu> ListeVoeux;
+
+	struct Note{
+		long INE;
+		long semestre;
+		long numSemestre;
+		long moyenne;
+		string obtention;
+		string position;
+		Licence licence;
+		long numUniversite;		 
+	};
+	
+	typedef sequence<Note> ListeNotes;
+
+	exception EtudiantInconnu{
+		long id;
+		string raison;
+	};
+	
+	exception AcademieIncorrecte{
+		long id;
+		string raison;
+	};
+	
+
+	interface GestionnaireVoeux;
+	interface GestionnaireCandidatures;
+	typedef sequence<GestionnaireVoeux> ListeGestionnairesVoeux;
+		
+	interface GestionnaireAcces {
+		readonly attribute ListeGestionnairesVoeux listeGestionnairesVoeux;
+		Etudiant identification(in long INE, in Academie academie) raises (EtudiantInconnu, AcademieIncorrecte);
+		GestionnaireVoeux obtenirGestionnaireVoeux(in long numAcademie);
+		GestionnaireCandidatures obtenirGestionnaireCandidatures(in long numUniversite);
+		GestionnaireVoeux identificationUniv(in string login, in string password, in long numAcademie) raises (ResponsableInconnu);
+		void inscriptionGestionnaireVoeux(in GestionnaireVoeux gestVoeux);
+		void inscriptionGestionnaireCandidatures(in GestionnaireCandidatures gestCandidatures);
+		Etudiant obtenirEtudiant(in long INE);
+	};
+	
+	interface GestionnaireReferentiel {
+		readonly attribute ListeAcademies listeAcademies;
+		readonly attribute ListeMaster listeMasters;
+		readonly attribute ListeLicences listeLicences;
+	};
+	
+	interface GestionnaireCandidatures {
+		attribute Universite universite;
+		readonly attribute ListeMaster listeMaster;
+		ListeNotes recupererListeNotes(in long INE, in boolean externe);
+		EtatCandidature validerCandidature(in long numMaster, in long numLicence);
+		void enregistrerCandidatures(in ListeCandidatures listeCandidatures, in long numMaster);
+		ListeCandidatures consulterCandidatures(in long numMaster, in long numUniversite);
+	};
+	
+	interface GestionnaireVoeux {
+		attribute Academie academie;
+		attribute long periode;
+		readonly attribute ListeUniversites listeUniversite;
+		ListeUniversites consulterAcreditations(in long numMaster, in boolean externe);
+		void enregistrerVoeux(in Etudiant etudiant, in ListeVoeux listeVoeux);
+		ListeVoeux consulterVoeux(in long INE, in boolean externe);
+		void cloturerPeriode();
+		ListeCandidatures recupererListeCandidatures(in long numMaster, in long numUniversite);
+		void enregistrerDecisions(in long numMaster, in long numAcademie, in ListeReponse listeAccepte, in ListeReponse listeAttente, in ListeReponse listeRefuse);
+	};
+};
