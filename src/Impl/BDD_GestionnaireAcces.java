@@ -35,32 +35,10 @@ public class BDD_GestionnaireAcces {
         }
     }
 
-    public Etudiant bdd_identification(int login, Academie academie) throws EtudiantInconnu, AcademieIncorrecte {
+     public Etudiant bdd_identification(int login, Academie academie) throws EtudiantInconnu, AcademieIncorrecte {
         Etudiant etudiant = null;
         Licence licence = null;
         Universite univ = null;
-
-        try {
-            // On crée un objet Statement qui va permettre l'execution des requètes
-            Statement s = conn.createStatement();
-            ResultSet rs = s.executeQuery("SELECT * FROM ga_etudiants e WHERE INE = " + login + " AND e.numAcademie = " + academie.numAcademie);
-
-            while (rs.next()) {
-                licence = new Licence(rs.getInt("e.numLicence"), rs.getString("e.Licence"));
-                univ = new Universite(rs.getInt("e.numUniversite"), rs.getString("e.UniversiteAppartenance"), academie);
-                etudiant = new Etudiant(rs.getInt("e.INE"), rs.getString("e.Nom"), rs.getString("e.Prenom"), licence, univ);
-            }
-
-        } catch (Exception e) {
-            // Il y a une erreur
-            e.printStackTrace();
-            return etudiant;
-        }
-
-        if (etudiant == null) {
-            AcademieIncorrecte AI = new AcademieIncorrecte(1, "L'académie choisie ne correspond pas à votre académie d'appartennance");
-            throw AI;
-        }
 
         try {
             // On crée un objet Statement qui va permettre l'execution des requètes
@@ -82,6 +60,29 @@ public class BDD_GestionnaireAcces {
         if (etudiant == null) {
             EtudiantInconnu EI = new EtudiantInconnu(1, "L'INE " + " n'existe pas");
             throw EI;
+        }
+
+        try {
+            etudiant = null;
+            // On crée un objet Statement qui va permettre l'execution des requètes
+            Statement s = conn.createStatement();
+            ResultSet rs = s.executeQuery("SELECT * FROM ga_etudiants e WHERE INE = " + login + " AND e.numAcademie = " + academie.numAcademie);
+
+            while (rs.next()) {
+                licence = new Licence(rs.getInt("e.numLicence"), rs.getString("e.Licence"));
+                univ = new Universite(rs.getInt("e.numUniversite"), rs.getString("e.UniversiteAppartenance"), academie);
+                etudiant = new Etudiant(rs.getInt("e.INE"), rs.getString("e.Nom"), rs.getString("e.Prenom"), licence, univ);
+            }
+
+        } catch (Exception e) {
+            // Il y a une erreur
+            e.printStackTrace();
+            return etudiant;
+        }
+
+        if (etudiant == null) {
+            AcademieIncorrecte AI = new AcademieIncorrecte(1, "L'académie choisie ne correspond pas à votre académie d'appartennance");
+            throw AI;
         }
 
         return etudiant;

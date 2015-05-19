@@ -30,12 +30,12 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
 
         bdd = new BDD_GestionnaireCandidature();
         listeMaster = new ArrayList<Master>();
-     Academie academie = new Academie(1, "Toulouse");
+     //Academie academie = new Academie(1, "Toulouse");
       //universite = new Universite(1, "Universite Paul Sabatier", academie);
      //universite = new Universite(2, "Universite Jean Jaures", academie);
-       universite = new Universite(5, "Universite Capitole", academie);
-         //Academie academie = new Academie(5, "Bordeaux");
-         //universite = new Universite(3, "Universite Montaigne", academie);
+       //universite = new Universite(5, "Universite Capitole", academie);
+         Academie academie = new Academie(5, "Bordeaux");
+        universite = new Universite(3, "Universite Montaigne", academie);
     //universite = new Universite(4, "Universite Bordeaux 1", academie);
        //Academie academie = new Academie(2, "Montpellier");
        //universite = new Universite(6, "Universite Paul Valery", academie);

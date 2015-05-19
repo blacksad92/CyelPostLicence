@@ -119,7 +119,7 @@ public class ConnexionEtudiant extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_ConnexionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ConnexionActionPerformed
-        boolean exception = false;
+       boolean exception = false;
         try {
             Item selectItem = (Item) cb_listeAcademie.getSelectedItem();
             client.connexion(txtINE.getText(), new Academie(selectItem.getId(), selectItem.getValeur()));
