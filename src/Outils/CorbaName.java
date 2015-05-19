@@ -15,6 +15,6 @@ public class CorbaName {
     public final static String GEST_RERENTIEL = "GestionnaireReferentiel";
     public static final String GEST_VOEUX = "GestionnaireVoeux";
     public static final String IP_NAMINGSERV = "192.168.1.12";
-    //public static final String NOM_NAMINGSERV = "192.168.1.24";
-   public static final String NOM_NAMINGSERV = "Romain-Pro.home";
+    public static final String NOM_NAMINGSERV = "192.168.1.24";
+    //public static final String NOM_NAMINGSERV = "Romain-Pro.home";
 }
