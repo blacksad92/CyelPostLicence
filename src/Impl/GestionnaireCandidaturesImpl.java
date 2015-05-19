@@ -30,22 +30,22 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
 
         bdd = new BDD_GestionnaireCandidature();
         listeMaster = new ArrayList<Master>();
-             Academie academie = new Academie(1, "Toulouse");
+     Academie academie = new Academie(1, "Toulouse");
       //universite = new Universite(1, "Universite Paul Sabatier", academie);
      //universite = new Universite(2, "Universite Jean Jaures", academie);
        universite = new Universite(5, "Universite Capitole", academie);
          //Academie academie = new Academie(5, "Bordeaux");
-        //universite = new Universite(3, "Universite Montaigne", academie);
+         //universite = new Universite(3, "Universite Montaigne", academie);
     //universite = new Universite(4, "Universite Bordeaux 1", academie);
- //       Academie academie = new Academie(2, "Montpellier");
-//        universite = new Universite(6, "Universite Paul Valery", academie);
-//        universite = new Universite(7, "Universite Montpellier 3", academie);
+       //Academie academie = new Academie(2, "Montpellier");
+       //universite = new Universite(6, "Universite Paul Valery", academie);
+    //universite = new Universite(7, "Universite Montpellier 3", academie);
 //        Academie academie = new Academie(4, "Aix-Marseille");
 //        universite = new Universite(8, "Universite de provence", academie);
 //        universite = new Universite(9, "Universite Aix Marseille", academie);
-       //Academie academie = new Academie(3, "Nice");
+      // Academie academie = new Academie(3, "Nice");
         //universite = new Universite(10, "Universite Nice Sophia Antipolis", academie);        
-        //universite = new Universite(12, "Polytech Nice", academie);
+       // universite = new Universite(12, "Polytech Nice", academie);
 //        Academie academie = new Academie(6, "Corse");
 //        universite = new Universite(11, "Universite Pasquale Paoli", academie);
 
@@ -97,12 +97,18 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
 
     @Override
     public Etudiant[] consulterCandidatures(int numMaster, int numUniversite) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("CandImpl consulterCandid");
+        Etudiant[] etudiants = bdd.bdd_listeCandidature(numUniversite, numMaster);
+        return etudiants;
     }
 
     @Override
     public void enregistrerCandidatures(Etudiant[] listeCandidatures, int numMaster) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("CandImpl EnregistrerCandid");
+        for(int i = 0; i < listeCandidatures.length; i++)
+        {
+            bdd.bdd_insertCandidature(listeCandidatures[i], numMaster);
+        }
     }
 
 }

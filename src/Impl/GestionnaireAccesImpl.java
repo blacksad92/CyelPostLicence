@@ -141,7 +141,7 @@ public class GestionnaireAccesImpl extends CyelPostLicence.GestionnaireAccesPOA 
 
     @Override
     public Etudiant obtenirEtudiant(int INE) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return bdd.bdd_consultEtudiant(INE);
     }
 
 }

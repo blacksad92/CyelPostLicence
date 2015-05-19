@@ -40,8 +40,8 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     public ArrayList<Voeu> listeVoeuxParAcademie;
 
     public GestionnaireVoeuxImpl() {
-        //academie = new Academie(1, "Toulouse");
-        academie = new Academie(2, "Montpellier");
+        academie = new Academie(1, "Toulouse");
+        //academie = new Academie(2, "Montpellier");
         //academie = new Academie(3, "Nice");
         //academie = new Academie(4, "Aix-Marseille");
         //academie = new Academie(5, "Bordeaux");
@@ -60,25 +60,26 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
         System.out.println("Periode ancienne " + periode);
         if (periode < 4) {
             periode = periode + 1;
-        }
-
-        if (periode == 2) {
-            listeVoeuxParAcademie = bdd.bdd_listeVoeuxParAcademie(academie.numAcademie);
-            for (int i = 0; i < listeVoeuxParAcademie.size(); i++) {
-                int numUniversite = listeVoeuxParAcademie.get(i).universite.numUniv;
-                System.out.println("cloturerPeriode academie " + academie.nomAcademie);
-                System.out.println("cloturerPeriode universite " + listeVoeuxParAcademie.get(i).universite.nomUniv);
-                int numVoeux = listeVoeuxParAcademie.get(i).numVoeu;
-                GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(numUniversite);
-                if (gestCand != null) {
-                    EtatCandidature etat = gestCand.validerCandidature(listeVoeuxParAcademie.get(i).master.numMaster, listeVoeuxParAcademie.get(i).numLicence);
-                    System.out.println("cloturerPeriode etat " + etat.toString());
-                    boolean modifier = bdd.bdd_modifieEtat(numVoeux, etat.value());
-                    System.out.println("cloturerPeriode modifier " + modifier);
-                }
+            if (periode == 2) {
+                listeVoeuxParAcademie = bdd.bdd_listeVoeuxParAcademie(academie.numAcademie);
+                for (int i = 0; i < listeVoeuxParAcademie.size(); i++) {
+                    int numUniversite = listeVoeuxParAcademie.get(i).universite.numUniv;
+                    System.out.println("cloturerPeriode academie " + academie.nomAcademie);
+                    System.out.println("cloturerPeriode universite " + listeVoeuxParAcademie.get(i).universite.nomUniv);
+                    int numVoeux = listeVoeuxParAcademie.get(i).numVoeu;
+                    GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(numUniversite);
+                    if (gestCand != null) {
+                        EtatCandidature etat = gestCand.validerCandidature(listeVoeuxParAcademie.get(i).master.numMaster, listeVoeuxParAcademie.get(i).numLicence);
+                        System.out.println("cloturerPeriode etat " + etat.toString());
+                        boolean modifier = bdd.bdd_modifieEtat(numVoeux, etat.value());
+                        System.out.println("cloturerPeriode modifier " + modifier);
+                    }
             }
         }
 
+        }
+
+        
         System.out.println("Periode nouvelle " + periode);
     }
 
@@ -128,7 +129,7 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
 //TODO Implémenter cette méthode
     @Override
     public int periode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return periode;
     }
 
 //TODO Implémenter cette méthode
@@ -195,7 +196,8 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
         ArrayList<Etudiant> listeEtudiants = new ArrayList<Etudiant>();
         System.out.println("RecupererCandidature VoeuxImpl"+ academie.nomAcademie);
         ArrayList<Integer> listeINE = bdd.bdd_listeVoeuxParUniversiteParMaster(numMaster, numUniversite);
-        for(int i = 0; i < listeINE.size(); i++)
+        System.out.println("RecupererCandidature TailleListe"+ listeINE.size());
+        for(int i=0; i < listeINE.size(); i++)
         {
             int INE = listeINE.get(i);
             System.out.println("RecupererCandidature VoeuxImpl INE"+ INE);
@@ -203,6 +205,7 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
             listeEtudiants.add(etu);
         }
          Etudiant[] tabEtudiants = listeEtudiants.toArray(new Etudiant[listeEtudiants.size()]);
+         System.out.println("SORS VoeuxImps RecupererCandidature");
         return tabEtudiants;
     }
 

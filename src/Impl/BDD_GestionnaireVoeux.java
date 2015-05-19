@@ -291,10 +291,11 @@ public class BDD_GestionnaireVoeux {
             String req = "SELECT v.NumINE"
                     + "      FROM gv_Voeux v"
                     + "      WHERE v.numMaster = " + numMaster
-                    + "      AND v.NumUniversite = " + numUniv;
+                    + "      AND v.NumUniversite = " + numUniv
+                    + "      AND v.Etat = 0";
             //System.out.println(req);
             ResultSet rs = s.executeQuery(req);
-
+            System.out.println(req);
             while (rs.next()) {
                 int ine = rs.getInt("v.NumINE");
 

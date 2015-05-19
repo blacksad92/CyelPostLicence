@@ -123,7 +123,20 @@ public class ClientResponsable {
 
     public void recupererLesCandidatures() {
         int NumUniv = gestCandidature.universite().numUniv;
+        System.out.println("CR recupererLesCandidatures");
         Etudiant[] etudiants = gestVoeux.recupererListeCandidatures(NumMaster, NumUniv);
+        System.out.println("CR etudiants"+ etudiants.length);
+        gestCandidature.enregistrerCandidatures(etudiants, NumMaster);
+    }
+
+    public Etudiant[] mesCandidatures() {
+        System.out.println("CR mesCandidatures");
+        int NumUniversite = gestCandidature.universite().numUniv;
+        System.out.println("CR mesCandidatures numUniversite"+ NumUniversite);
+        Etudiant[] etudiants;
+        etudiants = gestCandidature.consulterCandidatures(NumMaster, NumUniversite);
+        System.out.println("CR mesCandidatures etudiants"+ etudiants.length);
+        return etudiants;
     }
 
 }

@@ -6,6 +6,8 @@
 package IHM;
 
 import Client.ClientResponsable;
+import CyelPostLicence.Etudiant;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -36,7 +38,11 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
         {
             this.bt_recupererLesCandidatures.setEnabled(true);
         }
-        
+        if(clik ==1 )
+        {
+            initTableauCand();
+        }
+        //initTableauCand();
     }
 
     /**
@@ -147,6 +153,9 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
     private void bt_recupererLesCandidaturesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_recupererLesCandidaturesActionPerformed
         clik = 1;
         client.recupererLesCandidatures();
+        AccueilResponsableFormation acc = new AccueilResponsableFormation(client);
+        this.setVisible(false);
+        acc.setVisible(true);
     }//GEN-LAST:event_bt_recupererLesCandidaturesActionPerformed
 
     /**
@@ -195,4 +204,22 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable_candidatures;
     // End of variables declaration//GEN-END:variables
+
+    private void initTableauCand() {
+        Etudiant[] tabEtudiant;
+        tabEtudiant = client.mesCandidatures();
+        
+            DefaultTableModel model = new DefaultTableModel();
+            //On renseigne les identifiants des colonnes dans le modèle
+            model.setColumnIdentifiers(new String[]{ "NumINE","Nom etudiant","Prenom Etudiant", "Numero Licence","Licence Provenance", "Numero Université",  "Université Provenance", "Numero Academie", "Academie Provenance"});
+
+            //On ajoute les ligne contenant les données dans le modèle
+            for (Etudiant e : tabEtudiant) {
+                model.addRow(new Object[]{e.INE, e.nom, e.prenom, e.licence.numLicence, e.licence.nomLicence, e.universite.numUniv,e.universite.nomUniv, e.universite.academie.numAcademie, e.universite.academie.nomAcademie});
+            }
+
+            //On ajoute le modèle dans la Jtable
+            jTable_candidatures.setModel(model);
+            jTable_candidatures.setEnabled(false);
+    }
 }

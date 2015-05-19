@@ -6,9 +6,12 @@
 
 package Impl;
 
+import CyelPostLicence.Academie;
+import CyelPostLicence.Etudiant;
 import CyelPostLicence.Licence;
 import CyelPostLicence.Master;
 import CyelPostLicence.Note;
+import CyelPostLicence.Universite;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -136,6 +139,44 @@ public class BDD_GestionnaireCandidature {
     } 
      
      
+     public Etudiant[] bdd_listeCandidature(int NumUniversite,int NumMaster) {
+        ArrayList<Etudiant> listeEtudiants = new ArrayList<Etudiant>();
+        Licence licence;
+        Universite univ;
+        Academie academie;
+        Etudiant etudiant;
+        
+        try {
+            // On crée un objet Statement qui va permettre l'execution des requètes
+            Statement s = conn.createStatement();
+            
+            String req = "SELECT c.NumINE,c.NomEtudiant, c.PrenomEtudiant, c.NumMaster, c.NumLicenceProv, c.NomLicenceProv, c.NumUniversiteProv, c.NomUniversiteProv, c.NumAcademieProv, c.NomAcademieProv, c.etat"
+                    + "      FROM gc_candidatures c, gc_masters m, gc_universites u"
+                    + "      WHERE u.NumUniversite = "+NumUniversite+""
+                    + "      AND c.NumMaster = m.NumMaster"
+                    + "     AND m.NumMaster = "+NumMaster;
+            //System.out.println(req);
+            ResultSet rs = s.executeQuery(req);
+            
+            while (rs.next()) {
+                academie = new Academie(rs.getInt("c.NumAcademieProv"), rs.getString("c.NomAcademieProv"));
+                licence = new Licence(rs.getInt("c.NumLicenceProv"), rs.getString("c.NomLicenceProv"));
+                univ = new Universite(rs.getInt("c.NumUniversite"), rs.getString("c.NumUniversite"), academie);
+                etudiant = new Etudiant(rs.getInt("c.NumINE"), rs.getString("c.NomEtudiant"), rs.getString("c.PrenomEtudiant"), licence, univ);               
+                listeEtudiants.add(etudiant);
+            }
+                        
+        } catch(Exception e) {
+            // Il y a une erreur
+            e.printStackTrace();
+            return null;
+        }
+        Etudiant[] tabEtudiants = listeEtudiants.toArray(new Etudiant[listeEtudiants.size()]);
+        
+        return tabEtudiants;
+    } 
+     
+     
      public boolean bdd_verifieLicencePrerequis(int NumUniversite,int NumMaster,int NumLicence) {
               int nbr = 0;
               boolean ok =  false;
@@ -174,4 +215,36 @@ public class BDD_GestionnaireCandidature {
         // Renvoie FAlSE alors etat "Non valide"
         return ok;
     } 
+     
+     
+     public boolean bdd_insertCandidature(Etudiant etudiant, int numMaster) {
+        boolean res = false;
+        try {
+            // On crée un objet Statement qui va permettre l'execution des requètes
+            Statement s = conn.createStatement();
+            String query = "INSERT INTO gc_candidatures (NumINE,NomEtudiant, PrenomEtudiant,NumMaster,NumLicenceProv,NomLicenceProv, NumUniversiteProv,NomUniversiteProv,NumAcademieProv, NomAcademieProv, etat )" + "VALUES ("
+                    + etudiant.INE + ",'"
+                    + etudiant.nom +"','"
+                    + etudiant.prenom+"',"
+                    + numMaster + "," + etudiant.licence.numLicence + ",'"
+                    + etudiant.licence.nomLicence + "',"
+                    + etudiant.universite.numUniv + ",'"
+                    + etudiant.universite.nomUniv + "',"
+                    + etudiant.universite.academie.numAcademie +",'"
+                    + etudiant.universite.academie.nomAcademie +"',0)";
+            System.out.println(query);
+            int result = s.executeUpdate(query);
+            
+            if (result == 1) {
+                res = true;
+            }
+        } catch (Exception e) {
+            // Il y a une erreur
+            e.printStackTrace();
+            return false;
+        }
+        return res;
+    }
+     
+     
 }
