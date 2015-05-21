@@ -84,7 +84,6 @@ public class ClientEtudiant {
             throw e;
         }
         gestVoeux = gestAcces.obtenirGestionnaireVoeux(academie.numAcademie);
-        gestVoeux.cloturerPeriode();
     }
 
     public Universite[] getAccreditations(int numDiplome) {

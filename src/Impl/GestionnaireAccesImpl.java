@@ -23,10 +23,10 @@ import java.util.ArrayList;
 public class GestionnaireAccesImpl extends CyelPostLicence.GestionnaireAccesPOA {
 
     private ArrayList<GestionnaireVoeux> listeGestionnairesVoeux;
-    private GestionnaireVoeux[] tabeauGestionnairesVoeux;
+    private GestionnaireVoeux[] tableauGestionnairesVoeux;
     
     private ArrayList<GestionnaireCandidatures> listeGestionnairesCandidatures;
-    private GestionnaireCandidatures[] tabeauGestionnairesCandidatures;
+    private GestionnaireCandidatures[] tableauGestionnairesCandidatures;
     
     public BDD_GestionnaireAcces bdd = new BDD_GestionnaireAcces();
 
@@ -42,8 +42,8 @@ public class GestionnaireAccesImpl extends CyelPostLicence.GestionnaireAccesPOA 
     
     @Override
     public GestionnaireVoeux[] listeGestionnairesVoeux() {
-        tabeauGestionnairesVoeux = listeGestionnairesVoeux.toArray(new GestionnaireVoeux[listeGestionnairesVoeux.size()]);
-        return tabeauGestionnairesVoeux;
+        tableauGestionnairesVoeux = listeGestionnairesVoeux.toArray(new GestionnaireVoeux[listeGestionnairesVoeux.size()]);
+        return tableauGestionnairesVoeux;
     }
 
     @Override
