@@ -6,8 +6,6 @@
 
 package Client;
 
-import static Client.ClientEtudiant.gestAcces;
-import static Client.ClientEtudiant.gestReferentiel;
 import CyelPostLicence.GestionnaireVoeux;
 import Outils.CorbaName;
 import org.omg.CosNaming.NamingContext;
@@ -23,11 +21,7 @@ public class ClientMinistere {
     public static CyelPostLicence.GestionnaireReferentiel gestReferentiel;
     public GestionnaireVoeux[] tabGestVoeux;
     
-    public ClientMinistere(String arg[]) {
-        this.main(arg);
-    }
-    
-     public static void main(String args[]) {
+    public ClientMinistere(String args[]) {
 
         try {
             // Intialisation de l'orb

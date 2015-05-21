@@ -19,12 +19,17 @@ import java.util.logging.Logger;
  */
 public class ConnexionResponsable extends javax.swing.JFrame {
 
-    private static ClientResponsable clientR;
+    private static ClientResponsable client;
 
     /**
      * Creates new form ConnexionEtudiant
      */
     public ConnexionResponsable() {
+        initComponents();
+    }
+    
+    public ConnexionResponsable(ClientResponsable client) {
+        this.client = client;
         initComponents();
         initListeAcademie();
         this.setVisible(true);
@@ -137,7 +142,7 @@ public class ConnexionResponsable extends javax.swing.JFrame {
         boolean exception = false;
         try {
             Item selectItem = (Item) cb_listeAcademie.getSelectedItem();
-            clientR.connexion(txtLogin.getText(), txtMDP.getText(), selectItem.getId());
+            client.connexion(txtLogin.getText(), txtMDP.getText(), selectItem.getId());
         } catch (ResponsableInconnu ex) {
             lErreur.setText(ex.raison);
             exception = true;
@@ -145,7 +150,7 @@ public class ConnexionResponsable extends javax.swing.JFrame {
         } 
 
         if (!exception) {
-            ChoixUniversite choixUniversite = new ChoixUniversite(clientR);
+            ChoixUniversite choixUniversite = new ChoixUniversite(client);
             choixUniversite.setVisible(true);
             this.setVisible(false);
         }
@@ -187,7 +192,6 @@ public class ConnexionResponsable extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                clientR = new ClientResponsable(args);
                 new ConnexionResponsable();
 
             }
@@ -195,7 +199,7 @@ public class ConnexionResponsable extends javax.swing.JFrame {
     }
 
     public void initListeAcademie() {
-        Academie[] listeA = clientR.listeAcademie();
+        Academie[] listeA = client.listeAcademie();
         for (int i = 0; i < listeA.length; i++) {
             cb_listeAcademie.addItem(new Item(listeA[i].numAcademie, listeA[i].nomAcademie));
         }
