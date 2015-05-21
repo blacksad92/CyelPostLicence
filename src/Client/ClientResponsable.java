@@ -20,10 +20,10 @@ import org.omg.CosNaming.NamingContext;
  */
 public class ClientResponsable {
 
-    public CyelPostLicence.GestionnaireAcces gestAcces;
-    public CyelPostLicence.GestionnaireVoeux gestVoeux;
-    public CyelPostLicence.GestionnaireReferentiel gestReferentiel;
-    public CyelPostLicence.GestionnaireCandidatures gestCandidature;
+    public static CyelPostLicence.GestionnaireAcces gestAcces;
+    public static CyelPostLicence.GestionnaireVoeux gestVoeux;
+    public static CyelPostLicence.GestionnaireReferentiel gestReferentiel;
+    public static CyelPostLicence.GestionnaireCandidatures gestCandidature;
     private int NumMaster;
 
     public int getNumMaster() {
@@ -34,7 +34,17 @@ public class ClientResponsable {
         this.NumMaster = NumMaster;
     }
 
-    public ClientResponsable(String args[]) {
+    public ClientResponsable(String arg[]) {
+        this.main(arg);
+    }
+    
+    public int getPeriode()
+    {
+        return gestVoeux.periode();
+    }
+
+    public static void main(String args[]) {
+
         try {
             // Intialisation de l'orb
             org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
@@ -75,11 +85,7 @@ public class ClientResponsable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    
-    public int getPeriode()
-    {
-        return gestVoeux.periode();
+
     }
 
     public Academie[] listeAcademie(){

@@ -26,11 +26,6 @@ public class ConnexionEtudiant extends javax.swing.JFrame {
      */
     public ConnexionEtudiant() {
         initComponents();
-    }
-    
-    public ConnexionEtudiant(ClientEtudiant client) {
-        this.client = client;
-        initComponents();
         initListeAcademie();
         this.setVisible(true);
     }
@@ -174,6 +169,7 @@ public class ConnexionEtudiant extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                client = new ClientEtudiant(args);
                 new ConnexionEtudiant();
 
             }

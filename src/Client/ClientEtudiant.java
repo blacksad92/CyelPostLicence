@@ -12,7 +12,6 @@ import CyelPostLicence.EtudiantInconnu;
 import CyelPostLicence.Master;
 import CyelPostLicence.Universite;
 import CyelPostLicence.Voeu;
-import IHM.ConnexionEtudiant;
 import Outils.CorbaName;
 import org.omg.CosNaming.NamingContext;
 
@@ -22,12 +21,17 @@ import org.omg.CosNaming.NamingContext;
  */
 public class ClientEtudiant {
 
-    public CyelPostLicence.GestionnaireAcces gestAcces;
-    public CyelPostLicence.GestionnaireVoeux gestVoeux;
-    public CyelPostLicence.GestionnaireReferentiel gestReferentiel;
+    public static CyelPostLicence.GestionnaireAcces gestAcces;
+    public static CyelPostLicence.GestionnaireVoeux gestVoeux;
+    public static CyelPostLicence.GestionnaireReferentiel gestReferentiel;
     public Etudiant monEtudiant;
 
-    public ClientEtudiant(String args[]) {
+    public ClientEtudiant(String arg[]) {
+        this.main(arg);
+    }
+
+    public static void main(String args[]) {
+
         try {
             // Intialisation de l'orb
             org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
@@ -66,6 +70,7 @@ public class ClientEtudiant {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     public Academie[] listeAcademie() {
