@@ -14,12 +14,17 @@ import Client.ClientMinistere;
  */
 public class InterfaceMinistere extends javax.swing.JFrame {
     
-    public static ClientMinistere clientM;
+    public static ClientMinistere client;
 
     /**
      * Creates new form InterfaceMinistere
      */
     public InterfaceMinistere() {
+        initComponents();
+    }
+    
+    public InterfaceMinistere(ClientMinistere client) {
+        this.client = client;
         initComponents();
         this.setVisible(true);
     }
@@ -66,7 +71,7 @@ public class InterfaceMinistere extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_cloturerPeriodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cloturerPeriodeActionPerformed
-        clientM.cloturerPeriode();
+        client.cloturerPeriode();
     }//GEN-LAST:event_bt_cloturerPeriodeActionPerformed
 
     /**
@@ -99,7 +104,7 @@ public class InterfaceMinistere extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                clientM = new ClientMinistere(args);
+                client = new ClientMinistere(args);
                 new InterfaceMinistere();
             }
         });
