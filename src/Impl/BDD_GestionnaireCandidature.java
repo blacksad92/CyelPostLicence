@@ -41,6 +41,11 @@ public class BDD_GestionnaireCandidature {
         ArrayList<Note> listeNotes = new ArrayList<Note>();
         
         try {
+            /*Protège des injections SQL
+            PreparedStatement stmt = conn.prepareStatement("SELECT r.Semestre, r.NumSemestre, r.Moyenne, r.CodeObtention, r.Position, r.NumUniversite, r.NumLicence, r.NomLicence FROM gc_resultats r WHERE NumINE=?");
+            stmt.setInt(1, INE);
+            ResultSet rs = stmt.executeQuery();
+            */
             // On crée un objet Statement qui va permettre l'execution des requètes
             Statement s = conn.createStatement();
             

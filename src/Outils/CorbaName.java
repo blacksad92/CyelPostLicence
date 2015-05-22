@@ -18,4 +18,5 @@ public class CorbaName {
     //public static final String NOM_NAMINGSERV = "192.168.1.24";
     public static final String NOM_NAMINGSERV = "192.168.0.12"; // Eléa
     //public static final String NOM_NAMINGSERV = "Romain-Pro.home"; // Romain
+    //public static final String NOM_NAMINGSERV = "192.168.1.21"; // David
 }

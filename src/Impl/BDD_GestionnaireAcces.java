@@ -13,6 +13,7 @@ import CyelPostLicence.Licence;
 import CyelPostLicence.Universite;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
@@ -41,6 +42,11 @@ public class BDD_GestionnaireAcces {
         Universite univ = null;
 
         try {
+            /*Protège des injections SQL
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM ga_etudiants e WHERE INE=?");
+            stmt.setInt(1, login);
+            ResultSet rs = stmt.executeQuery();
+            */
             // On crée un objet Statement qui va permettre l'execution des requètes
             Statement s = conn.createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM ga_etudiants e WHERE INE = " + login);
@@ -64,6 +70,12 @@ public class BDD_GestionnaireAcces {
 
         try {
             etudiant = null;
+            /*Protège des injections SQL
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM ga_etudiants e WHERE INE=? AND e.numAcademie=?");
+            stmt.setInt(1, login);
+            stmt.setInt(2, academie.numAcademie);
+            ResultSet rs = stmt.executeQuery();
+            */
             // On crée un objet Statement qui va permettre l'execution des requètes
             Statement s = conn.createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM ga_etudiants e WHERE INE = " + login + " AND e.numAcademie = " + academie.numAcademie);
@@ -90,6 +102,12 @@ public class BDD_GestionnaireAcces {
 
     public boolean bdd_identificationUniv(String login, String mdp) {
         try {
+            /*Protège des injections SQL
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM ga_responsables WHERE Login=? AND Mdp=?");
+            stmt.setString(1, login);
+            stmt.setString(2, mdp);
+            ResultSet rs = stmt.executeQuery();
+            */
             // On crée un objet Statement qui va permettre l'execution des requètes
             Statement s = conn.createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM ga_responsables WHERE Login = '" + login + "' AND Mdp = '" + mdp + "'");
@@ -112,6 +130,11 @@ public class BDD_GestionnaireAcces {
         Universite univ = null;
         Academie academie = null;
         try {
+            /*Protège des injections SQL
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM ga_etudiants e WHERE INE=?");
+            stmt.setInt(1, INE);
+            ResultSet rs = stmt.executeQuery();
+            */
             // On crée un objet Statement qui va permettre l'execution des requètes
             Statement s = conn.createStatement();
             ResultSet rs = s.executeQuery("SELECT * FROM ga_etudiants e WHERE INE = " + INE);

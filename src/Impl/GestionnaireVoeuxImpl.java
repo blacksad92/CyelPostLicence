@@ -179,6 +179,13 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
 
     @Override
     public void enregistrerVoeux(Etudiant etudiant, Voeu[] listeVoeux) {
+        /*
+        //Permet de récupérer l'état valide ou non-valide d'un voeu, supprimer l'appel de la méthode dans cloturerPeriode
+        GestionnaireCandidatures gestCandidature = gestAcces.obtenirGestionnaireCandidatures(listeVoeux[0].universite.numUniv);
+        EtatCandidature etatVoeu = gestCandidature.validerCandidature(listeVoeux[0].master.numMaster, etudiant.licence.numLicence);
+        //On affecte le nouvel état
+        listeVoeux[0].etatCandidature = etatVoeu;
+        */
         //Si le voeux est dans cette meme academie
         if (this.academie.numAcademie == listeVoeux[0].universite.academie.numAcademie) {
             //On enregistre voeu
