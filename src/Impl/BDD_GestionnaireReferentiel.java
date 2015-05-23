@@ -100,7 +100,7 @@ public class BDD_GestionnaireReferentiel {
             
             String req = "SELECT a.NumAcademie,a.NomAcademie"
                     + "      FROM gr_Academies a";
-            //System.out.println(req);
+            System.out.println(req);
             ResultSet rs = s.executeQuery(req);
             
             while (rs.next()) {

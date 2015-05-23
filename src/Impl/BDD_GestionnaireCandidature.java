@@ -160,13 +160,13 @@ public class BDD_GestionnaireCandidature {
                     + "      WHERE u.NumUniversite = "+NumUniversite+""
                     + "      AND c.NumMaster = m.NumMaster"
                     + "     AND m.NumMaster = "+NumMaster;
-            //System.out.println(req);
+            System.out.println(req);
             ResultSet rs = s.executeQuery(req);
             
             while (rs.next()) {
                 academie = new Academie(rs.getInt("c.NumAcademieProv"), rs.getString("c.NomAcademieProv"));
                 licence = new Licence(rs.getInt("c.NumLicenceProv"), rs.getString("c.NomLicenceProv"));
-                univ = new Universite(rs.getInt("c.NumUniversite"), rs.getString("c.NumUniversite"), academie);
+                univ = new Universite(rs.getInt("c.NumUniversiteProv"), rs.getString("c.NomUniversiteProv"), academie);
                 etudiant = new Etudiant(rs.getInt("c.NumINE"), rs.getString("c.NomEtudiant"), rs.getString("c.PrenomEtudiant"), licence, univ);               
                 listeEtudiants.add(etudiant);
             }

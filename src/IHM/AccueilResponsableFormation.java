@@ -34,14 +34,14 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
         {
             this.bt_recupererLesCandidatures.setEnabled(false);
         }
-        if(periode == 2)
+        if(periode == 2 && clik == 0)
         {
             this.bt_recupererLesCandidatures.setEnabled(true);
         }
-        if(clik ==1 )
-        {
-            initTableauCand();
-        }
+        //if(clik ==1 )
+        //{
+        initTableauCand();
+       // }
         //initTableauCand();
     }
 
@@ -121,7 +121,7 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
                                 .addComponent(bt_choixCandidat)
                                 .addGap(28, 28, 28)
                                 .addComponent(bt_classerListeAttente)))
-                        .addGap(0, 15, Short.MAX_VALUE)))
+                        .addGap(0, 537, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -208,7 +208,8 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
     private void initTableauCand() {
         Etudiant[] tabEtudiant;
         tabEtudiant = client.mesCandidatures();
-        
+        if(tabEtudiant != null)
+        {
             DefaultTableModel model = new DefaultTableModel();
             //On renseigne les identifiants des colonnes dans le modèle
             model.setColumnIdentifiers(new String[]{ "NumINE","Nom etudiant","Prenom Etudiant", "Numero Licence","Licence Provenance", "Numero Université",  "Université Provenance", "Numero Academie", "Academie Provenance"});
@@ -221,5 +222,8 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
             //On ajoute le modèle dans la Jtable
             jTable_candidatures.setModel(model);
             jTable_candidatures.setEnabled(false);
+        }
+        
+            
     }
 }
