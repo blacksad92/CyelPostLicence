@@ -16,7 +16,6 @@ import javax.swing.table.DefaultTableModel;
 public class AccueilResponsableFormation extends javax.swing.JFrame {
     
     private ClientResponsable client;
-    private int periode;
     private int clik = 0;
 
     /**
@@ -29,7 +28,7 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
     AccueilResponsableFormation(ClientResponsable client) {
         initComponents();
         this.client = client;
-        periode = this.client.getPeriode();
+        int periode = this.client.getPeriode();
         if(periode == 1 || periode > 2 || clik == 1)
         {
             this.bt_recupererLesCandidatures.setEnabled(false);
@@ -86,6 +85,11 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable_candidatures);
 
         bt_consulterNotes.setText("Consulter Notes Candidat");
+        bt_consulterNotes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_consulterNotesActionPerformed(evt);
+            }
+        });
 
         bt_choixCandidat.setText("Admission candidat");
 
@@ -158,6 +162,19 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
         acc.setVisible(true);
     }//GEN-LAST:event_bt_recupererLesCandidaturesActionPerformed
 
+    private void bt_consulterNotesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_consulterNotesActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = jTable_candidatures.getSelectedRow();
+        String sINE = jTable_candidatures.getValueAt(selectedRow,0).toString();
+        int INE = Integer.parseInt(sINE);
+        
+        System.out.println("Recherche des notes de l'étudiant : "+INE);
+        
+        ConsulterNotesCandidat notes = new ConsulterNotesCandidat(client,INE);
+        this.setVisible(false);
+        notes.setVisible(true);
+    }//GEN-LAST:event_bt_consulterNotesActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -221,7 +238,7 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
 
             //On ajoute le modèle dans la Jtable
             jTable_candidatures.setModel(model);
-            jTable_candidatures.setEnabled(false);
+            jTable_candidatures.setEnabled(true);
         }
         
             

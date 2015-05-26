@@ -9,6 +9,7 @@ import CyelPostLicence.Academie;
 import CyelPostLicence.Etudiant;
 import CyelPostLicence.EtudiantInconnu;
 import CyelPostLicence.Master;
+import CyelPostLicence.Note;
 import CyelPostLicence.ResponsableInconnu;
 import CyelPostLicence.Universite;
 import Outils.CorbaName;
@@ -25,6 +26,7 @@ public class ClientResponsable {
     public CyelPostLicence.GestionnaireReferentiel gestReferentiel;
     public CyelPostLicence.GestionnaireCandidatures gestCandidature;
     private int NumMaster;
+    Note[] notes;
 
     public int getNumMaster() {
         return NumMaster;
@@ -133,4 +135,11 @@ public class ClientResponsable {
         return etudiants;
     }
 
+    public Note[] recupererNotesCandidat(int INE) {        
+        notes = gestCandidature.recupererListeNotes(INE,false); // ERREUR ICI ... JE SAIS PAS PK ...
+        
+        System.out.println("[ClientResponsable]");
+        System.out.println("Normalement OK");
+        return notes;
+    }
 }

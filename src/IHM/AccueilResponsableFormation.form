@@ -151,6 +151,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Consulter Notes Candidat"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_consulterNotesActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="bt_choixCandidat">
       <Properties>

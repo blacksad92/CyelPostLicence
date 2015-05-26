@@ -25,6 +25,8 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
     public BDD_GestionnaireCandidature bdd;
     public ArrayList<Master> listeMaster;
     public Master[] tabeauMaster;
+    ArrayList<Note> arrayNotes = new ArrayList<Note>();
+    Note[] notes;
     
     public GestionnaireCandidaturesImpl() {
 
@@ -78,7 +80,24 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
     //TODO Implémenter cette méthode
     @Override
     public Note[] recupererListeNotes(int INE, boolean externe) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("[GestionnaireCandidaturesImpl]");
+        int numUniv = universite.numUniv;
+        
+        arrayNotes = new ArrayList();
+        arrayNotes.add(new Note());
+        
+        notes = arrayNotes.toArray(new Note[arrayNotes.size()]);
+        
+        //Note[] notes = null;
+        
+        System.out.println("A FAIRE : TRAITEMENT EN FONCTION DE externe");
+        
+        /**/
+        // A FAIRE :
+        // TRAITEMENT EN FONCTION DE externe
+        /**/
+        
+        return notes;
     }
     
     //TODO Implémenter cette méthode
