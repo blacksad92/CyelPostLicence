@@ -76,7 +76,7 @@ public final class EnumOrdre implements org.omg.CORBA.portable.IDLEntity
      * Private constructor
      * @param  the enum value for this new member
      */
-    public EnumOrdre( final int value )
+    private EnumOrdre( final int value )
     {
         _EnumOrdre_value = value;
     }

@@ -135,6 +135,14 @@ public class GestionnaireVoeuxPOATie extends GestionnaireVoeuxPOA
     }
 
     /**
+     * Operation RAZPeriode
+     */
+    public void RAZPeriode()
+    {
+        _tie.RAZPeriode();
+    }
+
+    /**
      * Operation recupererListeCandidatures
      */
     public CyelPostLicence.Etudiant[] recupererListeCandidatures(int numMaster, int numUniversite)

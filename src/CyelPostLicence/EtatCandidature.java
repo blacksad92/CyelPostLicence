@@ -76,7 +76,7 @@ public final class EtatCandidature implements org.omg.CORBA.portable.IDLEntity
      * Private constructor
      * @param  the enum value for this new member
      */
-    public EtatCandidature( final int value )
+    private EtatCandidature( final int value )
     {
         _EtatCandidature_value = value;
     }
