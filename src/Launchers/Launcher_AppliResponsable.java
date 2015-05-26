@@ -15,6 +15,7 @@ import IHM.ConnexionResponsable;
 public class Launcher_AppliResponsable {
     public static void main(String args[]) {
         System.out.println("--- APPLICATION RESPONSABLE DE FORMATION ---");
+        System.out.println("--- TEST MODIFICATION");
         
         ClientResponsable client = new ClientResponsable(args);
         new ConnexionResponsable(client);
