@@ -135,6 +135,7 @@ module CyelPostLicence {
 		attribute Universite universite;
 		readonly attribute ListeMaster listeMaster;
 		ListeNotes recupererListeNotes(in long INE, in boolean externe);
+		void RAZPeriode();
 		EtatCandidature validerCandidature(in long numMaster, in long numLicence);
 		void enregistrerCandidatures(in ListeCandidatures listeCandidatures, in long numMaster);
 		ListeCandidatures consulterCandidatures(in long numMaster, in long numUniversite);

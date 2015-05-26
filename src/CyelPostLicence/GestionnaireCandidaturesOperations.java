@@ -31,6 +31,11 @@ public interface GestionnaireCandidaturesOperations
     public CyelPostLicence.Note[] recupererListeNotes(int INE, boolean externe);
 
     /**
+     * Operation RAZPeriode
+     */
+    public void RAZPeriode();
+
+    /**
      * Operation validerCandidature
      */
     public CyelPostLicence.EtatCandidature validerCandidature(int numMaster, int numLicence);

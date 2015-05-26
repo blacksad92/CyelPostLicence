@@ -136,4 +136,9 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
         }
     }
 
+    @Override
+    public void RAZPeriode() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

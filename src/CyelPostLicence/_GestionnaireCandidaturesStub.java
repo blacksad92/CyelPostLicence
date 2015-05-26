@@ -200,6 +200,55 @@ public class _GestionnaireCandidaturesStub extends org.omg.CORBA.portable.Object
     }
 
     /**
+     * Operation RAZPeriode
+     */
+    public void RAZPeriode()
+    {
+        while(true)
+        {
+            if (!this._is_local())
+            {
+                org.omg.CORBA.portable.InputStream _input = null;
+                try
+                {
+                    org.omg.CORBA.portable.OutputStream _output = this._request("RAZPeriode",true);
+                    _input = this._invoke(_output);
+                    return;
+                }
+                catch(org.omg.CORBA.portable.RemarshalException _exception)
+                {
+                    continue;
+                }
+                catch(org.omg.CORBA.portable.ApplicationException _exception)
+                {
+                    String _exception_id = _exception.getId();
+                    throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
+                }
+                finally
+                {
+                    this._releaseReply(_input);
+                }
+            }
+            else
+            {
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("RAZPeriode",_opsClass);
+                if (_so == null)
+                   continue;
+                CyelPostLicence.GestionnaireCandidaturesOperations _self = (CyelPostLicence.GestionnaireCandidaturesOperations) _so.servant;
+                try
+                {
+                    _self.RAZPeriode();
+                    return;
+                }
+                finally
+                {
+                    _servant_postinvoke(_so);
+                }
+            }
+        }
+    }
+
+    /**
      * Operation validerCandidature
      */
     public CyelPostLicence.EtatCandidature validerCandidature(int numMaster, int numLicence)

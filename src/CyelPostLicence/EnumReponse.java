@@ -66,7 +66,7 @@ public final class EnumReponse implements org.omg.CORBA.portable.IDLEntity
      * Private constructor
      * @param  the enum value for this new member
      */
-    private EnumReponse( final int value )
+    public EnumReponse( final int value )
     {
         _EnumReponse_value = value;
     }
