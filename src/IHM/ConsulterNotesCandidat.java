@@ -5,17 +5,35 @@
  */
 package IHM;
 
+import Client.ClientResponsable;
+import CyelPostLicence.Note;
+
 /**
  *
  * @author Cy
  */
 public class ConsulterNotesCandidat extends javax.swing.JFrame {
 
+    private ClientResponsable client;
+    
     /**
      * Creates new form ConsulterNotesCandidat
      */
-    public ConsulterNotesCandidat() {
+    public ConsulterNotesCandidat(ClientResponsable client,int INE) {
         initComponents();
+        this.client = client;
+        
+        System.out.println("Affichage des notes de "+INE);
+        
+        Note[] notes = client.recupererNotesCandidat(INE);
+        
+        System.out.println("[ConsulterNotesCandidat]");
+        System.out.println("A FAIRE : AFFICHER LES NOTES DANS LE TABLEAU");
+        
+        /**/
+        // A FAIRE :
+        // AFFICHER LES NOTES DANS LE TABLEAU
+        /**/
     }
     
     /**
@@ -121,7 +139,7 @@ public class ConsulterNotesCandidat extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ConsulterNotesCandidat().setVisible(true);
+                new ConsulterNotesCandidat(null,0).setVisible(true);
             }
         });
     }
