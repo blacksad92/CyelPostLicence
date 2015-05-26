@@ -12,7 +12,6 @@ import CyelPostLicence.EtudiantInconnu;
 import CyelPostLicence.Master;
 import CyelPostLicence.Universite;
 import CyelPostLicence.Voeu;
-import IHM.ConnexionEtudiant;
 import Outils.CorbaName;
 import org.omg.CosNaming.NamingContext;
 

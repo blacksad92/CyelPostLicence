@@ -63,6 +63,48 @@ public class _GestionnaireAccesStub extends org.omg.CORBA.portable.ObjectImpl
     }
 
     /**
+     * Read accessor for ListeGestionnairesCandidatures attribute
+     * @return the attribute value
+     */
+    public CyelPostLicence.GestionnaireCandidatures[] ListeGestionnairesCandidatures()
+    {
+        while(true)
+        {
+            if (!this._is_local())
+            {
+                org.omg.CORBA.portable.InputStream _input = null;
+                try {
+                    org.omg.CORBA.portable.OutputStream _output = this._request("_get_ListeGestionnairesCandidatures",true);
+                    _input = this._invoke(_output);
+                    return CyelPostLicence.ListeGestionnairesCandidaturesHelper.read(_input);
+                } catch (final org.omg.CORBA.portable.RemarshalException _exception) {
+                    continue;
+                } catch (final org.omg.CORBA.portable.ApplicationException _exception) {
+                    final String _exception_id = _exception.getId();
+                    throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
+                } finally {
+                    this._releaseReply(_input);
+                }
+            }
+            else
+            {
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("_get_ListeGestionnairesCandidatures",_opsClass);
+                if (_so == null)
+                   continue;
+                CyelPostLicence.GestionnaireAccesOperations _self = (CyelPostLicence.GestionnaireAccesOperations) _so.servant;
+                try
+                {
+                    return _self.ListeGestionnairesCandidatures();
+                }
+                finally
+                {
+                    _servant_postinvoke(_so);
+                }
+            }
+        }
+    }
+
+    /**
      * Operation identification
      */
     public CyelPostLicence.Etudiant identification(int INE, CyelPostLicence.Academie academie)

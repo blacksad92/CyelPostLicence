@@ -71,6 +71,14 @@ public class GestionnaireAccesPOATie extends GestionnaireAccesPOA
     }
 
     /**
+     * Read accessor for ListeGestionnairesCandidatures attribute
+     */
+    public CyelPostLicence.GestionnaireCandidatures[] ListeGestionnairesCandidatures()
+    {
+        return _tie.ListeGestionnairesCandidatures();
+    }
+
+    /**
      * Operation identification
      */
     public CyelPostLicence.Etudiant identification(int INE, CyelPostLicence.Academie academie)
