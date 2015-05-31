@@ -12,7 +12,10 @@ import CyelPostLicence.GestionnaireAcces;
 import CyelPostLicence.Master;
 import CyelPostLicence.Note;
 import CyelPostLicence.Universite;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -138,7 +141,11 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
 
     @Override
     public void RAZPeriode() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            bdd.RAZ(universite.numUniv);
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionnaireCandidaturesImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

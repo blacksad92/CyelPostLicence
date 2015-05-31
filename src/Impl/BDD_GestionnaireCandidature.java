@@ -14,7 +14,9 @@ import CyelPostLicence.Note;
 import CyelPostLicence.Universite;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
@@ -249,6 +251,15 @@ public class BDD_GestionnaireCandidature {
             return false;
         }
         return res;
+    }
+
+    void RAZ(int numUniv) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM gc_resultats r WHERE NumUniversite=?");
+        stmt.setInt(1, numUniv);
+        ResultSet rs = stmt.executeQuery();
+        /*while (rs.next()) {
+
+        }*/
     }
      
      

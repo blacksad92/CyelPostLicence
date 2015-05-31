@@ -15,7 +15,9 @@ import CyelPostLicence.Universite;
 import CyelPostLicence.Voeu;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -309,6 +311,43 @@ public class BDD_GestionnaireVoeux {
         }
 
         return listeINE;
+    }
+     
+    public ArrayList<Integer> bdd_recupNumUnivs(int numAcademie) {
+        ArrayList<Integer> listeIDUnivs = new ArrayList<Integer>();
+        try {
+            // On crée un objet Statement qui va permettre l'execution des requètes
+            Statement s = conn.createStatement();
+
+            String req = "SELECT u.NumUniversite"
+                    + "      FROM gv_universites u"
+                    + "      WHERE a.NumAcademie =" + numAcademie
+                    + "     AND a.NumAcademie = u.NumAcademie";
+            //System.out.println(req);
+            ResultSet rs = s.executeQuery(req);
+
+            while (rs.next()) {
+                int numUniv = rs.getInt("u.NumUniversite");
+                listeIDUnivs.add(numUniv);
+            }
+
+        } catch (Exception e) {
+            // Il y a une erreur
+            e.printStackTrace();
+            return null;
+        }
+
+        //Universite[] tabUniversites = listeUniversites.toArray(new Universite[listeUniversites.size()]);
+        return listeIDUnivs;
+    } 
+
+    void RAZ(int numAcademie) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM gv_voeux v WHERE NumAcademie=?");
+        stmt.setInt(1, numAcademie);
+        ResultSet rs = stmt.executeQuery();
+        /*while (rs.next()) {
+
+        }*/
     }
 
 }

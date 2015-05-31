@@ -14,7 +14,10 @@ import CyelPostLicence.GestionnaireVoeux;
 import CyelPostLicence.Reponse;
 import CyelPostLicence.Universite;
 import CyelPostLicence.Voeu;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -33,6 +36,7 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     public Voeu[] tableauConsulterVoeu;
 
     public Academie academie;
+    public ArrayList<Integer> mesIDUnivs = new ArrayList();
     public BDD_GestionnaireVoeux bdd = new BDD_GestionnaireVoeux();
     public GestionnaireAcces gestAcces;
     public static int nbGest = 0;
@@ -87,6 +91,20 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     public void RAZPeriode() {
         System.out.println("Periode actuelle " + periode);
         System.out.println("Remise à zéro de la période");
+        // Remise à 1 de la période, pourquoi periode est en static ? 
+        //periode = 1;
+        maListeUnivs();
+        for(int i=0; i<mesIDUnivs.size();i++){
+            //GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(tabeauUniv[i].numUniv);
+            //gestCand.RAZPeriode();
+            System.out.println(mesIDUnivs.get(i));
+            System.out.println(mesIDUnivs.size());
+        }/*
+        try {
+            bdd.RAZ(academie.numAcademie);
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionnaireVoeuxImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
     }
     
     @Override
@@ -224,5 +242,9 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     @Override
     public void enregistrerDecisions(int numMaster, int numAcademie, Reponse[] listeAccepte, Reponse[] listeAttente, Reponse[] listeRefuse) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    public void maListeUnivs(){
+        this.mesIDUnivs = bdd.bdd_recupNumUnivs(academie.numAcademie);
     }
 }
