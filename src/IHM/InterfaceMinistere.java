@@ -39,6 +39,7 @@ public class InterfaceMinistere extends javax.swing.JFrame {
     private void initComponents() {
 
         bt_cloturerPeriode = new javax.swing.JButton();
+        bt_RAZ = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -50,21 +51,33 @@ public class InterfaceMinistere extends javax.swing.JFrame {
             }
         });
 
+        bt_RAZ.setBackground(new java.awt.Color(255, 204, 0));
+        bt_RAZ.setText("RAZ la periode");
+        bt_RAZ.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_RAZActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(bt_cloturerPeriode, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(bt_RAZ, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bt_cloturerPeriode, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(bt_cloturerPeriode, javax.swing.GroupLayout.PREFERRED_SIZE, 268, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(bt_cloturerPeriode, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bt_RAZ, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -73,6 +86,10 @@ public class InterfaceMinistere extends javax.swing.JFrame {
     private void bt_cloturerPeriodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cloturerPeriodeActionPerformed
         client.cloturerPeriode();
     }//GEN-LAST:event_bt_cloturerPeriodeActionPerformed
+
+    private void bt_RAZActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_RAZActionPerformed
+        client.RAZPeriode();
+    }//GEN-LAST:event_bt_RAZActionPerformed
 
     /**
      * @param args the command line arguments
@@ -111,6 +128,7 @@ public class InterfaceMinistere extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_RAZ;
     private javax.swing.JButton bt_cloturerPeriode;
     // End of variables declaration//GEN-END:variables
 }
