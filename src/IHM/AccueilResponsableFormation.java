@@ -29,19 +29,36 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
         initComponents();
         this.client = client;
         int periode = this.client.getPeriode();
-        if(periode == 1 || periode > 2 || clik == 1)
+        if(periode == 1 || periode > 2)
         {
             this.bt_recupererLesCandidatures.setEnabled(false);
         }
-        if(periode == 2 && clik == 0)
+        if(periode == 2)
         {
             this.bt_recupererLesCandidatures.setEnabled(true);
         }
-        //if(clik ==1 )
-        //{
+        
         initTableauCand();
-       // }
-        //initTableauCand();
+       
+    }
+    
+    // Constructeur bloqué ou non le bouton "Recuperer les candidatures"
+    // Bouton actif des periode 2, des que click une fois dessus alors toujours inactif = 0
+    AccueilResponsableFormation(ClientResponsable client, int click) {
+        initComponents();
+        this.client = client;
+        int periode = this.client.getPeriode();
+        if(periode == 1 || periode > 2 || click == 0)
+        {
+            this.bt_recupererLesCandidatures.setEnabled(false);
+        }
+        if(periode == 2 && click != 0)
+        {
+            this.bt_recupererLesCandidatures.setEnabled(true);
+        }
+        
+        initTableauCand();
+       
     }
 
     /**
@@ -157,7 +174,7 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
     private void bt_recupererLesCandidaturesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_recupererLesCandidaturesActionPerformed
         clik = 1;
         client.recupererLesCandidatures();
-        AccueilResponsableFormation acc = new AccueilResponsableFormation(client);
+        AccueilResponsableFormation acc = new AccueilResponsableFormation(client,0);
         this.setVisible(false);
         acc.setVisible(true);
     }//GEN-LAST:event_bt_recupererLesCandidaturesActionPerformed
