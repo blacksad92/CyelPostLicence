@@ -59,5 +59,8 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+nbproject/*
 nbproject/private/private.properties
 nbproject/private/private.xml
+src/Outils/CorbaName.java
+
