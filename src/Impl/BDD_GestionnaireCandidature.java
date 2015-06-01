@@ -158,8 +158,8 @@ public class BDD_GestionnaireCandidature {
             Statement s = conn.createStatement();
             
             String req = "SELECT c.NumINE,c.NomEtudiant, c.PrenomEtudiant, c.NumMaster, c.NumLicenceProv, c.NomLicenceProv, c.NumUniversiteProv, c.NomUniversiteProv, c.NumAcademieProv, c.NomAcademieProv, c.etat"
-                    + "      FROM gc_candidatures c, gc_masters m, gc_universites u"
-                    + "      WHERE u.NumUniversite = "+NumUniversite+""
+                    + "      FROM gc_candidatures c, gc_masters m"
+                    + "      WHERE c.NumUniversite = "+NumUniversite+""
                     + "      AND c.NumMaster = m.NumMaster"
                     + "     AND m.NumMaster = "+NumMaster;
             System.out.println(req);
@@ -224,12 +224,12 @@ public class BDD_GestionnaireCandidature {
     } 
      
      
-     public boolean bdd_insertCandidature(Etudiant etudiant, int numMaster) {
+     public boolean bdd_insertCandidature(Etudiant etudiant, int numMaster, int numUniv) {
         boolean res = false;
         try {
             // On crée un objet Statement qui va permettre l'execution des requètes
             Statement s = conn.createStatement();
-            String query = "INSERT INTO gc_candidatures (NumINE,NomEtudiant, PrenomEtudiant,NumMaster,NumLicenceProv,NomLicenceProv, NumUniversiteProv,NomUniversiteProv,NumAcademieProv, NomAcademieProv, etat )" + "VALUES ("
+            String query = "INSERT INTO gc_candidatures (NumINE,NomEtudiant, PrenomEtudiant,NumMaster,NumLicenceProv,NomLicenceProv, NumUniversiteProv,NomUniversiteProv,NumAcademieProv, NomAcademieProv, etat, NumUniversite )" + "VALUES ("
                     + etudiant.INE + ",'"
                     + etudiant.nom +"','"
                     + etudiant.prenom+"',"
@@ -238,7 +238,9 @@ public class BDD_GestionnaireCandidature {
                     + etudiant.universite.numUniv + ",'"
                     + etudiant.universite.nomUniv + "',"
                     + etudiant.universite.academie.numAcademie +",'"
-                    + etudiant.universite.academie.nomAcademie +"',0)";
+                    + etudiant.universite.academie.nomAcademie +"',"
+                    + "0,"
+                    + numUniv + ")";
             System.out.println(query);
             int result = s.executeUpdate(query);
             

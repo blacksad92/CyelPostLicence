@@ -125,7 +125,7 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
 
     @Override
     public Etudiant[] consulterCandidatures(int numMaster, int numUniversite) {
-        System.out.println("CandImpl consulterCandid");
+        System.out.println("CandImpl consulterCandid");    
         Etudiant[] etudiants = bdd.bdd_listeCandidature(numUniversite, numMaster);
         return etudiants;
     }
@@ -133,9 +133,10 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
     @Override
     public void enregistrerCandidatures(Etudiant[] listeCandidatures, int numMaster) {
         System.out.println("CandImpl EnregistrerCandid");
+        int numUniv = this.universite.numUniv;
         for(int i = 0; i < listeCandidatures.length; i++)
         {
-            bdd.bdd_insertCandidature(listeCandidatures[i], numMaster);
+            bdd.bdd_insertCandidature(listeCandidatures[i], numMaster,numUniv);
         }
     }
 
