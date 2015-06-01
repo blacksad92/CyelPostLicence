@@ -182,14 +182,14 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
     private void bt_consulterNotesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_consulterNotesActionPerformed
         // TODO add your handling code here:
         int selectedRow = jTable_candidatures.getSelectedRow();
-        String sINE = jTable_candidatures.getValueAt(selectedRow,0).toString();
-        int INE = Integer.parseInt(sINE);
-        
-        System.out.println("Recherche des notes de l'étudiant : "+INE);
-        
-        ConsulterNotesCandidat notes = new ConsulterNotesCandidat(client,INE);
-        this.setVisible(false);
-        notes.setVisible(true);
+        if (selectedRow != -1) {
+            String sINE = jTable_candidatures.getValueAt(selectedRow,0).toString();
+            int INE = Integer.parseInt(sINE);
+
+            ConsulterNotesCandidat notes = new ConsulterNotesCandidat(client,INE);
+            this.setVisible(false);
+            notes.setVisible(true);
+        }
     }//GEN-LAST:event_bt_consulterNotesActionPerformed
 
     /**

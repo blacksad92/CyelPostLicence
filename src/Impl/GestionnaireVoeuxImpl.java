@@ -26,9 +26,9 @@ import java.util.logging.Logger;
 public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA {
 
     public ArrayList<Universite> listeUniv;
-    public Universite[] tabeauUniv;
+    public Universite[] tableauUniv;
     public ArrayList<Universite> listeUniv2;
-    public Universite[] tabeauUniv2;
+    public Universite[] tableauUniv2;
     public ArrayList<Voeu> listeVoeu;
     public ArrayList<Voeu> listeTempo;
     public Voeu[] tabtemp;
@@ -95,7 +95,7 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
         //periode = 1;
         maListeUnivs();
         for(int i=0; i<mesIDUnivs.size();i++){
-            //GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(tabeauUniv[i].numUniv);
+            //GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(tableauUniv[i].numUniv);
             //gestCand.RAZPeriode();
             System.out.println(mesIDUnivs.get(i));
             System.out.println(mesIDUnivs.size());
@@ -130,7 +130,7 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
                 univExterne = listeGestVoeux[i].consulterAcreditations(numMaster, true);
                 if (univExterne.length > 0) {
                     if (listeUniv.contains(univExterne[0]) == false) {
-                        listeUniv.add(univExterne[0]);
+                        listeUniv.add(univExterne[0]); /**/ /*ELEA : Pourquoi juste univEcterne[0] et pas tous ?*/
                     }
                 }
             }
@@ -145,8 +145,8 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
             }
         }
 
-        tabeauUniv = listeUniv.toArray(new Universite[listeUniv.size()]);
-        return tabeauUniv;
+        tableauUniv = listeUniv.toArray(new Universite[listeUniv.size()]);
+        return tableauUniv;
     }
 
 //TODO Implémenter cette méthode
@@ -164,8 +164,8 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     @Override
     public Universite[] listeUniversite() {
         listeUniv2 = bdd.bdd_consultUniversitePourUneAcademie(academie.numAcademie);
-        tabeauUniv2 = listeUniv2.toArray(new Universite[listeUniv2.size()]);
-        return tabeauUniv2;
+        tableauUniv2 = listeUniv2.toArray(new Universite[listeUniv2.size()]);
+        return tableauUniv2;
     }
 
     @Override

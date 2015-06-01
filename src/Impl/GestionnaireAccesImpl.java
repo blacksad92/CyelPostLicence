@@ -146,7 +146,8 @@ public class GestionnaireAccesImpl extends CyelPostLicence.GestionnaireAccesPOA 
 
     @Override
     public GestionnaireCandidatures[] ListeGestionnairesCandidatures() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        tableauGestionnairesCandidatures = listeGestionnairesCandidatures.toArray(new GestionnaireCandidatures[listeGestionnairesCandidatures.size()]);
+        return tableauGestionnairesCandidatures;
     }
 
 }

@@ -26,7 +26,6 @@ public class ClientResponsable {
     public CyelPostLicence.GestionnaireReferentiel gestReferentiel;
     public CyelPostLicence.GestionnaireCandidatures gestCandidature;
     private int NumMaster;
-    Note[] notes;
 
     public int getNumMaster() {
         return NumMaster;
@@ -135,11 +134,10 @@ public class ClientResponsable {
         return etudiants;
     }
 
-    public Note[] recupererNotesCandidat(int INE) {        
-        notes = gestCandidature.recupererListeNotes(INE,false); // ERREUR ICI ... JE SAIS PAS PK ...
+    public Note[] recupererNotesCandidat(int INE) {
+        System.out.println("[ClientResponsable] Recupereration des notes de "+INE);
+        Note[] notes = gestCandidature.recupererListeNotes(INE,false);
         
-        System.out.println("[ClientResponsable]");
-        System.out.println("Normalement OK");
         return notes;
     }
 }

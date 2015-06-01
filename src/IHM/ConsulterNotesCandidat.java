@@ -7,6 +7,7 @@ package IHM;
 
 import Client.ClientResponsable;
 import CyelPostLicence.Note;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -27,14 +28,31 @@ public class ConsulterNotesCandidat extends javax.swing.JFrame {
         
         Note[] notes = client.recupererNotesCandidat(INE);
         
-        System.out.println("[ConsulterNotesCandidat]");
-        System.out.println("A FAIRE : AFFICHER LES NOTES DANS LE TABLEAU");
+        initTableauNotes(notes);
         
-        /**/
-        // A FAIRE :
-        // AFFICHER LES NOTES DANS LE TABLEAU
-        /**/
+        lb_nomCandidat.setText(Integer.toString(INE));
     }
+    
+    private void initTableauNotes(Note[] notes) {
+        if(notes != null)
+        {
+            DefaultTableModel model = new DefaultTableModel();
+            //On renseigne les identifiants des colonnes dans le modèle
+            model.setColumnIdentifiers(new String[]{ "Semestre","Obtention","Moyenne","Positionnement" });
+
+            //On ajoute les ligne contenant les données dans le modèle
+            for (Note n : notes) {
+                model.addRow(new Object[]{ n.semestre, n.obtention, n.moyenne, n.position });
+            }
+
+            //On ajoute le modèle dans la Jtable
+            jTable_notes.setModel(model);
+            jTable_notes.setEnabled(true);
+        }
+        
+            
+    }
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,16 +66,16 @@ public class ConsulterNotesCandidat extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         lb_nomCandidat = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTable_notes = new javax.swing.JTable();
         bt_fermer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Notes du candidat :");
 
-        lb_nomCandidat.setText("jLabel2");
+        lb_nomCandidat.setText("<NOM>");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable_notes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -68,9 +86,14 @@ public class ConsulterNotesCandidat extends javax.swing.JFrame {
                 "Semestre", "Obtention", "Moyenne", "Positionnnement"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTable_notes);
 
         bt_fermer.setText("Fermer");
+        bt_fermer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_fermerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,6 +131,12 @@ public class ConsulterNotesCandidat extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bt_fermerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_fermerActionPerformed
+        AccueilResponsableFormation accueil = new AccueilResponsableFormation(client);
+        accueil.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_bt_fermerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,7 +177,7 @@ public class ConsulterNotesCandidat extends javax.swing.JFrame {
     private javax.swing.JButton bt_fermer;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTable_notes;
     private javax.swing.JLabel lb_nomCandidat;
     // End of variables declaration//GEN-END:variables
 }

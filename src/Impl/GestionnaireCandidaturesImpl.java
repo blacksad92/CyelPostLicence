@@ -9,11 +9,13 @@ import CyelPostLicence.Academie;
 import CyelPostLicence.EtatCandidature;
 import CyelPostLicence.Etudiant;
 import CyelPostLicence.GestionnaireAcces;
+import CyelPostLicence.GestionnaireCandidatures;
 import CyelPostLicence.Master;
 import CyelPostLicence.Note;
 import CyelPostLicence.Universite;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -28,8 +30,8 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
     public BDD_GestionnaireCandidature bdd;
     public ArrayList<Master> listeMaster;
     public Master[] tabeauMaster;
-    ArrayList<Note> arrayNotes = new ArrayList<Note>();
-    Note[] notes;
+    ArrayList<Note> listeNotes = new ArrayList<Note>();
+    Note[] tableauNotes;
     
     public GestionnaireCandidaturesImpl() {
 
@@ -83,24 +85,38 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
     //TODO Implémenter cette méthode
     @Override
     public Note[] recupererListeNotes(int INE, boolean externe) {
-        System.out.println("[GestionnaireCandidaturesImpl]");
-        int numUniv = universite.numUniv;
+        System.out.println("[GestionnaireCandidaturesImpl] Recupereration des notes de "+INE);
         
-        arrayNotes = new ArrayList();
-        arrayNotes.add(new Note());
+        if (!externe) {
+            listeNotes = new ArrayList<Note>();
+            Note[] notesExternes;
+            //Liste de toustes les universités
+            GestionnaireCandidatures[] listeGestCandidatures = gestAcces.ListeGestionnairesCandidatures();
+            for (int i = 0; i < listeGestCandidatures.length; i++) {
+                notesExternes = listeGestCandidatures[i].recupererListeNotes(INE, true);
+                
+                for (int k = 0; k < notesExternes.length; k++) {
+                    if (listeNotes.contains(notesExternes[k]) == false) {
+                        listeNotes.add(notesExternes[k]);
+                    }
+                }
+            }
+        }
+
+        if (externe) {
+            Note[] notes = bdd.bdd_listeNotes(INE);
+            
+            for (int i = 0; i < notes.length; i++) {
+                if (listeNotes.contains(notes[i]) == false) {
+                    listeNotes.add(notes[i]);
+                }
+            }
+            
+        }
+
+        tableauNotes = listeNotes.toArray(new Note[listeNotes.size()]);
         
-        notes = arrayNotes.toArray(new Note[arrayNotes.size()]);
-        
-        //Note[] notes = null;
-        
-        System.out.println("A FAIRE : TRAITEMENT EN FONCTION DE externe");
-        
-        /**/
-        // A FAIRE :
-        // TRAITEMENT EN FONCTION DE externe
-        /**/
-        
-        return notes;
+        return tableauNotes;
     }
     
     //TODO Implémenter cette méthode
