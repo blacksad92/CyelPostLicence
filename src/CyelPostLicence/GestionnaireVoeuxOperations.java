@@ -58,6 +58,11 @@ public interface GestionnaireVoeuxOperations
     public void cloturerPeriode();
 
     /**
+     * Operation RAZPeriode
+     */
+    public void RAZPeriode();
+
+    /**
      * Operation recupererListeCandidatures
      */
     public CyelPostLicence.Etudiant[] recupererListeCandidatures(int numMaster, int numUniversite);

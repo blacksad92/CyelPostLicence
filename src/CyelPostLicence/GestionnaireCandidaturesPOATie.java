@@ -95,6 +95,14 @@ public class GestionnaireCandidaturesPOATie extends GestionnaireCandidaturesPOA
     }
 
     /**
+     * Operation RAZPeriode
+     */
+    public void RAZPeriode()
+    {
+        _tie.RAZPeriode();
+    }
+
+    /**
      * Operation validerCandidature
      */
     public CyelPostLicence.EtatCandidature validerCandidature(int numMaster, int numLicence)

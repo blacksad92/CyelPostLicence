@@ -14,6 +14,12 @@ public interface GestionnaireAccesOperations
     public CyelPostLicence.GestionnaireVoeux[] listeGestionnairesVoeux();
 
     /**
+     * Read accessor for ListeGestionnairesCandidatures attribute
+     * @return the attribute value
+     */
+    public CyelPostLicence.GestionnaireCandidatures[] ListeGestionnairesCandidatures();
+
+    /**
      * Operation identification
      */
     public CyelPostLicence.Etudiant identification(int INE, CyelPostLicence.Academie academie)

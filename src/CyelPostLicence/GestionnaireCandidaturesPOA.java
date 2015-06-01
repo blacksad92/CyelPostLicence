@@ -33,7 +33,9 @@ public abstract class GestionnaireCandidaturesPOA extends org.omg.PortableServer
             final org.omg.CORBA.portable.ResponseHandler handler)
     {
 
-        if (opName.equals("_get_listeMaster")) {
+        if (opName.equals("RAZPeriode")) {
+                return _invoke_RAZPeriode(_is, handler);
+        } else if (opName.equals("_get_listeMaster")) {
                 return _invoke__get_listeMaster(_is, handler);
         } else if (opName.equals("_get_universite")) {
                 return _invoke__get_universite(_is, handler);
@@ -95,6 +97,18 @@ public abstract class GestionnaireCandidaturesPOA extends org.omg.PortableServer
 
         _output = handler.createReply();
         CyelPostLicence.ListeNotesHelper.write(_output,_arg_result);
+
+        return _output;
+    }
+
+    private org.omg.CORBA.portable.OutputStream _invoke_RAZPeriode(
+            final org.omg.CORBA.portable.InputStream _is,
+            final org.omg.CORBA.portable.ResponseHandler handler) {
+        org.omg.CORBA.portable.OutputStream _output;
+
+        RAZPeriode();
+
+        _output = handler.createReply();
 
         return _output;
     }

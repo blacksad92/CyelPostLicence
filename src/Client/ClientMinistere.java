@@ -74,4 +74,12 @@ public class ClientMinistere {
         }
     }
     
+    public void RAZPeriode() {
+        tabGestVoeux = gestAcces.listeGestionnairesVoeux();
+        for(int i=0; i < tabGestVoeux.length ; i++)
+        {
+            tabGestVoeux[i].RAZPeriode();
+        }
+    }
+    
 }

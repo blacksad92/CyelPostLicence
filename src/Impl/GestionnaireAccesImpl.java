@@ -144,4 +144,9 @@ public class GestionnaireAccesImpl extends CyelPostLicence.GestionnaireAccesPOA 
         return bdd.bdd_consultEtudiant(INE);
     }
 
+    @Override
+    public GestionnaireCandidatures[] ListeGestionnairesCandidatures() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

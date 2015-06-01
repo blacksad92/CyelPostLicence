@@ -110,15 +110,18 @@ module CyelPostLicence {
 	interface GestionnaireVoeux;
 	interface GestionnaireCandidatures;
 	typedef sequence<GestionnaireVoeux> ListeGestionnairesVoeux;
+	typedef sequence<GestionnaireCandidatures> ListeGestionnairesCandidatures;
 		
 	interface GestionnaireAcces {
 		readonly attribute ListeGestionnairesVoeux listeGestionnairesVoeux;
+		readonly attribute ListeGestionnairesCandidatures ListeGestionnairesCandidatures;
 		Etudiant identification(in long INE, in Academie academie) raises (EtudiantInconnu, AcademieIncorrecte);
 		GestionnaireVoeux obtenirGestionnaireVoeux(in long numAcademie);
 		GestionnaireCandidatures obtenirGestionnaireCandidatures(in long numUniversite);
 		GestionnaireVoeux identificationUniv(in string login, in string password, in long numAcademie) raises (ResponsableInconnu);
 		void inscriptionGestionnaireVoeux(in GestionnaireVoeux gestVoeux);
 		void inscriptionGestionnaireCandidatures(in GestionnaireCandidatures gestCandidatures);
+		
 		Etudiant obtenirEtudiant(in long INE);
 	};
 	
@@ -132,6 +135,7 @@ module CyelPostLicence {
 		attribute Universite universite;
 		readonly attribute ListeMaster listeMaster;
 		ListeNotes recupererListeNotes(in long INE, in boolean externe);
+		void RAZPeriode();
 		EtatCandidature validerCandidature(in long numMaster, in long numLicence);
 		void enregistrerCandidatures(in ListeCandidatures listeCandidatures, in long numMaster);
 		ListeCandidatures consulterCandidatures(in long numMaster, in long numUniversite);
@@ -145,6 +149,7 @@ module CyelPostLicence {
 		void enregistrerVoeux(in Etudiant etudiant, in ListeVoeux listeVoeux);
 		ListeVoeux consulterVoeux(in long INE, in boolean externe);
 		void cloturerPeriode();
+		void RAZPeriode();
 		ListeCandidatures recupererListeCandidatures(in long numMaster, in long numUniversite);
 		void enregistrerDecisions(in long numMaster, in long numAcademie, in ListeReponse listeAccepte, in ListeReponse listeAttente, in ListeReponse listeRefuse);
 	};

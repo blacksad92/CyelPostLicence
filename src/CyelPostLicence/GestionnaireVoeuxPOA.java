@@ -31,6 +31,8 @@ public abstract class GestionnaireVoeuxPOA extends org.omg.PortableServer.Servan
     private static final java.util.Map operationMap = new java.util.HashMap();
 
     static {
+            operationMap.put("RAZPeriode",
+                    new Operation_RAZPeriode());
             operationMap.put("_get_academie",
                     new Operation__get_academie());
             operationMap.put("_get_listeUniversite",
@@ -178,6 +180,18 @@ public abstract class GestionnaireVoeuxPOA extends org.omg.PortableServer.Servan
         return _output;
     }
 
+    private org.omg.CORBA.portable.OutputStream _invoke_RAZPeriode(
+            final org.omg.CORBA.portable.InputStream _is,
+            final org.omg.CORBA.portable.ResponseHandler handler) {
+        org.omg.CORBA.portable.OutputStream _output;
+
+        RAZPeriode();
+
+        _output = handler.createReply();
+
+        return _output;
+    }
+
     private org.omg.CORBA.portable.OutputStream _invoke_recupererListeCandidatures(
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
@@ -305,6 +319,16 @@ public abstract class GestionnaireVoeuxPOA extends org.omg.PortableServer.Servan
                 final org.omg.CORBA.portable.InputStream _is,
                 final org.omg.CORBA.portable.ResponseHandler handler) {
             return target._invoke_cloturerPeriode(_is, handler);
+        }
+    }
+
+    private static final class Operation_RAZPeriode extends AbstractOperation
+    {
+        protected org.omg.CORBA.portable.OutputStream invoke(
+                final GestionnaireVoeuxPOA target,
+                final org.omg.CORBA.portable.InputStream _is,
+                final org.omg.CORBA.portable.ResponseHandler handler) {
+            return target._invoke_RAZPeriode(_is, handler);
         }
     }
 
