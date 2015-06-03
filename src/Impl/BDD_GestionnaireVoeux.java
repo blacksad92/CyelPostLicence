@@ -41,32 +41,54 @@ public class BDD_GestionnaireVoeux {
         }
     }
 
+    //Enregistre une modification de voeux ou ajoute un voeu
     public boolean bdd_insertVoeu(Etudiant etudiant, Voeu[] listeVoeux) {
+
+        int num = listeVoeux[0].numVoeu;
         boolean res = false;
+
         try {
             // On crée un objet Statement qui va permettre l'execution des requètes
             Statement s = conn.createStatement();
-            String query = "INSERT INTO gv_Voeux (Etat,Ordre,NumINE,Reponse,NumMaster,NomMaster,NumUniversite,NomUniversite,NumAcademie,NomAcademie, NumLicence)" + "VALUES ("
-                    + listeVoeux[0].etatCandidature.value() + ","
-                    + listeVoeux[0].ordre.value() + "," + etudiant.INE + ","
-                    + listeVoeux[0].reponse.value() + ","
-                    + listeVoeux[0].master.numMaster + ",'"
-                    + listeVoeux[0].master.nomMaster + "',"
-                    + listeVoeux[0].universite.numUniv + ",'"
-                    + listeVoeux[0].universite.nomUniv + "',"
-                    + listeVoeux[0].universite.academie.numAcademie + ",'"
-                    + listeVoeux[0].universite.academie.nomAcademie + "',"
-                    + etudiant.licence.numLicence + ")";
-            System.out.println(query);
-            int result = s.executeUpdate(query);
 
-            if (result == 1) {
-                res = true;
+            String req = "SELECT v.NumVoeux"
+                    + "      FROM gv_Voeux v"
+                    + "      WHERE (v.NumVoeux = " + num + ")";
+            ResultSet rs = s.executeQuery(req);
+            System.out.println(req);
+
+            if (rs.next()) {
+
+                res = bdd_modifieClassement(listeVoeux[0].numVoeu, listeVoeux[0].ordre.value());
+
+            } else {
+
+                // On crée un objet Statement qui va permettre l'execution des requètes
+                s = conn.createStatement();
+                String query = "INSERT INTO gv_Voeux (Etat,Ordre,NumINE,Reponse,NumMaster,NomMaster,NumUniversite,NomUniversite,NumAcademie,NomAcademie, NumLicence)" + "VALUES ("
+                        + listeVoeux[0].etatCandidature.value() + ","
+                        + listeVoeux[0].ordre.value() + "," + etudiant.INE + ","
+                        + listeVoeux[0].reponse.value() + ","
+                        + listeVoeux[0].master.numMaster + ",'"
+                        + listeVoeux[0].master.nomMaster + "',"
+                        + listeVoeux[0].universite.numUniv + ",'"
+                        + listeVoeux[0].universite.nomUniv + "',"
+                        + listeVoeux[0].universite.academie.numAcademie + ",'"
+                        + listeVoeux[0].universite.academie.nomAcademie + "',"
+                        + etudiant.licence.numLicence + ")";
+                System.out.println(query);
+                int result = s.executeUpdate(query);
+
+                if (result == 1) {
+                    res = true;
+                }
             }
+
         } catch (Exception e) {
             // Il y a une erreur
             e.printStackTrace();
             return false;
+
         }
         return res;
     }
@@ -106,9 +128,8 @@ public class BDD_GestionnaireVoeux {
 
         return listeVoeux;
     }
-    
-    
-     public ArrayList<Voeu> bdd_listeVoeuxParAcademie(int numAcademie) {
+
+    public ArrayList<Voeu> bdd_listeVoeuxParAcademie(int numAcademie) {
         ArrayList<Voeu> listeVoeux = new ArrayList<Voeu>();
 
         try {
@@ -225,8 +246,8 @@ public class BDD_GestionnaireVoeux {
 
         return res;
     }
-    
-     public boolean bdd_modifieEtat(int numVoeux, int etat) {
+
+    public boolean bdd_modifieEtat(int numVoeux, int etat) {
 
         boolean res = false;
 
@@ -282,8 +303,8 @@ public class BDD_GestionnaireVoeux {
 
         return univ;
     }
-    
-     public ArrayList<Integer> bdd_listeVoeuxParUniversiteParMaster(int numMaster,int numUniv) {
+
+    public ArrayList<Integer> bdd_listeVoeuxParUniversiteParMaster(int numMaster, int numUniv) {
         ArrayList<Integer> listeINE = new ArrayList<Integer>();
 
         try {
@@ -312,7 +333,7 @@ public class BDD_GestionnaireVoeux {
 
         return listeINE;
     }
-     
+
     public ArrayList<Integer> bdd_recupNumUnivs(int numAcademie) {
         ArrayList<Integer> listeIDUnivs = new ArrayList<Integer>();
         try {
@@ -339,7 +360,7 @@ public class BDD_GestionnaireVoeux {
 
         //Universite[] tabUniversites = listeUniversites.toArray(new Universite[listeUniversites.size()]);
         return listeIDUnivs;
-    } 
+    }
 
     void RAZ(int numAcademie) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM gv_voeux v WHERE NumAcademie=?");
@@ -347,7 +368,7 @@ public class BDD_GestionnaireVoeux {
         ResultSet rs = stmt.executeQuery();
         /*while (rs.next()) {
 
-        }*/
+         }*/
     }
 
 }

@@ -40,17 +40,14 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="lAcademie" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="cb_listeAcademie" max="32767" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="lINE" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                              <Component id="txtINE" min="-2" pref="79" max="-2" attributes="0"/>
-                          </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="lAcademie" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lINE" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="txtINE" min="-2" pref="99" max="-2" attributes="0"/>
+                          <Component id="cb_listeAcademie" min="-2" pref="99" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
@@ -99,7 +96,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="lAcademie">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Num&#xe9;ro d&apos;acad&#xe9;mie :"/>
+        <Property name="text" type="java.lang.String" value="Acad&#xe9;mie :"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtINE">

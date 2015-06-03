@@ -14,10 +14,7 @@ import CyelPostLicence.GestionnaireVoeux;
 import CyelPostLicence.Reponse;
 import CyelPostLicence.Universite;
 import CyelPostLicence.Voeu;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -44,9 +41,9 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     public ArrayList<Voeu> listeVoeuxParAcademie;
 
     public GestionnaireVoeuxImpl() {
-        academie = new Academie(1, "Toulouse");
+       //academie = new Academie(1, "Toulouse");
         //academie = new Academie(2, "Montpellier");
-        //academie = new Academie(3, "Nice");
+       academie = new Academie(3, "Nice");
         //academie = new Academie(4, "Aix-Marseille");
         //academie = new Academie(5, "Bordeaux");
         //academie = new Academie(6, "Corse");
@@ -131,6 +128,8 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
                 if (univExterne.length > 0) {
                     if (listeUniv.contains(univExterne[0]) == false) {
                         listeUniv.add(univExterne[0]); /**/ /*ELEA : Pourquoi juste univEcterne[0] et pas tous ?*/
+                                                       /* ROMAIN : Parceque bdd_consultAccreditations ne retourne qu'une université 
+                                                       par conséquent la recursive consulterAcreditations retourne un tableau avec un seul élément*/
                     }
                 }
             }

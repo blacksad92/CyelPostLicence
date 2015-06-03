@@ -6,7 +6,10 @@
 package IHM;
 
 import Client.ClientEtudiant;
+import Client.ClientMinistere;
+import CyelPostLicence.EnumOrdre;
 import CyelPostLicence.Voeu;
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -16,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 public class AccueilEtudiant extends javax.swing.JFrame {
 
     private ClientEtudiant client;
+    private Voeu[] tabVoeu;
 
     /**
      * Creates new form AccueilEtudiant
@@ -26,28 +30,33 @@ public class AccueilEtudiant extends javax.swing.JFrame {
 
     public AccueilEtudiant(ClientEtudiant client) {
         initComponents();
+        tAreaInsctruction.setVisible(false);
+        tAreaInsctruction.setEditable(false);
+        bt_enregistrerClassement.setVisible(false);
+        tAreaErreur.setVisible(false);
+        tAreaErreur.setEditable(false);
+
         this.client = client;
         initTableauVoeux();
         this.setVisible(true);
     }
 
     public void initTableauVoeux() {
-        Voeu[] tabVoeu;
         tabVoeu = client.mesVoeux();
-        
-            DefaultTableModel model = new DefaultTableModel();
-            //On renseigne les identifiants des colonnes dans le modèle
-            model.setColumnIdentifiers(new String[]{"ID", "Ordre", "Numero Master", "Master", "Numero Université",  "Université", "Etat", "Réponse"});
 
-            //On ajoute les ligne contenant les données dans le modèle
-            for (Voeu v : tabVoeu) {
-                model.addRow(new Object[]{v.numVoeu, v.ordre, v.master.numMaster, v.master.nomMaster, v.universite.numUniv, v.universite.nomUniv, v.etatCandidature.toString(), v.reponse.toString()});
-            }
+        DefaultTableModel model = new DefaultTableModel();
+        //On renseigne les identifiants des colonnes dans le modèle
+        model.setColumnIdentifiers(new String[]{"ID", "Ordre", "Numero Master", "Master", "Numero Université", "Université", "Etat", "Réponse"});
 
-            //On ajoute le modèle dans la Jtable
-            jTable_voeux.setModel(model);
-            jTable_voeux.setEnabled(false);
-        
+        //On ajoute les ligne contenant les données dans le modèle
+        for (Voeu v : tabVoeu) {
+            model.addRow(new Object[]{v.numVoeu, v.ordre, v.master.numMaster, v.master.nomMaster, v.universite.numUniv, v.universite.nomUniv, v.etatCandidature.toString(), v.reponse.toString()});
+        }
+
+        //On ajoute le modèle dans la Jtable
+        jTable_voeux.setModel(model);
+        jTable_voeux.setEnabled(false);
+
     }
 
     /**
@@ -66,7 +75,13 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         bt_ajouterVoeux = new javax.swing.JButton();
         bt_repondreVoeu = new javax.swing.JButton();
         bt_seDeconnecter = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        bt_ClasserVoeux = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tAreaInsctruction = new javax.swing.JTextArea();
+        bt_enregistrerClassement = new javax.swing.JButton();
+        bt_actualiser = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tAreaErreur = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,35 +113,87 @@ public class AccueilEtudiant extends javax.swing.JFrame {
 
         bt_seDeconnecter.setText("Se déconnecter");
 
-        jButton1.setText("jButton1");
+        bt_ClasserVoeux.setText("Classer ses voeux");
+        bt_ClasserVoeux.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_ClasserVoeuxActionPerformed(evt);
+            }
+        });
+
+        jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        tAreaInsctruction.setBackground(new java.awt.Color(240, 240, 240));
+        tAreaInsctruction.setColumns(20);
+        tAreaInsctruction.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tAreaInsctruction.setRows(5);
+        tAreaInsctruction.setText("Pour classer vos voeux : \n - Double clic sur la cellule de la colonne \"ordre\".\n - Saisir un chiffre entre 1 et 5 (en chiffre)\n - Vérifier qu'il n'y a pas de doublon");
+        tAreaInsctruction.setSelectionColor(new java.awt.Color(0, 0, 0));
+        jScrollPane2.setViewportView(tAreaInsctruction);
+
+        bt_enregistrerClassement.setText("Enregistrer votre classement");
+        bt_enregistrerClassement.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_enregistrerClassementActionPerformed(evt);
+            }
+        });
+
+        bt_actualiser.setText("Actualiser");
+        bt_actualiser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_actualiserActionPerformed(evt);
+            }
+        });
+
+        jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+
+        tAreaErreur.setBackground(new java.awt.Color(240, 240, 240));
+        tAreaErreur.setColumns(20);
+        tAreaErreur.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        tAreaErreur.setForeground(new java.awt.Color(255, 0, 51));
+        tAreaErreur.setRows(5);
+        tAreaErreur.setText("\n");
+        tAreaErreur.setSelectionColor(new java.awt.Color(0, 0, 0));
+        jScrollPane3.setViewportView(tAreaErreur);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(36, 36, 36)
-                .addComponent(bt_ajouterVoeux)
-                .addGap(326, 326, 326)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 354, Short.MAX_VALUE)
-                .addComponent(bt_repondreVoeu)
-                .addGap(23, 23, 23))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
+                .addContainerGap()
+                .addComponent(bt_actualiser)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(449, 449, 449))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addComponent(jLabel1)
-                        .addGap(24, 24, 24)))
-                .addGap(216, 216, 216)
-                .addComponent(bt_seDeconnecter)
-                .addGap(34, 34, 34))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(bt_seDeconnecter)
+                        .addContainerGap())))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(bt_ajouterVoeux)
+                                .addGap(249, 249, 249)
+                                .addComponent(bt_ClasserVoeux)
+                                .addGap(40, 40, 40)
+                                .addComponent(bt_enregistrerClassement)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
+                                .addComponent(bt_repondreVoeu)))))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,17 +201,23 @@ public class AccueilEtudiant extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(bt_seDeconnecter))
+                    .addComponent(bt_seDeconnecter)
+                    .addComponent(bt_actualiser))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 103, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_ajouterVoeux)
                     .addComponent(bt_repondreVoeu)
-                    .addComponent(jButton1))
-                .addGap(37, 37, 37))
+                    .addComponent(bt_ClasserVoeux)
+                    .addComponent(bt_enregistrerClassement))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane3))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -153,6 +226,91 @@ public class AccueilEtudiant extends javax.swing.JFrame {
     private void bt_ajouterVoeuxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ajouterVoeuxActionPerformed
         new AjouterVoeu_Master(client);
     }//GEN-LAST:event_bt_ajouterVoeuxActionPerformed
+
+    private void bt_ClasserVoeuxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ClasserVoeuxActionPerformed
+        jTable_voeux.setEnabled(true);
+
+        tAreaInsctruction.setText("Pour classer vos voeux : \n"
+                + " - Double clic sur la cellule de la colonne \"ordre\".\n"
+                + " - Saisir un chiffre entre 1 et " + tabVoeu.length + " \n"
+                + " - Vérifier qu'il n'y a pas de doublon");
+        tAreaInsctruction.setVisible(true);
+        bt_enregistrerClassement.setVisible(true);
+        bt_ClasserVoeux.setVisible(false);
+
+    }//GEN-LAST:event_bt_ClasserVoeuxActionPerformed
+
+    private void bt_enregistrerClassementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_enregistrerClassementActionPerformed
+        tAreaErreur.setVisible(false);
+        ArrayList<String> listOrdre;
+        listOrdre = new ArrayList<>();
+        boolean error = false;
+        boolean erreur1DejaLeve = false;
+        boolean erreur2DejaLeve = false;
+        boolean erreur3DejaLeve = false;
+        String raison = "Votre classement est incorrect : \n";
+
+        for (int i = 0; i < tabVoeu.length; i++) {
+            Object ordre = jTable_voeux.getValueAt(i, 1);
+            try {
+                int chiffreOrdre = Integer.parseInt(ordre.toString());
+                if (chiffreOrdre <= 0 || chiffreOrdre > tabVoeu.length) {
+                    error = true;
+                    if (!erreur1DejaLeve) {
+                        raison += "- Valeur est en dehors de la plage de valeur possible \n";
+                         erreur1DejaLeve = true;
+                    }
+
+                }
+            } catch (Exception e) {
+                error = true;
+                if (!erreur2DejaLeve) {
+                    raison += "- Valeur non numéraire ou vide \n";
+                    erreur2DejaLeve = true;
+                }
+            }
+
+            if (listOrdre.contains(ordre.toString()) == false) {
+                listOrdre.add(ordre.toString());
+            } else {
+                error = true;
+                if (!erreur3DejaLeve) {
+                    raison += "- Doublon dans votre classement \n";
+                    erreur3DejaLeve = true;
+                }
+            }
+        }
+
+        if (error) {
+            tAreaErreur.setVisible(true);
+            tAreaErreur.setText(raison);
+        } else {
+
+            for (int i = 0; i < tabVoeu.length; i++) {
+                Voeu v = tabVoeu[i];
+
+                v.ordre = EnumOrdre.from_int(Integer.parseInt(listOrdre.get(i)) - 1);
+                Voeu[] tab = {v};
+                client.enregistrerVoeux(tab);
+            }
+
+            bt_ClasserVoeux.setVisible(true);
+            bt_enregistrerClassement.setVisible(false);
+
+        }
+
+
+    }//GEN-LAST:event_bt_enregistrerClassementActionPerformed
+
+    private void bt_actualiserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_actualiserActionPerformed
+        tAreaInsctruction.setVisible(false);
+        tAreaInsctruction.setEditable(false);
+        bt_enregistrerClassement.setVisible(false);
+        bt_ClasserVoeux.setVisible(true);
+        tAreaErreur.setVisible(false);
+        tAreaErreur.setEditable(false);
+        initTableauVoeux();
+    }//GEN-LAST:event_bt_actualiserActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,13 +348,19 @@ public class AccueilEtudiant extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bt_ClasserVoeux;
+    private javax.swing.JButton bt_actualiser;
     private javax.swing.JButton bt_ajouterVoeux;
+    private javax.swing.JButton bt_enregistrerClassement;
     private javax.swing.JButton bt_repondreVoeu;
     private javax.swing.JButton bt_seDeconnecter;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable_voeux;
+    private javax.swing.JTextArea tAreaErreur;
+    private javax.swing.JTextArea tAreaInsctruction;
     // End of variables declaration//GEN-END:variables
 }
