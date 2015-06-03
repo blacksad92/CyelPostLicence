@@ -15,7 +15,6 @@ import CyelPostLicence.Note;
 import CyelPostLicence.Universite;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -65,7 +64,7 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
         //listeUniv = new ArrayList<Universite>();
         System.out.println(universite.nomUniv);
     }
-    //TODO Implémenter cette méthode
+
     @Override
     public EtatCandidature validerCandidature(int numMaster, int numLicence) {
         System.out.println("validerCandidature"+universite.nomUniv);
@@ -82,7 +81,6 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
         return etat;
     }
 
-    //TODO Implémenter cette méthode
     @Override
     public Note[] recupererListeNotes(int INE, boolean externe) {
         System.out.println("[GestionnaireCandidaturesImpl] Recupereration des notes de "+INE);
@@ -119,7 +117,6 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
         return tableauNotes;
     }
     
-    //TODO Implémenter cette méthode
     @Override
     public Universite universite() {
         return universite;
@@ -131,7 +128,6 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    //TODO Implémenter cette méthode
     @Override
     public Master[] listeMaster() {
         listeMaster=bdd.bdd_listeMasters(universite.numUniv);

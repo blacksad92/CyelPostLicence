@@ -49,10 +49,7 @@ public class ConsulterNotesCandidat extends javax.swing.JFrame {
             jTable_notes.setModel(model);
             jTable_notes.setEnabled(true);
         }
-        
-            
     }
-    
     
     /**
      * This method is called from within the constructor to initialize the form.

@@ -67,7 +67,7 @@ public class AdmissionCandidant extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel4))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(164, 164, 164)
+                        .addGap(160, 160, 160)
                         .addComponent(bt_valider)))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
@@ -83,9 +83,9 @@ public class AdmissionCandidant extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(cb_choixDecision, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(bt_valider)
-                .addGap(19, 19, 19))
+                .addGap(31, 31, 31))
         );
 
         pack();

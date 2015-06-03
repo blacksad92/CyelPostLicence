@@ -10,8 +10,6 @@ import CyelPostLicence.Academie;
 import CyelPostLicence.AcademieIncorrecte;
 import CyelPostLicence.EtudiantInconnu;
 import Outils.Item;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -115,7 +113,7 @@ public class ConnexionEtudiant extends javax.swing.JFrame {
                 .addComponent(bt_Connexion)
                 .addGap(18, 18, 18)
                 .addComponent(lErreur)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();

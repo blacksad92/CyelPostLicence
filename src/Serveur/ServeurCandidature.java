@@ -44,21 +44,8 @@ public class ServeurCandidature {
             // Activer le POA manager
             rootPOA.the_POAManager().activate();
 
-                        // Enregistrement dans le service de nommage
-            //*******************************************
             // Recuperation du naming service
-            //NamingContext nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(orb.resolve_initial_references("NameService"));
-            //Naming Service sur le PC portable de romain
             NamingContext nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(orb.string_to_object("corbaloc:iiop:1.2@"+CorbaName.NOM_NAMINGSERV+":2001/NameService"));
-
-            // Construction du nom a enregistrer
-            org.omg.CosNaming.NameComponent[] nameToRegister = new org.omg.CosNaming.NameComponent[1];
-            String nomObj = CorbaName.GEST_CANDIDATURE;
-            nameToRegister[0] = new org.omg.CosNaming.NameComponent(nomObj, "");
-
-            // Enregistrement de l'objet CORBA dans le service de noms
-            nameRoot.rebind(nameToRegister, rootPOA.servant_to_reference(gestCandidature));
-            System.out.println("==> Nom '" + nomObj + "' est enregistre dans le service de noms.");
 
             String IORServant = orb.object_to_string(rootPOA.servant_to_reference(gestCandidature));
             System.out.println("L'objet possede la reference suivante :");
@@ -84,12 +71,11 @@ public class ServeurCandidature {
             gestAcces.inscriptionGestionnaireCandidatures(thisgestCandidature);
 
             // Lancement de l'ORB et mise en attente de requete
-            //**************************************************
+            System.out.println("Prêt à travailler");
             orb.run();
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
 }

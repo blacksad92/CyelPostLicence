@@ -41,9 +41,9 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     public ArrayList<Voeu> listeVoeuxParAcademie;
 
     public GestionnaireVoeuxImpl() {
-       //academie = new Academie(1, "Toulouse");
+        //academie = new Academie(1, "Toulouse");
         //academie = new Academie(2, "Montpellier");
-       academie = new Academie(3, "Nice");
+        academie = new Academie(3, "Nice");
         //academie = new Academie(4, "Aix-Marseille");
         //academie = new Academie(5, "Bordeaux");
         //academie = new Academie(6, "Corse");
@@ -75,12 +75,9 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
                         boolean modifier = bdd.bdd_modifieEtat(numVoeux, etat.value());
                         System.out.println("cloturerPeriode modifier " + modifier);
                     }
+                }
             }
         }
-
-        }
-
-        
         System.out.println("Periode nouvelle " + periode);
     }
 
@@ -91,19 +88,20 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
         // Remise à 1 de la période, pourquoi periode est en static ? 
         //periode = 1;
         maListeUnivs();
-        for(int i=0; i<mesIDUnivs.size();i++){
+        for (int i = 0; i < mesIDUnivs.size(); i++) {
             //GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(tableauUniv[i].numUniv);
             //gestCand.RAZPeriode();
             System.out.println(mesIDUnivs.get(i));
             System.out.println(mesIDUnivs.size());
         }/*
-        try {
-            bdd.RAZ(academie.numAcademie);
-        } catch (SQLException ex) {
-            Logger.getLogger(GestionnaireVoeuxImpl.class.getName()).log(Level.SEVERE, null, ex);
-        }*/
+         try {
+         bdd.RAZ(academie.numAcademie);
+         } catch (SQLException ex) {
+         Logger.getLogger(GestionnaireVoeuxImpl.class.getName()).log(Level.SEVERE, null, ex);
+         }*/
+
     }
-    
+
     @Override
     public Academie academie() {
         return academie;
@@ -128,8 +126,10 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
                 if (univExterne.length > 0) {
                     if (listeUniv.contains(univExterne[0]) == false) {
                         listeUniv.add(univExterne[0]); /**/ /*ELEA : Pourquoi juste univEcterne[0] et pas tous ?*/
-                                                       /* ROMAIN : Parceque bdd_consultAccreditations ne retourne qu'une université 
-                                                       par conséquent la recursive consulterAcreditations retourne un tableau avec un seul élément*/
+                        /* ROMAIN : Parceque bdd_consultAccreditations ne retourne qu'une université 
+                         par conséquent la recursive consulterAcreditations retourne un tableau avec un seul élément*/
+
+
                     }
                 }
             }
@@ -148,7 +148,6 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
         return tableauUniv;
     }
 
-//TODO Implémenter cette méthode
     @Override
     public int periode() {
         return periode;
@@ -202,12 +201,12 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     @Override
     public void enregistrerVoeux(Etudiant etudiant, Voeu[] listeVoeux) {
         /*
-        //Permet de récupérer l'état valide ou non-valide d'un voeu, supprimer l'appel de la méthode dans cloturerPeriode
-        GestionnaireCandidatures gestCandidature = gestAcces.obtenirGestionnaireCandidatures(listeVoeux[0].universite.numUniv);
-        EtatCandidature etatVoeu = gestCandidature.validerCandidature(listeVoeux[0].master.numMaster, etudiant.licence.numLicence);
-        //On affecte le nouvel état
-        listeVoeux[0].etatCandidature = etatVoeu;
-        */
+         //Permet de récupérer l'état valide ou non-valide d'un voeu, supprimer l'appel de la méthode dans cloturerPeriode
+         GestionnaireCandidatures gestCandidature = gestAcces.obtenirGestionnaireCandidatures(listeVoeux[0].universite.numUniv);
+         EtatCandidature etatVoeu = gestCandidature.validerCandidature(listeVoeux[0].master.numMaster, etudiant.licence.numLicence);
+         //On affecte le nouvel état
+         listeVoeux[0].etatCandidature = etatVoeu;
+         */
         //Si le voeux est dans cette meme academie
         if (this.academie.numAcademie == listeVoeux[0].universite.academie.numAcademie) {
             //On enregistre voeu
@@ -223,18 +222,17 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     @Override
     public Etudiant[] recupererListeCandidatures(int numMaster, int numUniversite) {
         ArrayList<Etudiant> listeEtudiants = new ArrayList<Etudiant>();
-        System.out.println("RecupererCandidature VoeuxImpl"+ academie.nomAcademie);
+        System.out.println("RecupererCandidature VoeuxImpl" + academie.nomAcademie);
         ArrayList<Integer> listeINE = bdd.bdd_listeVoeuxParUniversiteParMaster(numMaster, numUniversite);
-        System.out.println("RecupererCandidature TailleListe"+ listeINE.size());
-        for(int i=0; i < listeINE.size(); i++)
-        {
+        System.out.println("RecupererCandidature TailleListe" + listeINE.size());
+        for (int i = 0; i < listeINE.size(); i++) {
             int INE = listeINE.get(i);
-            System.out.println("RecupererCandidature VoeuxImpl INE"+ INE);
+            System.out.println("RecupererCandidature VoeuxImpl INE" + INE);
             Etudiant etu = gestAcces.obtenirEtudiant(INE);
             listeEtudiants.add(etu);
         }
-         Etudiant[] tabEtudiants = listeEtudiants.toArray(new Etudiant[listeEtudiants.size()]);
-         System.out.println("SORS VoeuxImps RecupererCandidature");
+        Etudiant[] tabEtudiants = listeEtudiants.toArray(new Etudiant[listeEtudiants.size()]);
+        System.out.println("SORS VoeuxImps RecupererCandidature");
         return tabEtudiants;
     }
 
@@ -242,8 +240,8 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     public void enregistrerDecisions(int numMaster, int numAcademie, Reponse[] listeAccepte, Reponse[] listeAttente, Reponse[] listeRefuse) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    public void maListeUnivs(){
+
+    public void maListeUnivs() {
         this.mesIDUnivs = bdd.bdd_recupNumUnivs(academie.numAcademie);
     }
 }

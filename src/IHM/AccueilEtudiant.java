@@ -6,7 +6,6 @@
 package IHM;
 
 import Client.ClientEtudiant;
-import Client.ClientMinistere;
 import CyelPostLicence.EnumOrdre;
 import CyelPostLicence.Voeu;
 import java.util.ArrayList;
@@ -35,7 +34,6 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         bt_enregistrerClassement.setVisible(false);
         tAreaErreur.setVisible(false);
         tAreaErreur.setEditable(false);
-
         this.client = client;
         initTableauVoeux();
         this.setVisible(true);
@@ -56,7 +54,6 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         //On ajoute le modèle dans la Jtable
         jTable_voeux.setModel(model);
         jTable_voeux.setEnabled(false);
-
     }
 
     /**
@@ -241,13 +238,14 @@ public class AccueilEtudiant extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_ClasserVoeuxActionPerformed
 
     private void bt_enregistrerClassementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_enregistrerClassementActionPerformed
-        tAreaErreur.setVisible(false);
+        
         ArrayList<String> listOrdre;
         listOrdre = new ArrayList<>();
-        boolean error = false;
         boolean erreur1DejaLeve = false;
         boolean erreur2DejaLeve = false;
         boolean erreur3DejaLeve = false;
+        
+        tAreaErreur.setVisible(false);
         String raison = "Votre classement est incorrect : \n";
 
         for (int i = 0; i < tabVoeu.length; i++) {
@@ -255,7 +253,6 @@ public class AccueilEtudiant extends javax.swing.JFrame {
             try {
                 int chiffreOrdre = Integer.parseInt(ordre.toString());
                 if (chiffreOrdre <= 0 || chiffreOrdre > tabVoeu.length) {
-                    error = true;
                     if (!erreur1DejaLeve) {
                         raison += "- Valeur est en dehors de la plage de valeur possible \n";
                          erreur1DejaLeve = true;
@@ -263,7 +260,6 @@ public class AccueilEtudiant extends javax.swing.JFrame {
 
                 }
             } catch (Exception e) {
-                error = true;
                 if (!erreur2DejaLeve) {
                     raison += "- Valeur non numéraire ou vide \n";
                     erreur2DejaLeve = true;
@@ -273,7 +269,6 @@ public class AccueilEtudiant extends javax.swing.JFrame {
             if (listOrdre.contains(ordre.toString()) == false) {
                 listOrdre.add(ordre.toString());
             } else {
-                error = true;
                 if (!erreur3DejaLeve) {
                     raison += "- Doublon dans votre classement \n";
                     erreur3DejaLeve = true;
@@ -281,7 +276,7 @@ public class AccueilEtudiant extends javax.swing.JFrame {
             }
         }
 
-        if (error) {
+        if (erreur1DejaLeve || erreur2DejaLeve || erreur3DejaLeve) {
             tAreaErreur.setVisible(true);
             tAreaErreur.setText(raison);
         } else {
@@ -298,8 +293,6 @@ public class AccueilEtudiant extends javax.swing.JFrame {
             bt_enregistrerClassement.setVisible(false);
 
         }
-
-
     }//GEN-LAST:event_bt_enregistrerClassementActionPerformed
 
     private void bt_actualiserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_actualiserActionPerformed
