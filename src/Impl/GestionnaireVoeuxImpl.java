@@ -41,9 +41,9 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     public ArrayList<Voeu> listeVoeuxParAcademie;
 
     public GestionnaireVoeuxImpl() {
-        //academie = new Academie(1, "Toulouse");
+        academie = new Academie(1, "Toulouse");
         //academie = new Academie(2, "Montpellier");
-        academie = new Academie(3, "Nice");
+        //academie = new Academie(3, "Nice");
         //academie = new Academie(4, "Aix-Marseille");
         //academie = new Academie(5, "Bordeaux");
         //academie = new Academie(6, "Corse");

@@ -96,9 +96,17 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Nom Prenom", "Licence provenance", "Universite provenance", "Etat", "Décision"
+                "Classement", "Nom Prenom", "Licence provenance", "Universite provenance", "Etat"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable_candidatures);
 
         bt_consulterNotes.setText("Consulter Notes Candidat");
@@ -108,6 +116,7 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
             }
         });
 
+        bt_choixCandidat.setBackground(new java.awt.Color(255, 0, 51));
         bt_choixCandidat.setText("Admission candidat");
         bt_choixCandidat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -115,7 +124,7 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
             }
         });
 
-        bt_classerListeAttente.setText("Classer la liste d'attente");
+        bt_classerListeAttente.setText("Enregistrer le classement");
         bt_classerListeAttente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_classerListeAttenteActionPerformed(evt);
@@ -135,43 +144,43 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(bt_consulterNotes)
-                        .addGap(34, 34, 34)
-                        .addComponent(bt_choixCandidat)
-                        .addGap(28, 28, 28)
-                        .addComponent(bt_classerListeAttente)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 315, Short.MAX_VALUE)
-                        .addComponent(bt_recupererLesCandidatures, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(bt_consulterNotes)
+                                .addGap(34, 34, 34)
+                                .addComponent(bt_choixCandidat)
+                                .addGap(124, 124, 124)
+                                .addComponent(bt_classerListeAttente)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(442, 442, 442)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 252, Short.MAX_VALUE)
+                        .addComponent(bt_recupererLesCandidatures, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(442, 442, 442)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1)
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(bt_recupererLesCandidatures))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bt_recupererLesCandidatures)
                     .addComponent(bt_consulterNotes)
                     .addComponent(bt_choixCandidat)
                     .addComponent(bt_classerListeAttente))
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -202,7 +211,20 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_choixCandidatActionPerformed
 
     private void bt_classerListeAttenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_classerListeAttenteActionPerformed
-        // TODO add your handling code here:
+        
+        String classement;
+        int ine;
+        for(int i=0; i<jTable_candidatures.getRowCount(); i++) {
+            classement = (String) jTable_candidatures.getModel().getValueAt(i,0);
+            ine = (int) jTable_candidatures.getModel().getValueAt(i,1);
+            System.out.println(ine+" : "+classement);
+            client.enregistrerClassement(ine,Integer.parseInt(classement));
+        }
+        /*
+        AccueilResponsableFormation acc = new AccueilResponsableFormation(client,0);
+        this.setVisible(false);
+        acc.setVisible(true);
+        */
     }//GEN-LAST:event_bt_classerListeAttenteActionPerformed
 
     /**
@@ -259,11 +281,11 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
         {
             DefaultTableModel model = new DefaultTableModel();
             //On renseigne les identifiants des colonnes dans le modèle
-            model.setColumnIdentifiers(new String[]{ "NumINE","Nom etudiant","Prenom Etudiant", "Numero Licence","Licence Provenance", "Numero Université",  "Université Provenance", "Numero Academie", "Academie Provenance", "Décision"});
+            model.setColumnIdentifiers(new String[]{ "Classement","NumINE","Nom etudiant","Prenom Etudiant", "Numero Licence","Licence Provenance", "Numero Université",  "Université Provenance", "Numero Academie", "Academie Provenance"});
 
             //On ajoute les ligne contenant les données dans le modèle
             for (Etudiant e : tabEtudiant) {
-                model.addRow(new Object[]{e.INE, e.nom, e.prenom, e.licence.numLicence, e.licence.nomLicence, e.universite.numUniv,e.universite.nomUniv, e.universite.academie.numAcademie, e.universite.academie.nomAcademie, null});
+                model.addRow(new Object[]{0,e.INE, e.nom, e.prenom, e.licence.numLicence, e.licence.nomLicence, e.universite.numUniv,e.universite.nomUniv, e.universite.academie.numAcademie, e.universite.academie.nomAcademie});
             }
 
             //On ajoute le modèle dans la Jtable

@@ -241,7 +241,7 @@ public class BDD_GestionnaireCandidature {
                     + etudiant.universite.academie.nomAcademie +"',"
                     + "0,"
                     + numUniv + ")";
-            System.out.println(query);
+            //System.out.println(query);
             int result = s.executeUpdate(query);
             
             if (result == 1) {
@@ -262,6 +262,22 @@ public class BDD_GestionnaireCandidature {
         /*while (rs.next()) {
 
         }*/
+    }
+    
+    public boolean bdd_enregistrerClassement(int INE, int classement) {
+        try {
+            // On crée un objet Statement qui va permettre l'execution des requètes
+            Statement s = conn.createStatement();
+            String query = "UPDATE gc_candidatures SET Classement="+classement+" WHERE NumINE='"+INE+"'";
+            //System.out.println(query);
+            s.executeUpdate(query);
+            
+            return true;
+        } catch (Exception e) {
+            // Il y a une erreur
+            e.printStackTrace();
+            return false;
+        }
     }
      
      

@@ -11,6 +11,7 @@ import CyelPostLicence.Master;
 import CyelPostLicence.Note;
 import CyelPostLicence.ResponsableInconnu;
 import CyelPostLicence.Universite;
+import Impl.BDD_GestionnaireCandidature;
 import Outils.CorbaName;
 import org.omg.CosNaming.NamingContext;
 
@@ -134,5 +135,19 @@ public class ClientResponsable {
         Note[] notes = gestCandidature.recupererListeNotes(INE, false);
 
         return notes;
+    }
+    
+    public void enregistrerClassement(int INE, int classement) {
+        /**/
+        // Manque une méthode à appeler sur gestCandidature
+        // gestCandidature.enregistrerClassement(INE, classement);
+        // Faisant appel à bdd_
+        /**/
+        
+        /**/
+        // A SUPPRIMER ENSUITE !!!!!!
+        BDD_GestionnaireCandidature bdd = new BDD_GestionnaireCandidature();
+        bdd.bdd_enregistrerClassement(INE,classement);
+        /**/
     }
 }
