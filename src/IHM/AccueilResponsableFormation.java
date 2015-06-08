@@ -138,26 +138,23 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(179, 179, 179)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel1)
-                                    .addComponent(jLabel3)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(bt_consulterNotes)
-                                .addGap(34, 34, 34)
-                                .addComponent(bt_choixCandidat)
-                                .addGap(28, 28, 28)
-                                .addComponent(bt_classerListeAttente)))
-                        .addGap(0, 537, Short.MAX_VALUE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(bt_consulterNotes)
+                        .addGap(34, 34, 34)
+                        .addComponent(bt_choixCandidat)
+                        .addGap(28, 28, 28)
+                        .addComponent(bt_classerListeAttente)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 315, Short.MAX_VALUE)
+                        .addComponent(bt_recupererLesCandidatures, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(bt_recupererLesCandidatures, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(159, 159, 159))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(442, 442, 442)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel3))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,14 +165,13 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
-                .addComponent(bt_recupererLesCandidatures)
-                .addGap(18, 18, 18)
+                .addGap(57, 57, 57)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bt_recupererLesCandidatures)
                     .addComponent(bt_consulterNotes)
                     .addComponent(bt_choixCandidat)
                     .addComponent(bt_classerListeAttente))
-                .addGap(39, 39, 39))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -190,7 +186,6 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_recupererLesCandidaturesActionPerformed
 
     private void bt_consulterNotesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_consulterNotesActionPerformed
-        // TODO add your handling code here:
         int selectedRow = jTable_candidatures.getSelectedRow();
         if (selectedRow != -1) {
             String sINE = jTable_candidatures.getValueAt(selectedRow,0).toString();

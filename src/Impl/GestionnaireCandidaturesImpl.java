@@ -15,7 +15,6 @@ import CyelPostLicence.Note;
 import CyelPostLicence.Universite;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,10 +37,10 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
         bdd = new BDD_GestionnaireCandidature();
         listeMaster = new ArrayList<Master>();
         
-        Academie academie = new Academie(1, "Toulouse");
+        //Academie academie = new Academie(1, "Toulouse");
         //universite = new Universite(1, "Universite Paul Sabatier", academie);
         //universite = new Universite(2, "Universite Jean Jaures", academie);
-        universite = new Universite(5, "Universite Capitole", academie);
+       //universite = new Universite(5, "Universite Capitole", academie);
         
         //Academie academie = new Academie(5, "Bordeaux");
         //universite = new Universite(3, "Universite Montaigne", academie);
@@ -55,9 +54,9 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
         //niversite = new Universite(8, "Universite de provence", academie);
         //universite = new Universite(9, "Universite Aix Marseille", academie);
         
-        //Academie academie = new Academie(3, "Nice");
+        Academie academie = new Academie(3, "Nice");
         //universite = new Universite(10, "Universite Nice Sophia Antipolis", academie);        
-        //universite = new Universite(12, "Polytech Nice", academie);
+        universite = new Universite(12, "Polytech Nice", academie);
         
         //Academie academie = new Academie(6, "Corse");
         //universite = new Universite(11, "Universite Pasquale Paoli", academie);
@@ -65,7 +64,7 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
         //listeUniv = new ArrayList<Universite>();
         System.out.println(universite.nomUniv);
     }
-    //TODO Implémenter cette méthode
+
     @Override
     public EtatCandidature validerCandidature(int numMaster, int numLicence) {
         System.out.println("validerCandidature"+universite.nomUniv);
@@ -82,7 +81,6 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
         return etat;
     }
 
-    //TODO Implémenter cette méthode
     @Override
     public Note[] recupererListeNotes(int INE, boolean externe) {
         System.out.println("[GestionnaireCandidaturesImpl] Recupereration des notes de "+INE);
@@ -119,7 +117,6 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
         return tableauNotes;
     }
     
-    //TODO Implémenter cette méthode
     @Override
     public Universite universite() {
         return universite;
@@ -131,7 +128,6 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    //TODO Implémenter cette méthode
     @Override
     public Master[] listeMaster() {
         listeMaster=bdd.bdd_listeMasters(universite.numUniv);

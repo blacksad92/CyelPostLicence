@@ -28,7 +28,6 @@ public class ClientMinistere {
             org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
 
             // Recuperation du naming service
-            //org.omg.CosNaming.NamingContext nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(orb.resolve_initial_references("NameService"));
             NamingContext nameRoot = org.omg.CosNaming.NamingContextHelper.narrow(orb.string_to_object("corbaloc:iiop:1.2@"+CorbaName.NOM_NAMINGSERV+":2001/NameService"));
 
             // Construction du nom a rechercher
@@ -41,25 +40,9 @@ public class ClientMinistere {
             System.out.println("Objet '" + idObj + "' trouve aupres du service de noms. IOR de l'objet :");
             System.out.println(orb.object_to_string(distantAcces));
 
-            // Utilisation directe de l'IOR (SAUF utilisation du service de nommage)
-            //org.omg.CORBA.Object distantAcces = orb.string_to_object("IOR:000000000000002A49444C3A4379656C506F73744C6963656E63652F47657374696F6E6E6169726541636365733A312E30000000000000010000000000000058000102000000000D3139322E3136382E312E32300000F40C00000014004F4F0103B916394D010000504F41FE73F9F4A200000001000000010000001C00000000050100010000000100010020000101090000000100010100");
-            // Casting de l'objet CORBA au type convertisseur GestionnaireAcces
+            //Creation de l'objet distant gestAcces
             gestAcces = CyelPostLicence.GestionnaireAccesHelper.narrow(distantAcces);
             
-            
-            
-            /*// Construction du nom a rechercher
-            idObj = CorbaName.GEST_RERENTIEL;
-            nameToFind = new org.omg.CosNaming.NameComponent[1];
-            nameToFind[0] = new org.omg.CosNaming.NameComponent(idObj, "");
-
-            // Recherche aupres du naming service
-            org.omg.CORBA.Object distantReferentiel = nameRoot.resolve(nameToFind);
-            System.out.println("Objet '" + idObj + "' trouve aupres du service de noms. IOR de l'objet :");
-            System.out.println(orb.object_to_string(distantAcces));
-            
-            gestReferentiel = CyelPostLicence.GestionnaireReferentielHelper.narrow(distantReferentiel);*/
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,5 +64,4 @@ public class ClientMinistere {
             tabGestVoeux[i].RAZPeriode();
         }
     }
-    
 }

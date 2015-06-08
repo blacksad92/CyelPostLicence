@@ -12,8 +12,6 @@ import CyelPostLicence.EtudiantInconnu;
 import CyelPostLicence.GestionnaireCandidatures;
 import CyelPostLicence.GestionnaireVoeux;
 import CyelPostLicence.ResponsableInconnu;
-import CyelPostLicence.Universite;
-import CyelPostLicence.UniversiteInconnu;
 import java.util.ArrayList;
 
 /**
@@ -96,13 +94,8 @@ public class GestionnaireAccesImpl extends CyelPostLicence.GestionnaireAccesPOA 
 
     @Override
     public Etudiant identification(int INE, Academie academie) throws EtudiantInconnu, AcademieIncorrecte {
-
-        //Modifier cette methode pour retourner un etudiant
         Etudiant etu = bdd.bdd_identification(INE, academie);
-
-        
         return etu;
-    
     }
 
     @Override

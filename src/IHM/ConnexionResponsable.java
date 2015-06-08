@@ -7,11 +7,8 @@ package IHM;
 
 import Client.ClientResponsable;
 import CyelPostLicence.Academie;
-import CyelPostLicence.EtudiantInconnu;
 import CyelPostLicence.ResponsableInconnu;
 import Outils.Item;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -132,7 +129,7 @@ public class ConnexionResponsable extends javax.swing.JFrame {
                 .addComponent(bt_Connexion)
                 .addGap(18, 18, 18)
                 .addComponent(lErreur)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
