@@ -90,13 +90,13 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
 
         jTable_candidatures.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Nom Prenom", "Licence provenance", "Universite provenance", "Etat"
+                "Nom Prenom", "Licence provenance", "Universite provenance", "Etat", "Décision"
             }
         ));
         jScrollPane1.setViewportView(jTable_candidatures);
@@ -109,8 +109,18 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
         });
 
         bt_choixCandidat.setText("Admission candidat");
+        bt_choixCandidat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_choixCandidatActionPerformed(evt);
+            }
+        });
 
         bt_classerListeAttente.setText("Classer la liste d'attente");
+        bt_classerListeAttente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_classerListeAttenteActionPerformed(evt);
+            }
+        });
 
         bt_recupererLesCandidatures.setText("Récupérer les candidatures");
         bt_recupererLesCandidatures.addActionListener(new java.awt.event.ActionListener() {
@@ -192,6 +202,14 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_bt_consulterNotesActionPerformed
 
+    private void bt_choixCandidatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_choixCandidatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bt_choixCandidatActionPerformed
+
+    private void bt_classerListeAttenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_classerListeAttenteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bt_classerListeAttenteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -246,11 +264,11 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
         {
             DefaultTableModel model = new DefaultTableModel();
             //On renseigne les identifiants des colonnes dans le modèle
-            model.setColumnIdentifiers(new String[]{ "NumINE","Nom etudiant","Prenom Etudiant", "Numero Licence","Licence Provenance", "Numero Université",  "Université Provenance", "Numero Academie", "Academie Provenance"});
+            model.setColumnIdentifiers(new String[]{ "NumINE","Nom etudiant","Prenom Etudiant", "Numero Licence","Licence Provenance", "Numero Université",  "Université Provenance", "Numero Academie", "Academie Provenance", "Décision"});
 
             //On ajoute les ligne contenant les données dans le modèle
             for (Etudiant e : tabEtudiant) {
-                model.addRow(new Object[]{e.INE, e.nom, e.prenom, e.licence.numLicence, e.licence.nomLicence, e.universite.numUniv,e.universite.nomUniv, e.universite.academie.numAcademie, e.universite.academie.nomAcademie});
+                model.addRow(new Object[]{e.INE, e.nom, e.prenom, e.licence.numLicence, e.licence.nomLicence, e.universite.numUniv,e.universite.nomUniv, e.universite.academie.numAcademie, e.universite.academie.nomAcademie, null});
             }
 
             //On ajoute le modèle dans la Jtable
