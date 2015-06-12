@@ -138,16 +138,6 @@ public class ClientResponsable {
     }
     
     public void enregistrerClassement(int INE, int classement) {
-        /**/
-        // Manque une méthode à appeler sur gestCandidature
-        // gestCandidature.enregistrerClassement(INE, classement);
-        // Faisant appel à bdd_
-        /**/
-        
-        /**/
-        // A SUPPRIMER ENSUITE !!!!!!
-        BDD_GestionnaireCandidature bdd = new BDD_GestionnaireCandidature();
-        bdd.bdd_enregistrerClassement(INE,classement);
-        /**/
+        gestCandidature.enregistrerClassement(INE, classement);
     }
 }
