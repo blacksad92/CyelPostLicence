@@ -51,8 +51,9 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable_candidatures = new javax.swing.JTable();
         bt_consulterNotes = new javax.swing.JButton();
-        bt_choixCandidat = new javax.swing.JButton();
         bt_classerListeAttente = new javax.swing.JButton();
+        bt_refuser = new javax.swing.JButton();
+        bt_accepter = new javax.swing.JButton();
 
         jLabel2.setText("jLabel2");
 
@@ -90,18 +91,24 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
             }
         });
 
-        bt_choixCandidat.setBackground(new java.awt.Color(255, 0, 51));
-        bt_choixCandidat.setText("Admission candidat");
-        bt_choixCandidat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_choixCandidatActionPerformed(evt);
-            }
-        });
-
         bt_classerListeAttente.setText("Enregistrer le classement");
         bt_classerListeAttente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_classerListeAttenteActionPerformed(evt);
+            }
+        });
+
+        bt_refuser.setText("Refuser candidat");
+        bt_refuser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_refuserActionPerformed(evt);
+            }
+        });
+
+        bt_accepter.setText("Accepter candidat");
+        bt_accepter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_accepterActionPerformed(evt);
             }
         });
 
@@ -117,9 +124,7 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1034, Short.MAX_VALUE)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(bt_consulterNotes)
-                                .addGap(34, 34, 34)
-                                .addComponent(bt_choixCandidat)
-                                .addGap(124, 124, 124)
+                                .addGap(281, 281, 281)
                                 .addComponent(bt_classerListeAttente))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(442, 442, 442)
@@ -128,6 +133,12 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(37, 37, 37)
+                .addComponent(bt_refuser)
+                .addGap(18, 18, 18)
+                .addComponent(bt_accepter)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -138,10 +149,13 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(57, 57, 57)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bt_refuser)
+                    .addComponent(bt_accepter))
+                .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_consulterNotes)
-                    .addComponent(bt_choixCandidat)
                     .addComponent(bt_classerListeAttente))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
@@ -152,7 +166,7 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
     private void bt_consulterNotesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_consulterNotesActionPerformed
         int selectedRow = jTable_candidatures.getSelectedRow();
         if (selectedRow != -1) {
-            String sINE = jTable_candidatures.getValueAt(selectedRow,0).toString();
+            String sINE = jTable_candidatures.getValueAt(selectedRow,1).toString();
             int INE = Integer.parseInt(sINE);
 
             ConsulterNotesCandidat notes = new ConsulterNotesCandidat(client,INE);
@@ -160,10 +174,6 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
             notes.setVisible(true);
         }
     }//GEN-LAST:event_bt_consulterNotesActionPerformed
-
-    private void bt_choixCandidatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_choixCandidatActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bt_choixCandidatActionPerformed
 
     private void bt_classerListeAttenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_classerListeAttenteActionPerformed
         
@@ -181,6 +191,31 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
         acc.setVisible(true);
         
     }//GEN-LAST:event_bt_classerListeAttenteActionPerformed
+
+    private void bt_refuserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_refuserActionPerformed
+        int selectedRow = jTable_candidatures.getSelectedRow();
+        if (selectedRow != -1) {
+            String sINE = jTable_candidatures.getValueAt(selectedRow,1).toString();
+            int INE = Integer.parseInt(sINE);
+            int classement = Integer.parseInt("-1");
+            client.enregistrerClassement(INE, classement);
+        }
+        AccueilResponsableFormation acc = new AccueilResponsableFormation(client);
+        this.setVisible(false);
+        acc.setVisible(true);
+    }//GEN-LAST:event_bt_refuserActionPerformed
+
+    private void bt_accepterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_accepterActionPerformed
+        int selectedRow = jTable_candidatures.getSelectedRow();
+        if (selectedRow != -1) {
+            String sINE = jTable_candidatures.getValueAt(selectedRow,1).toString();
+            int INE = Integer.parseInt(sINE);
+            client.enregistrerClassement(INE, 0);
+        }
+        AccueilResponsableFormation acc = new AccueilResponsableFormation(client);
+        this.setVisible(false);
+        acc.setVisible(true);
+    }//GEN-LAST:event_bt_accepterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,9 +253,10 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bt_choixCandidat;
+    private javax.swing.JButton bt_accepter;
     private javax.swing.JButton bt_classerListeAttente;
     private javax.swing.JButton bt_consulterNotes;
+    private javax.swing.JButton bt_refuser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

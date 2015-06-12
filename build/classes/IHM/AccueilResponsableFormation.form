@@ -38,9 +38,7 @@
                           <Component id="jScrollPane1" alignment="1" pref="1034" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="bt_consulterNotes" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                              <Component id="bt_choixCandidat" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="124" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="281" max="-2" attributes="0"/>
                               <Component id="bt_classerListeAttente" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -56,6 +54,13 @@
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+              <Component id="bt_refuser" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="bt_accepter" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+          </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -67,10 +72,14 @@
               <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="202" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="bt_refuser" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="bt_accepter" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="bt_consulterNotes" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="bt_choixCandidat" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="bt_classerListeAttente" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="24" max="32767" attributes="0"/>
@@ -151,23 +160,28 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_consulterNotesActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="bt_choixCandidat">
-      <Properties>
-        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-          <Color blue="33" green="0" red="ff" type="rgb"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Admission candidat"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_choixCandidatActionPerformed"/>
-      </Events>
-    </Component>
     <Component class="javax.swing.JButton" name="bt_classerListeAttente">
       <Properties>
         <Property name="text" type="java.lang.String" value="Enregistrer le classement"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_classerListeAttenteActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="bt_refuser">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Refuser candidat"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_refuserActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="bt_accepter">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Accepter candidat"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_accepterActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
