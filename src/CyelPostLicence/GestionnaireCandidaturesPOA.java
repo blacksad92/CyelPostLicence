@@ -134,7 +134,7 @@ public abstract class GestionnaireCandidaturesPOA extends org.omg.PortableServer
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
-        CyelPostLicence.Etudiant[] arg0_in = CyelPostLicence.ListeEtudiantsHelper.read(_is);
+        CyelPostLicence.Etudiant arg0_in = CyelPostLicence.EtudiantHelper.read(_is);
         int arg1_in = _is.read_long();
 
         enregistrerCandidatures(arg0_in, arg1_in);

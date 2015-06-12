@@ -61,7 +61,14 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
         System.out.println("Periode ancienne " + periode);
         if (periode < 4) {
             periode = periode + 1;
+            if(periode == 2)
+            {// SI la periode passe a 2, on envoie automatiquement les candidatures
+                //Recuperer les voeux pour l'academie.
+                // Ranger dans des tableaux les etudiants en fonction des universites
+                // Recuperer le bon gestionnaire de candidature
+                // Appeller la méthode enregistrer voeux
             }
+        }
         System.out.println("Periode nouvelle " + periode);
     }
 

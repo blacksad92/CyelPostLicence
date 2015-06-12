@@ -302,7 +302,7 @@ public class _GestionnaireCandidaturesStub extends org.omg.CORBA.portable.Object
     /**
      * Operation enregistrerCandidatures
      */
-    public void enregistrerCandidatures(CyelPostLicence.Etudiant[] listeEtudiants, int numMaster)
+    public void enregistrerCandidatures(CyelPostLicence.Etudiant etudiant, int numMaster)
     {
         while(true)
         {
@@ -312,7 +312,7 @@ public class _GestionnaireCandidaturesStub extends org.omg.CORBA.portable.Object
                 try
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("enregistrerCandidatures",true);
-                    CyelPostLicence.ListeEtudiantsHelper.write(_output,listeEtudiants);
+                    CyelPostLicence.EtudiantHelper.write(_output,etudiant);
                     _output.write_long(numMaster);
                     _input = this._invoke(_output);
                     return;
@@ -339,7 +339,7 @@ public class _GestionnaireCandidaturesStub extends org.omg.CORBA.portable.Object
                 CyelPostLicence.GestionnaireCandidaturesOperations _self = (CyelPostLicence.GestionnaireCandidaturesOperations) _so.servant;
                 try
                 {
-                    _self.enregistrerCandidatures( listeEtudiants,  numMaster);
+                    _self.enregistrerCandidatures( etudiant,  numMaster);
                     return;
                 }
                 finally

@@ -143,7 +143,7 @@ module CyelPostLicence {
 		ListeNotes recupererListeNotes(in long INE, in boolean externe);
 		void RAZPeriode();
 		EtatCandidature validerCandidature(in long numMaster, in long numLicence);
-		void enregistrerCandidatures(in ListeEtudiants listeEtudiants, in long numMaster);
+		void enregistrerCandidatures(in Etudiant etudiant, in long numMaster);
 		ListeCandidatures consulterCandidatures(in long numMaster, in long numUniversite);
 		void enregistrerClassement(in long INE, in long classement);
 	};

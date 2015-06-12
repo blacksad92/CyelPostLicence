@@ -43,7 +43,7 @@ public interface GestionnaireCandidaturesOperations
     /**
      * Operation enregistrerCandidatures
      */
-    public void enregistrerCandidatures(CyelPostLicence.Etudiant[] listeEtudiants, int numMaster);
+    public void enregistrerCandidatures(CyelPostLicence.Etudiant etudiant, int numMaster);
 
     /**
      * Operation consulterCandidatures

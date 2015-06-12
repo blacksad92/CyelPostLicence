@@ -144,13 +144,10 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
     }
 
     @Override
-    public void enregistrerCandidatures(Etudiant[] listeEtudiants, int numMaster) {
+    public void enregistrerCandidatures(Etudiant etudiant, int numMaster) {
         System.out.println("CandImpl EnregistrerCandid");
         int numUniv = this.universite.numUniv;
-        for(int i = 0; i < listeEtudiants.length; i++)
-        {
-            bdd.bdd_insertCandidature(listeEtudiants[i], numMaster,numUniv);
-        }
+        bdd.bdd_insertCandidature(etudiant, numMaster,numUniv);
     }
 
     @Override

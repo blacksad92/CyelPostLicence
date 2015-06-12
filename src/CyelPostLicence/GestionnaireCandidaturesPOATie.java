@@ -113,9 +113,9 @@ public class GestionnaireCandidaturesPOATie extends GestionnaireCandidaturesPOA
     /**
      * Operation enregistrerCandidatures
      */
-    public void enregistrerCandidatures(CyelPostLicence.Etudiant[] listeEtudiants, int numMaster)
+    public void enregistrerCandidatures(CyelPostLicence.Etudiant etudiant, int numMaster)
     {
-        _tie.enregistrerCandidatures( listeEtudiants,  numMaster);
+        _tie.enregistrerCandidatures( etudiant,  numMaster);
     }
 
     /**
