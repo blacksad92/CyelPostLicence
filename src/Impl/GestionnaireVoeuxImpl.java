@@ -61,23 +61,7 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
         System.out.println("Periode ancienne " + periode);
         if (periode < 4) {
             periode = periode + 1;
-            if (periode == 2) {
-                listeVoeuxParAcademie = bdd.bdd_listeVoeuxParAcademie(academie.numAcademie);
-                for (int i = 0; i < listeVoeuxParAcademie.size(); i++) {
-                    int numUniversite = listeVoeuxParAcademie.get(i).universite.numUniv;
-                    System.out.println("cloturerPeriode academie " + academie.nomAcademie);
-                    System.out.println("cloturerPeriode universite " + listeVoeuxParAcademie.get(i).universite.nomUniv);
-                    int numVoeux = listeVoeuxParAcademie.get(i).numVoeu;
-                    GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(numUniversite);
-                    if (gestCand != null) {
-                        EtatCandidature etat = gestCand.validerCandidature(listeVoeuxParAcademie.get(i).master.numMaster, listeVoeuxParAcademie.get(i).numLicence);
-                        System.out.println("cloturerPeriode etat " + etat.toString());
-                        boolean modifier = bdd.bdd_modifieEtat(numVoeux, etat.value());
-                        System.out.println("cloturerPeriode modifier " + modifier);
-                    }
-                }
             }
-        }
         System.out.println("Periode nouvelle " + periode);
     }
 
@@ -87,10 +71,10 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
         System.out.println("Remise à zéro de la période");
         // Remise à 1 de la période, pourquoi periode est en static ? 
         //periode = 1;
-        maListeUnivs();
+        
         for (int i = 0; i < mesIDUnivs.size(); i++) {
             //GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(tableauUniv[i].numUniv);
-            //gestCand.RAZPeriode();
+            //gestCand.bdd_RAZPeriode();
             System.out.println(mesIDUnivs.get(i));
             System.out.println(mesIDUnivs.size());
         }/*
@@ -200,15 +184,18 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
 
     @Override
     public void enregistrerVoeux(Etudiant etudiant, Voeu[] listeVoeux) {
-        /*
-         //Permet de récupérer l'état valide ou non-valide d'un voeu, supprimer l'appel de la méthode dans cloturerPeriode
-         GestionnaireCandidatures gestCandidature = gestAcces.obtenirGestionnaireCandidatures(listeVoeux[0].universite.numUniv);
-         EtatCandidature etatVoeu = gestCandidature.validerCandidature(listeVoeux[0].master.numMaster, etudiant.licence.numLicence);
-         //On affecte le nouvel état
-         listeVoeux[0].etatCandidature = etatVoeu;
-         */
+
         //Si le voeux est dans cette meme academie
         if (this.academie.numAcademie == listeVoeux[0].universite.academie.numAcademie) {
+            if (listeVoeux[0].numVoeu == 0) {
+
+                //Permet de récupérer l'état valide ou non-valide d'un voeu, supprimer l'appel de la méthode dans cloturerPeriode
+                GestionnaireCandidatures gestCandidature = gestAcces.obtenirGestionnaireCandidatures(listeVoeux[0].universite.numUniv);
+                EtatCandidature etatVoeu = gestCandidature.validerCandidature(listeVoeux[0].master.numMaster, etudiant.licence.numLicence);
+
+                listeVoeux[0].etatCandidature = etatVoeu;
+            }
+
             //On enregistre voeu
             bdd.bdd_insertVoeu(etudiant, listeVoeux);
 

@@ -258,7 +258,7 @@ public class BDD_GestionnaireCandidature {
         return res;
     }
 
-    void RAZ(int numUniv) throws SQLException {
+    void bdd_RAZ(int numUniv) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM gc_resultats r WHERE NumUniversite=?");
         stmt.setInt(1, numUniv);
         ResultSet rs = stmt.executeQuery();

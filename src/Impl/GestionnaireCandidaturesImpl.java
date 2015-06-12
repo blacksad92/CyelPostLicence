@@ -156,7 +156,7 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
     @Override
     public void RAZPeriode() {
         try {
-            bdd.RAZ(universite.numUniv);
+            bdd.bdd_RAZ(universite.numUniv);
         } catch (SQLException ex) {
             Logger.getLogger(GestionnaireCandidaturesImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
