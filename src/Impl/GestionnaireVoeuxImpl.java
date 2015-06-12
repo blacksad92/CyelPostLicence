@@ -64,9 +64,20 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
             if(periode == 2)
             {// SI la periode passe a 2, on envoie automatiquement les candidatures
                 //Recuperer les voeux pour l'academie.
-                // Ranger dans des tableaux les etudiants en fonction des universites
-                // Recuperer le bon gestionnaire de candidature
-                // Appeller la méthode enregistrer voeux
+                ArrayList<Voeu> listeVoeux = bdd.bdd_listeVoeuxParAcademie(this.academie.numAcademie);
+                for(int i=0; i< listeVoeux.size(); i++)
+                {
+                    int numMaster = listeVoeux.get(i).master.numMaster;
+                    int numUniversite = listeVoeux.get(i).universite.numUniv;
+                    int numVoeux = listeVoeux.get(i).numVoeu;
+                    int INE = bdd.bdd_INEduVoeu(numVoeux);
+                    Etudiant etu = gestAcces.obtenirEtudiant(INE);
+                    // Recuperer le bon gestionnaire de candidature
+                    GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(numUniversite);                    
+                    // Appeller la méthode enregistrer voeux
+                    gestCand.enregistrerCandidatures(etu, numMaster);
+                }
+                
             }
         }
         System.out.println("Periode nouvelle " + periode);
@@ -215,19 +226,8 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
 
     @Override
     public Etudiant[] recupererListeCandidatures(int numMaster, int numUniversite) {
-        ArrayList<Etudiant> listeEtudiants = new ArrayList<Etudiant>();
-        System.out.println("RecupererCandidature VoeuxImpl" + academie.nomAcademie);
-        ArrayList<Integer> listeINE = bdd.bdd_listeVoeuxParUniversiteParMaster(numMaster, numUniversite);
-        System.out.println("RecupererCandidature TailleListe" + listeINE.size());
-        for (int i = 0; i < listeINE.size(); i++) {
-            int INE = listeINE.get(i);
-            System.out.println("RecupererCandidature VoeuxImpl INE" + INE);
-            Etudiant etu = gestAcces.obtenirEtudiant(INE);
-            listeEtudiants.add(etu);
-        }
-        Etudiant[] tabEtudiants = listeEtudiants.toArray(new Etudiant[listeEtudiants.size()]);
-        System.out.println("SORS VoeuxImps RecupererCandidature");
-        return tabEtudiants;
+        //Plus necessaire a supprimer
+        return null;
     }
 
     @Override

@@ -127,6 +127,31 @@ public class BDD_GestionnaireVoeux {
 
         return listeVoeux;
     }
+    
+    public Integer bdd_INEduVoeu(int numVoeu) {
+          int ine = 0;
+        try {
+            // On crée un objet Statement qui va permettre l'execution des requètes
+            Statement s = conn.createStatement();
+
+            String req = "SELECT v.NumINE"
+                    + "      FROM gv_Voeux v"
+                    + "      WHERE v.NumVoeux = " + numVoeu;
+            //System.out.println(req);
+            ResultSet rs = s.executeQuery(req);
+
+            while (rs.next()) {
+                ine = rs.getInt("v.NumINE");
+            }
+
+        } catch (Exception e) {
+            // Il y a une erreur
+            e.printStackTrace();
+            return null;
+        }
+
+        return ine;
+    }
 
     public ArrayList<Voeu> bdd_listeVoeuxParAcademie(int numAcademie) {
         ArrayList<Voeu> listeVoeux = new ArrayList<Voeu>();
