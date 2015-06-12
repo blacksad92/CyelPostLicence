@@ -126,4 +126,12 @@ public class GestionnaireCandidaturesPOATie extends GestionnaireCandidaturesPOA
         return _tie.consulterCandidatures( numMaster,  numUniversite);
     }
 
+    /**
+     * Operation enregistrerClassement
+     */
+    public void enregistrerClassement(int INE, int classement)
+    {
+        _tie.enregistrerClassement( INE,  classement);
+    }
+
 }

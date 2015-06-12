@@ -50,4 +50,9 @@ public interface GestionnaireCandidaturesOperations
      */
     public CyelPostLicence.Etudiant[] consulterCandidatures(int numMaster, int numUniversite);
 
+    /**
+     * Operation enregistrerClassement
+     */
+    public void enregistrerClassement(int INE, int classement);
+
 }

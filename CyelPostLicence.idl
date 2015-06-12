@@ -40,6 +40,11 @@ module CyelPostLicence {
 		Licence licence;
 		Universite universite;
 	};
+		
+	struct Candidature{
+		Etudiant etudiant;
+		long classement;
+	};
 	
 	struct Reponse {
 		Etudiant etudiant;
@@ -139,6 +144,7 @@ module CyelPostLicence {
 		EtatCandidature validerCandidature(in long numMaster, in long numLicence);
 		void enregistrerCandidatures(in ListeCandidatures listeCandidatures, in long numMaster);
 		ListeCandidatures consulterCandidatures(in long numMaster, in long numUniversite);
+		void enregistrerClassement(in long INE, in long classement);
 	};
 	
 	interface GestionnaireVoeux {

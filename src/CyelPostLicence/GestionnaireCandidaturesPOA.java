@@ -45,6 +45,8 @@ public abstract class GestionnaireCandidaturesPOA extends org.omg.PortableServer
                 return _invoke_consulterCandidatures(_is, handler);
         } else if (opName.equals("enregistrerCandidatures")) {
                 return _invoke_enregistrerCandidatures(_is, handler);
+        } else if (opName.equals("enregistrerClassement")) {
+                return _invoke_enregistrerClassement(_is, handler);
         } else if (opName.equals("recupererListeNotes")) {
                 return _invoke_recupererListeNotes(_is, handler);
         } else if (opName.equals("validerCandidature")) {
@@ -153,6 +155,20 @@ public abstract class GestionnaireCandidaturesPOA extends org.omg.PortableServer
 
         _output = handler.createReply();
         CyelPostLicence.ListeCandidaturesHelper.write(_output,_arg_result);
+
+        return _output;
+    }
+
+    private org.omg.CORBA.portable.OutputStream _invoke_enregistrerClassement(
+            final org.omg.CORBA.portable.InputStream _is,
+            final org.omg.CORBA.portable.ResponseHandler handler) {
+        org.omg.CORBA.portable.OutputStream _output;
+        int arg0_in = _is.read_long();
+        int arg1_in = _is.read_long();
+
+        enregistrerClassement(arg0_in, arg1_in);
+
+        _output = handler.createReply();
 
         return _output;
     }
