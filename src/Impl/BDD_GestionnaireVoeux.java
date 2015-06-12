@@ -54,7 +54,7 @@ public class BDD_GestionnaireVoeux {
                     + "      FROM gv_Voeux v"
                     + "      WHERE (v.NumVoeux = " + num + ")";
             ResultSet rs = s.executeQuery(req);
-            System.out.println(req);
+            //System.out.println(req);
 
             if (rs.next()) {
 
@@ -75,7 +75,7 @@ public class BDD_GestionnaireVoeux {
                         + listeVoeux[0].universite.academie.numAcademie + ",'"
                         + listeVoeux[0].universite.academie.nomAcademie + "',"
                         + etudiant.licence.numLicence + ")";
-                System.out.println(query);
+                //System.out.println(query);
                 int result = s.executeUpdate(query);
 
                 if (result == 1) {

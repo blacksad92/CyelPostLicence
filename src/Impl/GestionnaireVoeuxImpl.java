@@ -73,9 +73,13 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
                     int INE = bdd.bdd_INEduVoeu(numVoeux);
                     Etudiant etu = gestAcces.obtenirEtudiant(INE);
                     // Recuperer le bon gestionnaire de candidature
-                    GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(numUniversite);                    
+                    GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(numUniversite); 
+                   
                     // Appeller la méthode enregistrer voeux
-                    gestCand.enregistrerCandidatures(etu, numMaster);
+                    if(gestCand != null)
+                    {
+                        gestCand.enregistrerCandidatures(etu, numMaster);
+                    }
                 }
                 
             }
