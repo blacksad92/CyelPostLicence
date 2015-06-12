@@ -6,6 +6,7 @@
 package Impl;
 
 import CyelPostLicence.Academie;
+import CyelPostLicence.Candidature;
 import CyelPostLicence.EtatCandidature;
 import CyelPostLicence.Etudiant;
 import CyelPostLicence.GestionnaireAcces;
@@ -136,19 +137,19 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
     }
 
     @Override
-    public Etudiant[] consulterCandidatures(int numMaster, int numUniversite) {
+    public Candidature[] consulterCandidatures(int numMaster, int numUniversite) {
         System.out.println("CandImpl consulterCandid");    
-        Etudiant[] etudiants = bdd.bdd_listeCandidature(numUniversite, numMaster);
-        return etudiants;
+        Candidature[] candidature = bdd.bdd_listeCandidature(numUniversite, numMaster);
+        return candidature;
     }
 
     @Override
-    public void enregistrerCandidatures(Etudiant[] listeCandidatures, int numMaster) {
+    public void enregistrerCandidatures(Etudiant[] listeEtudiants, int numMaster) {
         System.out.println("CandImpl EnregistrerCandid");
         int numUniv = this.universite.numUniv;
-        for(int i = 0; i < listeCandidatures.length; i++)
+        for(int i = 0; i < listeEtudiants.length; i++)
         {
-            bdd.bdd_insertCandidature(listeCandidatures[i], numMaster,numUniv);
+            bdd.bdd_insertCandidature(listeEtudiants[i], numMaster,numUniv);
         }
     }
 

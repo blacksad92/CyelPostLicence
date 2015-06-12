@@ -302,7 +302,7 @@ public class _GestionnaireCandidaturesStub extends org.omg.CORBA.portable.Object
     /**
      * Operation enregistrerCandidatures
      */
-    public void enregistrerCandidatures(CyelPostLicence.Etudiant[] listeCandidatures, int numMaster)
+    public void enregistrerCandidatures(CyelPostLicence.Etudiant[] listeEtudiants, int numMaster)
     {
         while(true)
         {
@@ -312,7 +312,7 @@ public class _GestionnaireCandidaturesStub extends org.omg.CORBA.portable.Object
                 try
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("enregistrerCandidatures",true);
-                    CyelPostLicence.ListeCandidaturesHelper.write(_output,listeCandidatures);
+                    CyelPostLicence.ListeEtudiantsHelper.write(_output,listeEtudiants);
                     _output.write_long(numMaster);
                     _input = this._invoke(_output);
                     return;
@@ -339,7 +339,7 @@ public class _GestionnaireCandidaturesStub extends org.omg.CORBA.portable.Object
                 CyelPostLicence.GestionnaireCandidaturesOperations _self = (CyelPostLicence.GestionnaireCandidaturesOperations) _so.servant;
                 try
                 {
-                    _self.enregistrerCandidatures( listeCandidatures,  numMaster);
+                    _self.enregistrerCandidatures( listeEtudiants,  numMaster);
                     return;
                 }
                 finally
@@ -353,7 +353,7 @@ public class _GestionnaireCandidaturesStub extends org.omg.CORBA.portable.Object
     /**
      * Operation consulterCandidatures
      */
-    public CyelPostLicence.Etudiant[] consulterCandidatures(int numMaster, int numUniversite)
+    public CyelPostLicence.Candidature[] consulterCandidatures(int numMaster, int numUniversite)
     {
         while(true)
         {
@@ -366,7 +366,7 @@ public class _GestionnaireCandidaturesStub extends org.omg.CORBA.portable.Object
                     _output.write_long(numMaster);
                     _output.write_long(numUniversite);
                     _input = this._invoke(_output);
-                    CyelPostLicence.Etudiant[] _arg_ret = CyelPostLicence.ListeCandidaturesHelper.read(_input);
+                    CyelPostLicence.Candidature[] _arg_ret = CyelPostLicence.ListeCandidaturesHelper.read(_input);
                     return _arg_ret;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)

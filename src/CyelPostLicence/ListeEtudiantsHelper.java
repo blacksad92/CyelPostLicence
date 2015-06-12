@@ -1,11 +1,11 @@
 package CyelPostLicence;
 
 /** 
- * Helper class for : ListeCandidatures
+ * Helper class for : ListeEtudiants
  *  
  * @author OpenORB Compiler
  */ 
-public class ListeCandidaturesHelper
+public class ListeEtudiantsHelper
 {
     private static final boolean HAS_OPENORB;
     static {
@@ -19,21 +19,21 @@ public class ListeCandidaturesHelper
         HAS_OPENORB = hasOpenORB;
     }
     /**
-     * Insert ListeCandidatures into an any
+     * Insert ListeEtudiants into an any
      * @param a an any
-     * @param t ListeCandidatures value
+     * @param t ListeEtudiants value
      */
-    public static void insert(org.omg.CORBA.Any a, CyelPostLicence.Candidature[] t)
+    public static void insert(org.omg.CORBA.Any a, CyelPostLicence.Etudiant[] t)
     {
-        a.insert_Streamable(new CyelPostLicence.ListeCandidaturesHolder(t));
+        a.insert_Streamable(new CyelPostLicence.ListeEtudiantsHolder(t));
     }
 
     /**
-     * Extract ListeCandidatures from an any
+     * Extract ListeEtudiants from an any
      * @param a an any
-     * @return the extracted ListeCandidatures value
+     * @return the extracted ListeEtudiants value
      */
-    public static CyelPostLicence.Candidature[] extract(org.omg.CORBA.Any a)
+    public static CyelPostLicence.Etudiant[] extract(org.omg.CORBA.Any a)
     {
         if (!a.type().equal(type()))
             throw new org.omg.CORBA.MARSHAL();
@@ -42,11 +42,11 @@ public class ListeCandidaturesHelper
             org.openorb.CORBA.Any any = (org.openorb.CORBA.Any)a;
             try {
                 org.omg.CORBA.portable.Streamable s = any.extract_Streamable();
-                if(s instanceof CyelPostLicence.ListeCandidaturesHolder)
-                    return ((CyelPostLicence.ListeCandidaturesHolder)s).value;
+                if(s instanceof CyelPostLicence.ListeEtudiantsHolder)
+                    return ((CyelPostLicence.ListeEtudiantsHolder)s).value;
             } catch (org.omg.CORBA.BAD_INV_ORDER ex) {
             }
-            CyelPostLicence.ListeCandidaturesHolder h = new CyelPostLicence.ListeCandidaturesHolder(read(a.create_input_stream()));
+            CyelPostLicence.ListeEtudiantsHolder h = new CyelPostLicence.ListeEtudiantsHolder(read(a.create_input_stream()));
             a.insert_Streamable(h);
             return h.value;
         }
@@ -59,20 +59,20 @@ public class ListeCandidaturesHelper
     private static org.omg.CORBA.TypeCode _tc = null;
 
     /**
-     * Return the ListeCandidatures TypeCode
+     * Return the ListeEtudiants TypeCode
      * @return a TypeCode
      */
     public static org.omg.CORBA.TypeCode type()
     {
         if (_tc == null) {
             org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init();
-            _tc = orb.create_alias_tc(id(),"ListeCandidatures",orb.create_sequence_tc(0,CyelPostLicence.CandidatureHelper.type()));
+            _tc = orb.create_alias_tc(id(),"ListeEtudiants",orb.create_sequence_tc(0,CyelPostLicence.EtudiantHelper.type()));
         }
         return _tc;
     }
 
     /**
-     * Return the ListeCandidatures IDL ID
+     * Return the ListeEtudiants IDL ID
      * @return an ID
      */
     public static String id()
@@ -80,22 +80,22 @@ public class ListeCandidaturesHelper
         return _id;
     }
 
-    private final static String _id = "IDL:CyelPostLicence/ListeCandidatures:1.0";
+    private final static String _id = "IDL:CyelPostLicence/ListeEtudiants:1.0";
 
     /**
-     * Read ListeCandidatures from a marshalled stream
+     * Read ListeEtudiants from a marshalled stream
      * @param istream the input stream
-     * @return the readed ListeCandidatures value
+     * @return the readed ListeEtudiants value
      */
-    public static CyelPostLicence.Candidature[] read(org.omg.CORBA.portable.InputStream istream)
+    public static CyelPostLicence.Etudiant[] read(org.omg.CORBA.portable.InputStream istream)
     {
-        CyelPostLicence.Candidature[] new_one;
+        CyelPostLicence.Etudiant[] new_one;
         {
         int size7 = istream.read_ulong();
-        new_one = new CyelPostLicence.Candidature[size7];
+        new_one = new CyelPostLicence.Etudiant[size7];
         for (int i7=0; i7<new_one.length; i7++)
          {
-            new_one[i7] = CyelPostLicence.CandidatureHelper.read(istream);
+            new_one[i7] = CyelPostLicence.EtudiantHelper.read(istream);
 
          }
         }
@@ -104,16 +104,16 @@ public class ListeCandidaturesHelper
     }
 
     /**
-     * Write ListeCandidatures into a marshalled stream
+     * Write ListeEtudiants into a marshalled stream
      * @param ostream the output stream
-     * @param value ListeCandidatures value
+     * @param value ListeEtudiants value
      */
-    public static void write(org.omg.CORBA.portable.OutputStream ostream, CyelPostLicence.Candidature[] value)
+    public static void write(org.omg.CORBA.portable.OutputStream ostream, CyelPostLicence.Etudiant[] value)
     {
         ostream.write_ulong(value.length);
         for (int i7=0; i7<value.length; i7++)
         {
-            CyelPostLicence.CandidatureHelper.write(ostream,value[i7]);
+            CyelPostLicence.EtudiantHelper.write(ostream,value[i7]);
 
         }
     }

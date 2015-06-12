@@ -7,6 +7,7 @@
 package Impl;
 
 import CyelPostLicence.Academie;
+import CyelPostLicence.Candidature;
 import CyelPostLicence.Etudiant;
 import CyelPostLicence.Licence;
 import CyelPostLicence.Master;
@@ -146,8 +147,8 @@ public class BDD_GestionnaireCandidature {
     } 
      
      
-     public Etudiant[] bdd_listeCandidature(int NumUniversite,int NumMaster) {
-        ArrayList<Etudiant> listeEtudiants = new ArrayList<Etudiant>();
+     public Candidature[] bdd_listeCandidature(int NumUniversite,int NumMaster) {
+        ArrayList<Candidature> listeCandidatures = new ArrayList<Candidature>();
         Licence licence;
         Universite univ;
         Academie academie;
@@ -157,11 +158,12 @@ public class BDD_GestionnaireCandidature {
             // On crée un objet Statement qui va permettre l'execution des requètes
             Statement s = conn.createStatement();
             
-            String req = "SELECT c.NumINE,c.NomEtudiant, c.PrenomEtudiant, c.NumMaster, c.NumLicenceProv, c.NomLicenceProv, c.NumUniversiteProv, c.NomUniversiteProv, c.NumAcademieProv, c.NomAcademieProv, c.etat"
+            String req = "SELECT c.Classement, c.NumINE,c.NomEtudiant, c.PrenomEtudiant, c.NumMaster, c.NumLicenceProv, c.NomLicenceProv, c.NumUniversiteProv, c.NomUniversiteProv, c.NumAcademieProv, c.NomAcademieProv, c.etat"
                     + "      FROM gc_candidatures c, gc_masters m"
                     + "      WHERE c.NumUniversite = "+NumUniversite+""
                     + "      AND c.NumMaster = m.NumMaster"
-                    + "     AND m.NumMaster = "+NumMaster;
+                    + "     AND m.NumMaster = "+NumMaster
+                    + "     ORDER BY c.Classement";
             System.out.println(req);
             ResultSet rs = s.executeQuery(req);
             
@@ -170,7 +172,8 @@ public class BDD_GestionnaireCandidature {
                 licence = new Licence(rs.getInt("c.NumLicenceProv"), rs.getString("c.NomLicenceProv"));
                 univ = new Universite(rs.getInt("c.NumUniversiteProv"), rs.getString("c.NomUniversiteProv"), academie);
                 etudiant = new Etudiant(rs.getInt("c.NumINE"), rs.getString("c.NomEtudiant"), rs.getString("c.PrenomEtudiant"), licence, univ);               
-                listeEtudiants.add(etudiant);
+                Candidature candidature = new Candidature(etudiant, rs.getInt("c.Classement"));
+                listeCandidatures.add(candidature);
             }
                         
         } catch(Exception e) {
@@ -178,9 +181,9 @@ public class BDD_GestionnaireCandidature {
             e.printStackTrace();
             return null;
         }
-        Etudiant[] tabEtudiants = listeEtudiants.toArray(new Etudiant[listeEtudiants.size()]);
+        Candidature[] tabCandidatures = listeCandidatures.toArray(new Candidature[listeCandidatures.size()]);
         
-        return tabEtudiants;
+        return tabCandidatures;
     } 
      
      

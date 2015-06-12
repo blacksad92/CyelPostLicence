@@ -53,7 +53,8 @@ module CyelPostLicence {
 	
 	typedef sequence<Reponse> ListeReponse;
 	
-	typedef sequence<Etudiant> ListeCandidatures;
+	typedef sequence<Candidature> ListeCandidatures;
+	typedef sequence<Etudiant> ListeEtudiants;
 
 	struct Master{
 		long numMaster;
@@ -142,7 +143,7 @@ module CyelPostLicence {
 		ListeNotes recupererListeNotes(in long INE, in boolean externe);
 		void RAZPeriode();
 		EtatCandidature validerCandidature(in long numMaster, in long numLicence);
-		void enregistrerCandidatures(in ListeCandidatures listeCandidatures, in long numMaster);
+		void enregistrerCandidatures(in ListeEtudiants listeEtudiants, in long numMaster);
 		ListeCandidatures consulterCandidatures(in long numMaster, in long numUniversite);
 		void enregistrerClassement(in long INE, in long classement);
 	};
@@ -156,7 +157,7 @@ module CyelPostLicence {
 		ListeVoeux consulterVoeux(in long INE, in boolean externe);
 		void cloturerPeriode();
 		void RAZPeriode();
-		ListeCandidatures recupererListeCandidatures(in long numMaster, in long numUniversite);
+		ListeEtudiants recupererListeCandidatures(in long numMaster, in long numUniversite);
 		void enregistrerDecisions(in long numMaster, in long numAcademie, in ListeReponse listeAccepte, in ListeReponse listeAttente, in ListeReponse listeRefuse);
 	};
 };

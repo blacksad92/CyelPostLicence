@@ -6,6 +6,7 @@
 package IHM;
 
 import Client.ClientResponsable;
+import CyelPostLicence.Candidature;
 import CyelPostLicence.Etudiant;
 import javax.swing.table.DefaultTableModel;
 
@@ -220,11 +221,11 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
             System.out.println(ine+" : "+classement);
             client.enregistrerClassement(ine,Integer.parseInt(classement));
         }
-        /*
+        
         AccueilResponsableFormation acc = new AccueilResponsableFormation(client,0);
         this.setVisible(false);
         acc.setVisible(true);
-        */
+        
     }//GEN-LAST:event_bt_classerListeAttenteActionPerformed
 
     /**
@@ -275,17 +276,19 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void initTableauCand() {
-        Etudiant[] tabEtudiant;
-        tabEtudiant = client.mesCandidatures();
-        if(tabEtudiant != null)
+        Candidature[] tabCandidatures;
+        tabCandidatures = client.mesCandidatures();
+        if(tabCandidatures != null)
         {
             DefaultTableModel model = new DefaultTableModel();
             //On renseigne les identifiants des colonnes dans le modèle
             model.setColumnIdentifiers(new String[]{ "Classement","NumINE","Nom etudiant","Prenom Etudiant", "Numero Licence","Licence Provenance", "Numero Université",  "Université Provenance", "Numero Academie", "Academie Provenance"});
 
             //On ajoute les ligne contenant les données dans le modèle
-            for (Etudiant e : tabEtudiant) {
-                model.addRow(new Object[]{0,e.INE, e.nom, e.prenom, e.licence.numLicence, e.licence.nomLicence, e.universite.numUniv,e.universite.nomUniv, e.universite.academie.numAcademie, e.universite.academie.nomAcademie});
+            for (Candidature c : tabCandidatures) {
+                Etudiant e = c.etudiant;
+                int classement = c.classement;
+                model.addRow(new Object[]{classement,e.INE, e.nom, e.prenom, e.licence.numLicence, e.licence.nomLicence, e.universite.numUniv,e.universite.nomUniv, e.universite.academie.numAcademie, e.universite.academie.nomAcademie});
             }
 
             //On ajoute le modèle dans la Jtable

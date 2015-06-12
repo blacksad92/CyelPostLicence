@@ -202,7 +202,7 @@ public abstract class GestionnaireVoeuxPOA extends org.omg.PortableServer.Servan
         CyelPostLicence.Etudiant[] _arg_result = recupererListeCandidatures(arg0_in, arg1_in);
 
         _output = handler.createReply();
-        CyelPostLicence.ListeCandidaturesHelper.write(_output,_arg_result);
+        CyelPostLicence.ListeEtudiantsHelper.write(_output,_arg_result);
 
         return _output;
     }

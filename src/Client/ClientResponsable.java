@@ -6,6 +6,7 @@
 package Client;
 
 import CyelPostLicence.Academie;
+import CyelPostLicence.Candidature;
 import CyelPostLicence.Etudiant;
 import CyelPostLicence.Master;
 import CyelPostLicence.Note;
@@ -120,14 +121,14 @@ public class ClientResponsable {
         gestCandidature.enregistrerCandidatures(etudiants, NumMaster);
     }
 
-    public Etudiant[] mesCandidatures() {
+    public Candidature[] mesCandidatures() {
         System.out.println("CR mesCandidatures");
         int NumUniversite = gestCandidature.universite().numUniv;
         System.out.println("CR mesCandidatures numUniversite" + NumUniversite);
-        Etudiant[] etudiants;
-        etudiants = gestCandidature.consulterCandidatures(NumMaster, NumUniversite);
-        System.out.println("CR mesCandidatures etudiants" + etudiants.length);
-        return etudiants;
+        Candidature[] candidatures;
+        candidatures = gestCandidature.consulterCandidatures(NumMaster, NumUniversite);
+        System.out.println("CR mesCandidatures etudiants" + candidatures.length);
+        return candidatures;
     }
 
     public Note[] recupererNotesCandidat(int INE) {

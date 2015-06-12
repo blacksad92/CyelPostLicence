@@ -501,7 +501,7 @@ public class _GestionnaireVoeuxStub extends org.omg.CORBA.portable.ObjectImpl
                     _output.write_long(numMaster);
                     _output.write_long(numUniversite);
                     _input = this._invoke(_output);
-                    CyelPostLicence.Etudiant[] _arg_ret = CyelPostLicence.ListeCandidaturesHelper.read(_input);
+                    CyelPostLicence.Etudiant[] _arg_ret = CyelPostLicence.ListeEtudiantsHelper.read(_input);
                     return _arg_ret;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)
