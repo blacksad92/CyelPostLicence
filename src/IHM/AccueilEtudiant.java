@@ -119,6 +119,7 @@ public class AccueilEtudiant extends javax.swing.JFrame {
 
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
+        tAreaInsctruction.setEditable(false);
         tAreaInsctruction.setBackground(new java.awt.Color(240, 240, 240));
         tAreaInsctruction.setColumns(20);
         tAreaInsctruction.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -143,6 +144,7 @@ public class AccueilEtudiant extends javax.swing.JFrame {
 
         jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
 
+        tAreaErreur.setEditable(false);
         tAreaErreur.setBackground(new java.awt.Color(240, 240, 240));
         tAreaErreur.setColumns(20);
         tAreaErreur.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -212,7 +214,7 @@ public class AccueilEtudiant extends javax.swing.JFrame {
                     .addComponent(bt_enregistrerClassement))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
                     .addComponent(jScrollPane3))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
