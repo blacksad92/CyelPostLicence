@@ -280,7 +280,7 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
 
             //On ajoute le modèle dans la Jtable
             jTable_candidatures.setModel(model);
-            jTable_candidatures.setEnabled(false);
+            jTable_candidatures.setEnabled(true);
         }
         
             
