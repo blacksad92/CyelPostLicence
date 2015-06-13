@@ -73,17 +73,20 @@ public class DecisionHelper
                     return org.omg.CORBA.ORB.init().create_recursive_tc(id());
                 _working = true;
                 org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init();
-                org.omg.CORBA.StructMember []_members = new org.omg.CORBA.StructMember[3];
+                org.omg.CORBA.StructMember []_members = new org.omg.CORBA.StructMember[4];
 
                 _members[0] = new org.omg.CORBA.StructMember();
                 _members[0].name = "etudiant";
                 _members[0].type = CyelPostLicence.EtudiantHelper.type();
                 _members[1] = new org.omg.CORBA.StructMember();
-                _members[1].name = "master";
-                _members[1].type = CyelPostLicence.MasterHelper.type();
+                _members[1].name = "numUniversite";
+                _members[1].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_long);
                 _members[2] = new org.omg.CORBA.StructMember();
-                _members[2].name = "decision";
-                _members[2].type = CyelPostLicence.EnumDecisionHelper.type();
+                _members[2].name = "numMaster";
+                _members[2].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_long);
+                _members[3] = new org.omg.CORBA.StructMember();
+                _members[3].name = "decision";
+                _members[3].type = CyelPostLicence.EnumDecisionHelper.type();
                 _tc = orb.create_struct_tc(id(),"Decision",_members);
                 _working = false;
             }
@@ -112,7 +115,8 @@ public class DecisionHelper
         CyelPostLicence.Decision new_one = new CyelPostLicence.Decision();
 
         new_one.etudiant = CyelPostLicence.EtudiantHelper.read(istream);
-        new_one.master = CyelPostLicence.MasterHelper.read(istream);
+        new_one.numUniversite = istream.read_long();
+        new_one.numMaster = istream.read_long();
         new_one.decision = CyelPostLicence.EnumDecisionHelper.read(istream);
 
         return new_one;
@@ -126,7 +130,8 @@ public class DecisionHelper
     public static void write(org.omg.CORBA.portable.OutputStream ostream, CyelPostLicence.Decision value)
     {
         CyelPostLicence.EtudiantHelper.write(ostream,value.etudiant);
-        CyelPostLicence.MasterHelper.write(ostream,value.master);
+        ostream.write_long(value.numUniversite);
+        ostream.write_long(value.numMaster);
         CyelPostLicence.EnumDecisionHelper.write(ostream,value.decision);
     }
 

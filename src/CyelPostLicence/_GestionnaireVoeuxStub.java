@@ -539,7 +539,7 @@ public class _GestionnaireVoeuxStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation enregistrerDecision
      */
-    public void enregistrerDecision(CyelPostLicence.Candidature candidature)
+    public void enregistrerDecision(CyelPostLicence.Decision decision)
     {
         while(true)
         {
@@ -549,7 +549,7 @@ public class _GestionnaireVoeuxStub extends org.omg.CORBA.portable.ObjectImpl
                 try
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("enregistrerDecision",true);
-                    CyelPostLicence.CandidatureHelper.write(_output,candidature);
+                    CyelPostLicence.DecisionHelper.write(_output,decision);
                     _input = this._invoke(_output);
                     return;
                 }
@@ -575,7 +575,7 @@ public class _GestionnaireVoeuxStub extends org.omg.CORBA.portable.ObjectImpl
                 CyelPostLicence.GestionnaireVoeuxOperations _self = (CyelPostLicence.GestionnaireVoeuxOperations) _so.servant;
                 try
                 {
-                    _self.enregistrerDecision( candidature);
+                    _self.enregistrerDecision( decision);
                     return;
                 }
                 finally

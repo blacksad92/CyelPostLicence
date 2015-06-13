@@ -70,6 +70,6 @@ public interface GestionnaireVoeuxOperations
     /**
      * Operation enregistrerDecision
      */
-    public void enregistrerDecision(CyelPostLicence.Candidature candidature);
+    public void enregistrerDecision(CyelPostLicence.Decision decision);
 
 }

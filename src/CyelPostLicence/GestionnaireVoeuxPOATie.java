@@ -153,9 +153,9 @@ public class GestionnaireVoeuxPOATie extends GestionnaireVoeuxPOA
     /**
      * Operation enregistrerDecision
      */
-    public void enregistrerDecision(CyelPostLicence.Candidature candidature)
+    public void enregistrerDecision(CyelPostLicence.Decision decision)
     {
-        _tie.enregistrerDecision( candidature);
+        _tie.enregistrerDecision( decision);
     }
 
 }

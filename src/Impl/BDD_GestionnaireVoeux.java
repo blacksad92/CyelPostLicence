@@ -92,6 +92,36 @@ public class BDD_GestionnaireVoeux {
         }
         return res;
     }
+    
+    //Enregistre une modification de voeux ou ajoute un voeu
+    public boolean bdd_enregistrerDecision(int INE, int numMaster, int numUniversite, EnumDecision decision) {
+        System.out.println("[BDD_GestionnaireVoeux] bdd_enregistrerDecision");
+        boolean res = false;
+        try {
+            // On crée un objet Statement qui va permettre l'execution des requètes
+            Statement s = conn.createStatement();
+
+            // On crée un objet Statement qui va permettre l'execution des requètes
+            s = conn.createStatement();
+            String query = "UPDATE gv_voeux SET Etat="+decision.value()
+                    + " WHERE NumINE="+INE
+                    + " AND NumMaster="+numMaster
+                    + " AND NumUniversite="+numUniversite+";";
+            //System.out.println(query);
+            int result = s.executeUpdate(query);
+
+            if (result == 1) {
+                res = true;
+            }
+
+        } catch (Exception e) {
+            // Il y a une erreur
+            e.printStackTrace();
+            return false;
+
+        }
+        return res;
+    }
 
     public ArrayList<Voeu> bdd_listeVoeux(int INE, int numAcademie) {
         ArrayList<Voeu> listeVoeux = new ArrayList<Voeu>();

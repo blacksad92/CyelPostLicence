@@ -211,7 +211,7 @@ public abstract class GestionnaireVoeuxPOA extends org.omg.PortableServer.Servan
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
-        CyelPostLicence.Candidature arg0_in = CyelPostLicence.CandidatureHelper.read(_is);
+        CyelPostLicence.Decision arg0_in = CyelPostLicence.DecisionHelper.read(_is);
 
         enregistrerDecision(arg0_in);
 

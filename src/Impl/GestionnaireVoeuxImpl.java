@@ -7,6 +7,7 @@ package Impl;
 
 import CyelPostLicence.Academie;
 import CyelPostLicence.Candidature;
+import CyelPostLicence.Decision;
 import CyelPostLicence.EnumDecision;
 import CyelPostLicence.EtatCandidature;
 import CyelPostLicence.Etudiant;
@@ -17,6 +18,7 @@ import CyelPostLicence.Reponse;
 import CyelPostLicence.Universite;
 import CyelPostLicence.Voeu;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  *
@@ -61,10 +63,11 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     @Override
     public void cloturerPeriode() {
         System.out.println("Periode ancienne " + periode);
+        
         if (periode < 4) {
-            periode = periode + 1;
-            if(periode == 2)
-            {// SI la periode passe a 2, on envoie automatiquement les candidatures
+            periode++;
+            
+            if(periode == 2) {// SI la periode passe a 2, on envoie automatiquement les candidatures
                 //Recuperer les voeux pour l'academie.
                 ArrayList<Voeu> listeVoeux = bdd.bdd_listeVoeuxParAcademie(this.academie.numAcademie);
                 for(int i=0; i< listeVoeux.size(); i++)
@@ -83,10 +86,28 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
                         gestCand.enregistrerCandidatures(etu, numMaster);
                     }
                 }
-                
+            }
+            
+            if(periode == 3) { // SI lon passe à la période 3 -> Envoi des décisions des universités vers les académies (on va donc notifier les universités)
+                System.out.println("[GestionnaireVoeuxImpl] cloturerPeriode - PASSAGE PERIODE 3");
+                // Récupérer la liste des universités de l'académie
+                ArrayList<Universite> listeUniv = bdd.bdd_consultUniversitePourUneAcademie(academie.numAcademie);
+                // Pour chaque université
+                Iterator it = listeUniv.iterator();
+                while(it.hasNext()) {
+                    Universite univ = (Universite) it.next();
+                    // Recuperer le bon gestionnaire de candidature
+                    GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(univ.numUniv);
+                    
+                    // Appeller la méthode finPeriodeDecision
+                    if(gestCand != null)
+                    {
+                        gestCand.finPeriodeDecision();
+                    }
+                }
             }
         }
-        System.out.println("Periode nouvelle " + periode);
+        System.out.println("NOUVELLE PERIODE : " + periode);
     }
 
     @Override
@@ -237,8 +258,14 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     }
 
     @Override
-    public void enregistrerDecision(Candidature candidature) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void enregistrerDecision(Decision decision) {
+        System.out.println("[GestionnaireVoeuxImpl] enregistrerDecision");
+        
+        boolean res = bdd.bdd_enregistrerDecision(decision.etudiant.INE, decision.numMaster, decision.numUniversite, decision.decision);
+        
+        if (!res) {
+            System.out.println("/!\\ ERREUR ENREGISTREMENT DECISION /!\\");
+        }
     }
 
     public void maListeUnivs() {

@@ -147,7 +147,7 @@ public class BDD_GestionnaireCandidature {
     } 
      
      
-     public Candidature[] bdd_listeCandidature(int NumUniversite,int NumMaster) {
+    public Candidature[] bdd_listeCandidature(int NumUniversite,int NumMaster) {
         ArrayList<Candidature> listeCandidatures = new ArrayList<Candidature>();
         Licence licence;
         Universite univ;
@@ -184,8 +184,77 @@ public class BDD_GestionnaireCandidature {
         Candidature[] tabCandidatures = listeCandidatures.toArray(new Candidature[listeCandidatures.size()]);
         
         return tabCandidatures;
-    } 
-     
+    }
+    
+    public Candidature[] bdd_listeCandidature(int NumUniversite) {
+        System.out.println("[BDD_GestionnaireCandidature] bdd_listeCandidature");
+        
+        ArrayList<Candidature> listeCandidatures = new ArrayList<Candidature>();
+        Licence licence;
+        Universite univ;
+        Academie academie;
+        Etudiant etudiant;
+        
+        try {
+            // On crée un objet Statement qui va permettre l'execution des requètes
+            Statement s = conn.createStatement();
+            
+            String req = "SELECT c.Classement, c.NumINE,c.NomEtudiant, c.PrenomEtudiant, c.NumMaster, c.NumLicenceProv, c.NomLicenceProv, c.NumUniversiteProv, c.NomUniversiteProv, c.NumAcademieProv, c.NomAcademieProv, c.etat, c.NumUniversite, c.NumMaster"
+                    + "      FROM gc_candidatures c, gc_masters m"
+                    + "      WHERE c.NumUniversite = "+NumUniversite+""
+                    + "      AND c.NumMaster = m.NumMaster"
+                    + "     ORDER BY c.Classement";
+            System.out.println(req);
+            ResultSet rs = s.executeQuery(req);
+            
+            while (rs.next()) {
+                academie = new Academie(rs.getInt("c.NumAcademieProv"), rs.getString("c.NomAcademieProv"));
+                licence = new Licence(rs.getInt("c.NumLicenceProv"), rs.getString("c.NomLicenceProv"));
+                univ = new Universite(rs.getInt("c.NumUniversiteProv"), rs.getString("c.NomUniversiteProv"), academie);
+                etudiant = new Etudiant(rs.getInt("c.NumINE"), rs.getString("c.NomEtudiant"), rs.getString("c.PrenomEtudiant"), licence, univ);               
+                Candidature candidature = new Candidature(etudiant, rs.getInt("c.NumUniversite"), rs.getInt("c.NumMaster"), rs.getInt("c.Classement"));
+                listeCandidatures.add(candidature);
+            }
+                        
+        } catch(Exception e) {
+            // Il y a une erreur
+            e.printStackTrace();
+            return null;
+        }
+        Candidature[] tabCandidatures = listeCandidatures.toArray(new Candidature[listeCandidatures.size()]);
+        
+        return tabCandidatures;
+    }
+    
+    public int bdd_quotaFormation(int numUniversite, int numMaster) {
+        System.out.println("[BDD_GestionnaireCandidature] quotaFormation");
+        
+        int quota = -1;
+        
+        try {
+            // On crée un objet Statement qui va permettre l'execution des requètes
+            Statement s = conn.createStatement();
+            
+            String req = "SELECT Quota"
+                    + "      FROM gc_formations"
+                    + "      WHERE NumUniversite = "+numUniversite+""
+                    + "      AND NumMaster = "+numMaster;
+            //System.out.println(req);
+            ResultSet rs = s.executeQuery(req);
+            
+            while (rs.next()) {
+                quota = rs.getInt("Quota");
+            }
+                        
+        } catch(Exception e) {
+            // Il y a une erreur
+            e.printStackTrace();
+            return -1;
+        }
+        
+        return quota;
+    }
+    
      
      public boolean bdd_verifieLicencePrerequis(int NumUniversite,int NumMaster,int NumLicence) {
               int nbr = 0;

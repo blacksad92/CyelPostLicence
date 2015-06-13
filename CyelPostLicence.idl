@@ -63,11 +63,10 @@ module CyelPostLicence {
 
 	struct Decision{
 		Etudiant etudiant;
-		Master master;
+		long numUniversite;
+		long numMaster;
 		EnumDecision decision;
 	};
-	
-	typedef sequence<Decision> ListeDecisions;
 
 	
 	struct Voeu{
@@ -152,6 +151,6 @@ module CyelPostLicence {
 		void cloturerPeriode();
 		void RAZPeriode();
 		ListeEtudiants recupererListeCandidatures(in long numMaster, in long numUniversite);
-		void enregistrerDecision(in Candidature candidature);
+		void enregistrerDecision(in Decision decision);
 	};
 };
