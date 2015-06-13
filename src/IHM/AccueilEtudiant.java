@@ -8,6 +8,7 @@ package IHM;
 import Client.ClientEtudiant;
 import CyelPostLicence.EnumDecision;
 import CyelPostLicence.EnumOrdre;
+import CyelPostLicence.EnumReponse;
 import CyelPostLicence.Voeu;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -20,6 +21,7 @@ public class AccueilEtudiant extends javax.swing.JFrame {
 
     private ClientEtudiant client;
     private Voeu[] tabVoeu;
+    private Voeu voeuAccepte;
 
     /**
      * Creates new form AccueilEtudiant
@@ -50,6 +52,7 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         //On ajoute les ligne contenant les données dans le modèle
         int i=0;
         boolean dejaAccepte = false;
+        voeuAccepte = new Voeu();
         while (i<tabVoeu.length) {
             Voeu v = tabVoeu[i];
             
@@ -57,12 +60,21 @@ public class AccueilEtudiant extends javax.swing.JFrame {
             if (v.etatCandidature!=EnumDecision.acceptee || dejaAccepte) {
                 etatCand = "----";
             }
-            model.addRow(new Object[]{v.numVoeu, v.ordre, v.master.numMaster, v.master.nomMaster, v.universite.numUniv, v.universite.nomUniv, etatCand, v.reponse.toString()});
+            String reponse = v.reponse.toString();
+            if (v.reponse==EnumReponse.vide || dejaAccepte) {
+                reponse = "----";
+            }
+            model.addRow(new Object[]{v.numVoeu, v.ordre, v.master.numMaster, v.master.nomMaster, v.universite.numUniv, v.universite.nomUniv, etatCand, reponse});
             
             if (v.etatCandidature==EnumDecision.acceptee) {
                 dejaAccepte = true;
+                voeuAccepte = v;
             }
             i++;
+        }
+        
+        if (!dejaAccepte) {
+            bt_repondreVoeu.setEnabled(false);
         }
 
         //On ajoute le modèle dans la Jtable
@@ -120,7 +132,12 @@ public class AccueilEtudiant extends javax.swing.JFrame {
             }
         });
 
-        bt_repondreVoeu.setText("Repondre a un voeu");
+        bt_repondreVoeu.setText("Répondre au voeu accepté");
+        bt_repondreVoeu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_repondreVoeuActionPerformed(evt);
+            }
+        });
 
         bt_seDeconnecter.setText("Se déconnecter");
 
@@ -204,7 +221,7 @@ public class AccueilEtudiant extends javax.swing.JFrame {
                                 .addComponent(bt_ClasserVoeux)
                                 .addGap(40, 40, 40)
                                 .addComponent(bt_enregistrerClassement)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 222, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
                                 .addComponent(bt_repondreVoeu)))))
                 .addContainerGap())
         );
@@ -320,6 +337,14 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         tAreaErreur.setEditable(false);
         initTableauVoeux();
     }//GEN-LAST:event_bt_actualiserActionPerformed
+
+    private void bt_repondreVoeuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_repondreVoeuActionPerformed
+        Voeu v = voeuAccepte;
+
+        RepondreVoeu repondre = new RepondreVoeu(client,v);
+        this.setVisible(false);
+        repondre.setVisible(true);
+    }//GEN-LAST:event_bt_repondreVoeuActionPerformed
 
     /**
      * @param args the command line arguments

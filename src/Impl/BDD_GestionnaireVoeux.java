@@ -160,6 +160,35 @@ public class BDD_GestionnaireVoeux {
         return listeVoeux;
     }
     
+    public boolean bdd_repondreVoeu(int INE, Voeu voeu) {
+        System.out.println("[BDD_GestionnaireVoeux] bdd_repondreVoeu");
+        boolean res = false;
+        try {
+            // On crée un objet Statement qui va permettre l'execution des requètes
+            Statement s = conn.createStatement();
+
+            // On crée un objet Statement qui va permettre l'execution des requètes
+            s = conn.createStatement();
+            String query = "UPDATE gv_voeux SET Reponse="+voeu.reponse.value()
+                    + " WHERE NumINE="+INE
+                    + " AND NumMaster="+voeu.master.numMaster
+                    + " AND NumUniversite="+voeu.universite.numUniv+";";
+            //System.out.println(query);
+            int result = s.executeUpdate(query);
+
+            if (result == 1) {
+                res = true;
+            }
+
+        } catch (Exception e) {
+            // Il y a une erreur
+            e.printStackTrace();
+            return false;
+
+        }
+        return res;
+    }
+    
     public Integer bdd_INEduVoeu(int numVoeu) {
           int ine = 0;
         try {

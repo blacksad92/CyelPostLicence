@@ -55,6 +55,8 @@ public abstract class GestionnaireVoeuxPOA extends org.omg.PortableServer.Servan
                     new Operation_enregistrerVoeux());
             operationMap.put("recupererListeCandidatures",
                     new Operation_recupererListeCandidatures());
+            operationMap.put("repondreVoeu",
+                    new Operation_repondreVoeu());
     }
 
     public final org.omg.CORBA.portable.OutputStream _invoke(final String opName,
@@ -147,6 +149,20 @@ public abstract class GestionnaireVoeuxPOA extends org.omg.PortableServer.Servan
         CyelPostLicence.Voeu[] arg1_in = CyelPostLicence.ListeVoeuxHelper.read(_is);
 
         enregistrerVoeux(arg0_in, arg1_in);
+
+        _output = handler.createReply();
+
+        return _output;
+    }
+
+    private org.omg.CORBA.portable.OutputStream _invoke_repondreVoeu(
+            final org.omg.CORBA.portable.InputStream _is,
+            final org.omg.CORBA.portable.ResponseHandler handler) {
+        org.omg.CORBA.portable.OutputStream _output;
+        int arg0_in = _is.read_long();
+        CyelPostLicence.Voeu arg1_in = CyelPostLicence.VoeuHelper.read(_is);
+
+        repondreVoeu(arg0_in, arg1_in);
 
         _output = handler.createReply();
 
@@ -295,6 +311,16 @@ public abstract class GestionnaireVoeuxPOA extends org.omg.PortableServer.Servan
                 final org.omg.CORBA.portable.InputStream _is,
                 final org.omg.CORBA.portable.ResponseHandler handler) {
             return target._invoke_enregistrerVoeux(_is, handler);
+        }
+    }
+
+    private static final class Operation_repondreVoeu extends AbstractOperation
+    {
+        protected org.omg.CORBA.portable.OutputStream invoke(
+                final GestionnaireVoeuxPOA target,
+                final org.omg.CORBA.portable.InputStream _is,
+                final org.omg.CORBA.portable.ResponseHandler handler) {
+            return target._invoke_repondreVoeu(_is, handler);
         }
     }
 

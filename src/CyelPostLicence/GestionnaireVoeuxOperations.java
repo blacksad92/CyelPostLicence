@@ -48,6 +48,11 @@ public interface GestionnaireVoeuxOperations
     public void enregistrerVoeux(CyelPostLicence.Etudiant etudiant, CyelPostLicence.Voeu[] listeVoeux);
 
     /**
+     * Operation repondreVoeu
+     */
+    public void repondreVoeu(int INE, CyelPostLicence.Voeu voeu);
+
+    /**
      * Operation consulterVoeux
      */
     public CyelPostLicence.Voeu[] consulterVoeux(int INE, boolean externe);

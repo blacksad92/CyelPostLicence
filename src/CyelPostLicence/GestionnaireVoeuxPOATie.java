@@ -119,6 +119,14 @@ public class GestionnaireVoeuxPOATie extends GestionnaireVoeuxPOA
     }
 
     /**
+     * Operation repondreVoeu
+     */
+    public void repondreVoeu(int INE, CyelPostLicence.Voeu voeu)
+    {
+        _tie.repondreVoeu( INE,  voeu);
+    }
+
+    /**
      * Operation consulterVoeux
      */
     public CyelPostLicence.Voeu[] consulterVoeux(int INE, boolean externe)

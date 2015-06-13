@@ -271,4 +271,12 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     public void maListeUnivs() {
         this.mesIDUnivs = bdd.bdd_recupNumUnivs(academie.numAcademie);
     }
+
+    @Override
+    public void repondreVoeu(int INE, Voeu voeu) {
+        boolean ok = bdd.bdd_repondreVoeu(INE,voeu);
+        if (!ok) {
+            System.out.println("ERREUR REPONDRE VOEU");
+        }
+    }
 }

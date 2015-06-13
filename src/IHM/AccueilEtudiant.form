@@ -61,7 +61,7 @@
                               <Component id="bt_ClasserVoeux" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                               <Component id="bt_enregistrerClassement" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="222" max="32767" attributes="0"/>
+                              <EmptySpace pref="190" max="32767" attributes="0"/>
                               <Component id="bt_repondreVoeu" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -176,8 +176,11 @@
     </Component>
     <Component class="javax.swing.JButton" name="bt_repondreVoeu">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Repondre a un voeu"/>
+        <Property name="text" type="java.lang.String" value="R&#xe9;pondre au voeu accept&#xe9;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_repondreVoeuActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="bt_seDeconnecter">
       <Properties>
