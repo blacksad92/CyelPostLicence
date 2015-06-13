@@ -6,6 +6,7 @@
 package IHM;
 
 import Client.ClientEtudiant;
+import CyelPostLicence.EnumDecision;
 import CyelPostLicence.EnumOrdre;
 import CyelPostLicence.Voeu;
 import java.util.ArrayList;
@@ -47,8 +48,21 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         model.setColumnIdentifiers(new String[]{"ID", "Ordre", "Numero Master", "Master", "Numero Université", "Université", "Etat", "Réponse"});
 
         //On ajoute les ligne contenant les données dans le modèle
-        for (Voeu v : tabVoeu) {
-            model.addRow(new Object[]{v.numVoeu, v.ordre, v.master.numMaster, v.master.nomMaster, v.universite.numUniv, v.universite.nomUniv, v.etatCandidature.toString(), v.reponse.toString()});
+        int i=0;
+        boolean dejaAccepte = false;
+        while (i<tabVoeu.length) {
+            Voeu v = tabVoeu[i];
+            
+            String etatCand = v.etatCandidature.toString();
+            if (v.etatCandidature!=EnumDecision.acceptee || dejaAccepte) {
+                etatCand = "----";
+            }
+            model.addRow(new Object[]{v.numVoeu, v.ordre, v.master.numMaster, v.master.nomMaster, v.universite.numUniv, v.universite.nomUniv, etatCand, v.reponse.toString()});
+            
+            if (v.etatCandidature==EnumDecision.acceptee) {
+                dejaAccepte = true;
+            }
+            i++;
         }
 
         //On ajoute le modèle dans la Jtable

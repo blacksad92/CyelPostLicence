@@ -133,7 +133,8 @@ public class BDD_GestionnaireVoeux {
             String req = "SELECT v.NumVoeux, v.NumAcademie, v.NomAcademie, v.NumUniversite, v.NomUniversite, v.Etat, v.Ordre, v.Reponse, v.NumMaster, v.NomMaster, v.NumLicence"
                     + "      FROM gv_Voeux v"
                     + "      WHERE (v.NumINE = " + INE + ")"
-                    + "      AND v.numAcademie = " + numAcademie;
+                    + "         AND v.numAcademie = " + numAcademie+""
+                    + "      ORDER BY v.Ordre";
             //System.out.println(req);
             ResultSet rs = s.executeQuery(req);
 
