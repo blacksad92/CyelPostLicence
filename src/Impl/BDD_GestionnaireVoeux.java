@@ -6,6 +6,7 @@
 package Impl;
 
 import CyelPostLicence.Academie;
+import CyelPostLicence.EnumDecision;
 import CyelPostLicence.EnumOrdre;
 import CyelPostLicence.EnumReponse;
 import CyelPostLicence.EtatCandidature;
@@ -112,7 +113,7 @@ public class BDD_GestionnaireVoeux {
                 Universite univ = new Universite(rs.getInt("v.NumUniversite"), rs.getString("v.NomUniversite"), academie);
                 Master master = new Master(rs.getInt("v.NumMaster"), rs.getString("v.NomMaster"));
                 EnumOrdre enumOrdre = new EnumOrdre(rs.getInt("v.Ordre"));
-                EtatCandidature etatCandid = new EtatCandidature(rs.getInt("v.Etat"));
+                EnumDecision etatCandid = new EnumDecision(rs.getInt("v.Etat"));
                 EnumReponse enumReponse = new EnumReponse(rs.getInt("v.Reponse"));
                 int numLicence = rs.getInt("v.NumLicence");
 
@@ -172,7 +173,7 @@ public class BDD_GestionnaireVoeux {
                 Universite univ = new Universite(rs.getInt("v.NumUniversite"), rs.getString("v.NomUniversite"), academie);
                 Master master = new Master(rs.getInt("v.NumMaster"), rs.getString("v.NomMaster"));
                 EnumOrdre enumOrdre = new EnumOrdre(rs.getInt("v.Ordre"));
-                EtatCandidature etatCandid = new EtatCandidature(rs.getInt("v.Etat"));
+                EnumDecision etatCandid = new EnumDecision(rs.getInt("v.Etat"));
                 EnumReponse enumReponse = new EnumReponse(rs.getInt("v.Reponse"));
                 int numLicence = rs.getInt("v.NumLicence");
 

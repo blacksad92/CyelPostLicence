@@ -7,6 +7,7 @@ package Impl;
 
 import CyelPostLicence.Academie;
 import CyelPostLicence.Candidature;
+import CyelPostLicence.EnumDecision;
 import CyelPostLicence.EtatCandidature;
 import CyelPostLicence.Etudiant;
 import CyelPostLicence.GestionnaireAcces;
@@ -67,17 +68,17 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
     }
 
     @Override
-    public EtatCandidature validerCandidature(int numMaster, int numLicence) {
+    public EnumDecision validerCandidature(int numMaster, int numLicence) {
         System.out.println("validerCandidature"+universite.nomUniv);
-        EtatCandidature etat;
+        EnumDecision etat;
         boolean prerequis = bdd.bdd_verifieLicencePrerequis(universite.numUniv, numMaster, numLicence);
         if(prerequis == false)
         {
-            etat = new EtatCandidature(1);
+            etat = new EnumDecision(1);
         }
         else
         {
-             etat = new EtatCandidature(0);
+             etat = new EnumDecision(0);
         }
         return etat;
     }
@@ -162,6 +163,11 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
     @Override
     public void enregistrerClassement(int INE, int classement) {
         bdd.bdd_enregistrerClassement(INE,classement);
+    }
+
+    @Override
+    public void finPeriodeDecision() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

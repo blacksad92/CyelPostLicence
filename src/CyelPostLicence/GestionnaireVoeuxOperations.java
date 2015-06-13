@@ -68,8 +68,8 @@ public interface GestionnaireVoeuxOperations
     public CyelPostLicence.Etudiant[] recupererListeCandidatures(int numMaster, int numUniversite);
 
     /**
-     * Operation enregistrerDecisions
+     * Operation enregistrerDecision
      */
-    public void enregistrerDecisions(int numMaster, int numAcademie, CyelPostLicence.Reponse[] listeAccepte, CyelPostLicence.Reponse[] listeAttente, CyelPostLicence.Reponse[] listeRefuse);
+    public void enregistrerDecision(CyelPostLicence.Candidature candidature);
 
 }

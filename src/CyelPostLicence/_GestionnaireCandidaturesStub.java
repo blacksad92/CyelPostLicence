@@ -251,7 +251,7 @@ public class _GestionnaireCandidaturesStub extends org.omg.CORBA.portable.Object
     /**
      * Operation validerCandidature
      */
-    public CyelPostLicence.EtatCandidature validerCandidature(int numMaster, int numLicence)
+    public CyelPostLicence.EnumDecision validerCandidature(int numMaster, int numLicence)
     {
         while(true)
         {
@@ -264,7 +264,7 @@ public class _GestionnaireCandidaturesStub extends org.omg.CORBA.portable.Object
                     _output.write_long(numMaster);
                     _output.write_long(numLicence);
                     _input = this._invoke(_output);
-                    CyelPostLicence.EtatCandidature _arg_ret = CyelPostLicence.EtatCandidatureHelper.read(_input);
+                    CyelPostLicence.EnumDecision _arg_ret = CyelPostLicence.EnumDecisionHelper.read(_input);
                     return _arg_ret;
                 }
                 catch(org.omg.CORBA.portable.RemarshalException _exception)
@@ -442,6 +442,55 @@ public class _GestionnaireCandidaturesStub extends org.omg.CORBA.portable.Object
                 try
                 {
                     _self.enregistrerClassement( INE,  classement);
+                    return;
+                }
+                finally
+                {
+                    _servant_postinvoke(_so);
+                }
+            }
+        }
+    }
+
+    /**
+     * Operation finPeriodeDecision
+     */
+    public void finPeriodeDecision()
+    {
+        while(true)
+        {
+            if (!this._is_local())
+            {
+                org.omg.CORBA.portable.InputStream _input = null;
+                try
+                {
+                    org.omg.CORBA.portable.OutputStream _output = this._request("finPeriodeDecision",true);
+                    _input = this._invoke(_output);
+                    return;
+                }
+                catch(org.omg.CORBA.portable.RemarshalException _exception)
+                {
+                    continue;
+                }
+                catch(org.omg.CORBA.portable.ApplicationException _exception)
+                {
+                    String _exception_id = _exception.getId();
+                    throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
+                }
+                finally
+                {
+                    this._releaseReply(_input);
+                }
+            }
+            else
+            {
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("finPeriodeDecision",_opsClass);
+                if (_so == null)
+                   continue;
+                CyelPostLicence.GestionnaireCandidaturesOperations _self = (CyelPostLicence.GestionnaireCandidaturesOperations) _so.servant;
+                try
+                {
+                    _self.finPeriodeDecision();
                     return;
                 }
                 finally

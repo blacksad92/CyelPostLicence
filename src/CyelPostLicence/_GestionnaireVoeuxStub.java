@@ -537,9 +537,9 @@ public class _GestionnaireVoeuxStub extends org.omg.CORBA.portable.ObjectImpl
     }
 
     /**
-     * Operation enregistrerDecisions
+     * Operation enregistrerDecision
      */
-    public void enregistrerDecisions(int numMaster, int numAcademie, CyelPostLicence.Reponse[] listeAccepte, CyelPostLicence.Reponse[] listeAttente, CyelPostLicence.Reponse[] listeRefuse)
+    public void enregistrerDecision(CyelPostLicence.Candidature candidature)
     {
         while(true)
         {
@@ -548,12 +548,8 @@ public class _GestionnaireVoeuxStub extends org.omg.CORBA.portable.ObjectImpl
                 org.omg.CORBA.portable.InputStream _input = null;
                 try
                 {
-                    org.omg.CORBA.portable.OutputStream _output = this._request("enregistrerDecisions",true);
-                    _output.write_long(numMaster);
-                    _output.write_long(numAcademie);
-                    CyelPostLicence.ListeReponseHelper.write(_output,listeAccepte);
-                    CyelPostLicence.ListeReponseHelper.write(_output,listeAttente);
-                    CyelPostLicence.ListeReponseHelper.write(_output,listeRefuse);
+                    org.omg.CORBA.portable.OutputStream _output = this._request("enregistrerDecision",true);
+                    CyelPostLicence.CandidatureHelper.write(_output,candidature);
                     _input = this._invoke(_output);
                     return;
                 }
@@ -573,13 +569,13 @@ public class _GestionnaireVoeuxStub extends org.omg.CORBA.portable.ObjectImpl
             }
             else
             {
-                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("enregistrerDecisions",_opsClass);
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("enregistrerDecision",_opsClass);
                 if (_so == null)
                    continue;
                 CyelPostLicence.GestionnaireVoeuxOperations _self = (CyelPostLicence.GestionnaireVoeuxOperations) _so.servant;
                 try
                 {
-                    _self.enregistrerDecisions( numMaster,  numAcademie,  listeAccepte,  listeAttente,  listeRefuse);
+                    _self.enregistrerDecision( candidature);
                     return;
                 }
                 finally

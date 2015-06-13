@@ -43,11 +43,13 @@ public class EnumDecisionHelper
     {
         if (_tc == null) {
             org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init();
-            String []_members = new String[4];
-            _members[0] = "acceptee";
-            _members[1] = "listeAttente";
+            String []_members = new String[6];
+            _members[0] = "valide";
+            _members[1] = "nonValide";
             _members[2] = "refusee";
-            _members[3] = "vide";
+            _members[3] = "acceptee";
+            _members[4] = "listeAttente";
+            _members[5] = "vide";
             _tc = orb.create_enum_tc(id(),"EnumDecision",_members);
         }
         return _tc;

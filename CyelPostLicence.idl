@@ -1,15 +1,13 @@
 module CyelPostLicence {
 
-	enum EtatCandidature {	valide, nonValide, refusee, acceptee, listeAttente, vide};
+	enum EnumDecision {valide, nonValide, refusee, acceptee, listeAttente, vide};
 	enum EnumReponse {oui, ouiMais, non, nonMais, vide};
-	enum EnumDecision  {acceptee, listeAttente, refusee, vide};
-	enum EnumOrdre {un, deux, trois, quatre, cinq, vide};	
+	enum EnumOrdre {un, deux, trois, quatre, cinq, vide};
 	
 	exception ResponsableInconnu{
 		long id;
 		string raison;
 	};
-	
 	
 	struct Licence{
 		long numLicence;
@@ -43,15 +41,10 @@ module CyelPostLicence {
 		
 	struct Candidature{
 		Etudiant etudiant;
+		long numUniversite;
+		long numMaster;
 		long classement;
 	};
-	
-	struct Reponse {
-		Etudiant etudiant;
-		short ordre;
-	};
-	
-	typedef sequence<Reponse> ListeReponse;
 	
 	typedef sequence<Candidature> ListeCandidatures;
 	typedef sequence<Etudiant> ListeEtudiants;
@@ -82,7 +75,7 @@ module CyelPostLicence {
 		Universite universite;
 		Master master;
 		EnumOrdre ordre;
-		EtatCandidature etatCandidature;
+		EnumDecision etatCandidature;
 		EnumReponse reponse;
 		long numLicence;
 	};
@@ -142,10 +135,11 @@ module CyelPostLicence {
 		readonly attribute ListeMaster listeMaster;
 		ListeNotes recupererListeNotes(in long INE, in boolean externe);
 		void RAZPeriode();
-		EtatCandidature validerCandidature(in long numMaster, in long numLicence);
+		EnumDecision validerCandidature(in long numMaster, in long numLicence);
 		void enregistrerCandidatures(in Etudiant etudiant, in long numMaster);
 		ListeCandidatures consulterCandidatures(in long numMaster, in long numUniversite);
 		void enregistrerClassement(in long INE, in long classement);
+		void finPeriodeDecision();
 	};
 	
 	interface GestionnaireVoeux {
@@ -158,6 +152,6 @@ module CyelPostLicence {
 		void cloturerPeriode();
 		void RAZPeriode();
 		ListeEtudiants recupererListeCandidatures(in long numMaster, in long numUniversite);
-		void enregistrerDecisions(in long numMaster, in long numAcademie, in ListeReponse listeAccepte, in ListeReponse listeAttente, in ListeReponse listeRefuse);
+		void enregistrerDecision(in Candidature candidature);
 	};
 };

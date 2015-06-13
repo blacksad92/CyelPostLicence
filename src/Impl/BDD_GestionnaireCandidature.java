@@ -158,7 +158,7 @@ public class BDD_GestionnaireCandidature {
             // On crée un objet Statement qui va permettre l'execution des requètes
             Statement s = conn.createStatement();
             
-            String req = "SELECT c.Classement, c.NumINE,c.NomEtudiant, c.PrenomEtudiant, c.NumMaster, c.NumLicenceProv, c.NomLicenceProv, c.NumUniversiteProv, c.NomUniversiteProv, c.NumAcademieProv, c.NomAcademieProv, c.etat"
+            String req = "SELECT c.Classement, c.NumINE,c.NomEtudiant, c.PrenomEtudiant, c.NumMaster, c.NumLicenceProv, c.NomLicenceProv, c.NumUniversiteProv, c.NomUniversiteProv, c.NumAcademieProv, c.NomAcademieProv, c.etat, c.NumUniversite, c.NumMaster"
                     + "      FROM gc_candidatures c, gc_masters m"
                     + "      WHERE c.NumUniversite = "+NumUniversite+""
                     + "      AND c.NumMaster = m.NumMaster"
@@ -172,7 +172,7 @@ public class BDD_GestionnaireCandidature {
                 licence = new Licence(rs.getInt("c.NumLicenceProv"), rs.getString("c.NomLicenceProv"));
                 univ = new Universite(rs.getInt("c.NumUniversiteProv"), rs.getString("c.NomUniversiteProv"), academie);
                 etudiant = new Etudiant(rs.getInt("c.NumINE"), rs.getString("c.NomEtudiant"), rs.getString("c.PrenomEtudiant"), licence, univ);               
-                Candidature candidature = new Candidature(etudiant, rs.getInt("c.Classement"));
+                Candidature candidature = new Candidature(etudiant, rs.getInt("c.NumUniversite"), rs.getInt("c.NumMaster"), rs.getInt("c.Classement"));
                 listeCandidatures.add(candidature);
             }
                         

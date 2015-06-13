@@ -151,11 +151,11 @@ public class GestionnaireVoeuxPOATie extends GestionnaireVoeuxPOA
     }
 
     /**
-     * Operation enregistrerDecisions
+     * Operation enregistrerDecision
      */
-    public void enregistrerDecisions(int numMaster, int numAcademie, CyelPostLicence.Reponse[] listeAccepte, CyelPostLicence.Reponse[] listeAttente, CyelPostLicence.Reponse[] listeRefuse)
+    public void enregistrerDecision(CyelPostLicence.Candidature candidature)
     {
-        _tie.enregistrerDecisions( numMaster,  numAcademie,  listeAccepte,  listeAttente,  listeRefuse);
+        _tie.enregistrerDecision( candidature);
     }
 
 }

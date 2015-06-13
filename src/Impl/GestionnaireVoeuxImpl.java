@@ -6,6 +6,8 @@
 package Impl;
 
 import CyelPostLicence.Academie;
+import CyelPostLicence.Candidature;
+import CyelPostLicence.EnumDecision;
 import CyelPostLicence.EtatCandidature;
 import CyelPostLicence.Etudiant;
 import CyelPostLicence.GestionnaireAcces;
@@ -213,7 +215,7 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
 
                 //Permet de récupérer l'état valide ou non-valide d'un voeu, supprimer l'appel de la méthode dans cloturerPeriode
                 GestionnaireCandidatures gestCandidature = gestAcces.obtenirGestionnaireCandidatures(listeVoeux[0].universite.numUniv);
-                EtatCandidature etatVoeu = gestCandidature.validerCandidature(listeVoeux[0].master.numMaster, etudiant.licence.numLicence);
+                EnumDecision etatVoeu = gestCandidature.validerCandidature(listeVoeux[0].master.numMaster, etudiant.licence.numLicence);
 
                 listeVoeux[0].etatCandidature = etatVoeu;
             }
@@ -235,7 +237,7 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     }
 
     @Override
-    public void enregistrerDecisions(int numMaster, int numAcademie, Reponse[] listeAccepte, Reponse[] listeAttente, Reponse[] listeRefuse) {
+    public void enregistrerDecision(Candidature candidature) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

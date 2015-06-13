@@ -105,7 +105,7 @@ public class GestionnaireCandidaturesPOATie extends GestionnaireCandidaturesPOA
     /**
      * Operation validerCandidature
      */
-    public CyelPostLicence.EtatCandidature validerCandidature(int numMaster, int numLicence)
+    public CyelPostLicence.EnumDecision validerCandidature(int numMaster, int numLicence)
     {
         return _tie.validerCandidature( numMaster,  numLicence);
     }
@@ -132,6 +132,14 @@ public class GestionnaireCandidaturesPOATie extends GestionnaireCandidaturesPOA
     public void enregistrerClassement(int INE, int classement)
     {
         _tie.enregistrerClassement( INE,  classement);
+    }
+
+    /**
+     * Operation finPeriodeDecision
+     */
+    public void finPeriodeDecision()
+    {
+        _tie.finPeriodeDecision();
     }
 
 }

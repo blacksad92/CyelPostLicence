@@ -49,8 +49,8 @@ public abstract class GestionnaireVoeuxPOA extends org.omg.PortableServer.Servan
                     new Operation_consulterAcreditations());
             operationMap.put("consulterVoeux",
                     new Operation_consulterVoeux());
-            operationMap.put("enregistrerDecisions",
-                    new Operation_enregistrerDecisions());
+            operationMap.put("enregistrerDecision",
+                    new Operation_enregistrerDecision());
             operationMap.put("enregistrerVoeux",
                     new Operation_enregistrerVoeux());
             operationMap.put("recupererListeCandidatures",
@@ -207,17 +207,13 @@ public abstract class GestionnaireVoeuxPOA extends org.omg.PortableServer.Servan
         return _output;
     }
 
-    private org.omg.CORBA.portable.OutputStream _invoke_enregistrerDecisions(
+    private org.omg.CORBA.portable.OutputStream _invoke_enregistrerDecision(
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
-        int arg0_in = _is.read_long();
-        int arg1_in = _is.read_long();
-        CyelPostLicence.Reponse[] arg2_in = CyelPostLicence.ListeReponseHelper.read(_is);
-        CyelPostLicence.Reponse[] arg3_in = CyelPostLicence.ListeReponseHelper.read(_is);
-        CyelPostLicence.Reponse[] arg4_in = CyelPostLicence.ListeReponseHelper.read(_is);
+        CyelPostLicence.Candidature arg0_in = CyelPostLicence.CandidatureHelper.read(_is);
 
-        enregistrerDecisions(arg0_in, arg1_in, arg2_in, arg3_in, arg4_in);
+        enregistrerDecision(arg0_in);
 
         _output = handler.createReply();
 
@@ -342,13 +338,13 @@ public abstract class GestionnaireVoeuxPOA extends org.omg.PortableServer.Servan
         }
     }
 
-    private static final class Operation_enregistrerDecisions extends AbstractOperation
+    private static final class Operation_enregistrerDecision extends AbstractOperation
     {
         protected org.omg.CORBA.portable.OutputStream invoke(
                 final GestionnaireVoeuxPOA target,
                 final org.omg.CORBA.portable.InputStream _is,
                 final org.omg.CORBA.portable.ResponseHandler handler) {
-            return target._invoke_enregistrerDecisions(_is, handler);
+            return target._invoke_enregistrerDecision(_is, handler);
         }
     }
 

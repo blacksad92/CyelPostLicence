@@ -30,7 +30,7 @@ public final class Voeu implements org.omg.CORBA.portable.IDLEntity
     /**
      * Struct member etatCandidature
      */
-    public CyelPostLicence.EtatCandidature etatCandidature;
+    public CyelPostLicence.EnumDecision etatCandidature;
 
     /**
      * Struct member reponse
@@ -58,7 +58,7 @@ public final class Voeu implements org.omg.CORBA.portable.IDLEntity
      * @param reponse reponse struct member
      * @param numLicence numLicence struct member
      */
-    public Voeu(int numVoeu, CyelPostLicence.Universite universite, CyelPostLicence.Master master, CyelPostLicence.EnumOrdre ordre, CyelPostLicence.EtatCandidature etatCandidature, CyelPostLicence.EnumReponse reponse, int numLicence)
+    public Voeu(int numVoeu, CyelPostLicence.Universite universite, CyelPostLicence.Master master, CyelPostLicence.EnumOrdre ordre, CyelPostLicence.EnumDecision etatCandidature, CyelPostLicence.EnumReponse reponse, int numLicence)
     {
         this.numVoeu = numVoeu;
         this.universite = universite;
