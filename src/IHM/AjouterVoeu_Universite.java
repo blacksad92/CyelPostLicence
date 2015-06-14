@@ -15,6 +15,8 @@ import CyelPostLicence.Master;
 import CyelPostLicence.Universite;
 import CyelPostLicence.Voeu;
 import Outils.Item;
+import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
 
 /**
  *
@@ -32,6 +34,7 @@ public class AjouterVoeu_Universite extends javax.swing.JFrame {
      */
     public AjouterVoeu_Universite() {
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     public AjouterVoeu_Universite(ClientEtudiant client) {
@@ -144,6 +147,7 @@ public class AjouterVoeu_Universite extends javax.swing.JFrame {
             listeV[0]= new Voeu(0, u, master, EnumOrdre.vide, EnumDecision.vide, EnumReponse.vide, client.monEtudiant.licence.numLicence);
             
             client.enregistrerVoeux(listeV);
+            this.dispose();
     }//GEN-LAST:event_bt_enregistrerVoeuActionPerformed
 
     

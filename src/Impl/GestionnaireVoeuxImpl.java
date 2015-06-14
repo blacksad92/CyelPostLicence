@@ -6,7 +6,6 @@
 package Impl;
 
 import CyelPostLicence.Academie;
-import CyelPostLicence.Candidature;
 import CyelPostLicence.Decision;
 import CyelPostLicence.EnumDecision;
 import CyelPostLicence.EnumReponse;
@@ -15,7 +14,6 @@ import CyelPostLicence.Etudiant;
 import CyelPostLicence.GestionnaireAcces;
 import CyelPostLicence.GestionnaireCandidatures;
 import CyelPostLicence.GestionnaireVoeux;
-import CyelPostLicence.Reponse;
 import CyelPostLicence.Universite;
 import CyelPostLicence.Voeu;
 import java.util.ArrayList;
