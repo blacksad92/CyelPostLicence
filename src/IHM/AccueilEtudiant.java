@@ -42,6 +42,11 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         initTableauVoeux();
         this.setVisible(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        if (client.periode() != 1) {
+            bt_ClasserVoeux.setEnabled(false);
+        } else {
+            bt_ClasserVoeux.setEnabled(true);
+        }
     }
 
     public void initTableauVoeux() {
@@ -371,6 +376,11 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         tAreaErreur.setVisible(false);
         tAreaErreur.setEditable(false);
         initTableauVoeux();
+        if (client.periode() != 1) {
+            bt_ClasserVoeux.setEnabled(false);
+        } else {
+            bt_ClasserVoeux.setEnabled(true);
+        }
     }
 
     /**
