@@ -259,12 +259,9 @@ public class BDD_GestionnaireCandidature {
     }
 
     void bdd_RAZ(int numUniv) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("DELETE FROM gc_resultats r WHERE NumUniversite=?");
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM gc_candidatures WHERE NumUniversite=?;");
         stmt.setInt(1, numUniv);
-        ResultSet rs = stmt.executeQuery();
-        /*while (rs.next()) {
-
-        }*/
+        int rs = stmt.executeUpdate();
     }
     
     public boolean bdd_enregistrerClassement(int INE, int classement) {

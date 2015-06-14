@@ -14,7 +14,10 @@ import CyelPostLicence.GestionnaireVoeux;
 import CyelPostLicence.Reponse;
 import CyelPostLicence.Universite;
 import CyelPostLicence.Voeu;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -69,20 +72,24 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     public void RAZPeriode() {
         System.out.println("Periode actuelle " + periode);
         System.out.println("Remise à zéro de la période");
-        // Remise à 1 de la période, pourquoi periode est en static ? 
-        //periode = 1;
+        periode = 1;
+        ArrayList<Universite> liste = bdd.bdd_consultUniversitePourUneAcademie(academie.numAcademie);
+        System.out.println(liste.get(0).numUniv);
+        System.out.println(liste.get(1).numUniv);
+        System.out.println(liste.get(2).numUniv);
+        System.out.println(liste.size());
+        for (int i = 0; i < liste.size(); i++) {
+            GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(liste.get(i).numUniv);
+            if (gestCand != null){
+            gestCand.RAZPeriode();}
+        }
         
-        for (int i = 0; i < mesIDUnivs.size(); i++) {
-            //GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(tableauUniv[i].numUniv);
-            //gestCand.bdd_RAZPeriode();
-            System.out.println(mesIDUnivs.get(i));
-            System.out.println(mesIDUnivs.size());
-        }/*
          try {
-         bdd.RAZ(academie.numAcademie);
+         bdd.bdd_RAZ(academie.numAcademie);
+         System.out.println("La période a été remis à : "+periode);
          } catch (SQLException ex) {
          Logger.getLogger(GestionnaireVoeuxImpl.class.getName()).log(Level.SEVERE, null, ex);
-         }*/
+         }
 
     }
 

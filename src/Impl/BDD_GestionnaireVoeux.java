@@ -361,13 +361,10 @@ public class BDD_GestionnaireVoeux {
         return listeIDUnivs;
     }
 
-    void RAZ(int numAcademie) throws SQLException {
-        PreparedStatement stmt = conn.prepareStatement("DELETE FROM gv_voeux v WHERE NumAcademie=?");
+    void bdd_RAZ(int numAcademie) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM gv_voeux WHERE NumAcademie=?;");
         stmt.setInt(1, numAcademie);
-        ResultSet rs = stmt.executeQuery();
-        /*while (rs.next()) {
-
-         }*/
+        int rs = stmt.executeUpdate();
     }
 
 }
