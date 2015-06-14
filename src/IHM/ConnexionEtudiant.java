@@ -10,6 +10,7 @@ import CyelPostLicence.Academie;
 import CyelPostLicence.AcademieIncorrecte;
 import CyelPostLicence.EtudiantInconnu;
 import Outils.Item;
+import javax.swing.JFrame;
 
 /**
  *
@@ -31,6 +32,7 @@ public class ConnexionEtudiant extends javax.swing.JFrame {
         initComponents();
         initListeAcademie();
         this.setVisible(true);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     /**
@@ -135,7 +137,7 @@ public class ConnexionEtudiant extends javax.swing.JFrame {
 
         if (!exception) {
             AccueilEtudiant accueil = new AccueilEtudiant(client);
-            this.setVisible(false);
+            this.dispose();
         }
 
     }//GEN-LAST:event_bt_ConnexionActionPerformed

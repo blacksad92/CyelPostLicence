@@ -11,6 +11,7 @@ import CyelPostLicence.EnumOrdre;
 import CyelPostLicence.EnumReponse;
 import CyelPostLicence.Voeu;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -40,6 +41,7 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         this.client = client;
         initTableauVoeux();
         this.setVisible(true);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     public void initTableauVoeux() {
@@ -147,6 +149,11 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         });
 
         bt_seDeconnecter.setText("Se déconnecter");
+        bt_seDeconnecter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_seDeconnecterActionPerformed(evt);
+            }
+        });
 
         bt_ClasserVoeux.setText("Classer ses voeux");
         bt_ClasserVoeux.addActionListener(new java.awt.event.ActionListener() {
@@ -350,6 +357,11 @@ public class AccueilEtudiant extends javax.swing.JFrame {
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
         actualiserjFrame();
     }//GEN-LAST:event_formWindowGainedFocus
+
+    private void bt_seDeconnecterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_seDeconnecterActionPerformed
+        new ConnexionEtudiant(client);
+        this.dispose();
+    }//GEN-LAST:event_bt_seDeconnecterActionPerformed
 
     public void actualiserjFrame() {
         tAreaInsctruction.setVisible(false);
