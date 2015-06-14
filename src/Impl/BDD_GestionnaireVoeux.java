@@ -160,8 +160,8 @@ public class BDD_GestionnaireVoeux {
         return listeVoeux;
     }
     
-    public boolean bdd_repondreVoeu(int INE, Voeu voeu) {
-        System.out.println("[BDD_GestionnaireVoeux] bdd_repondreVoeu");
+    public boolean bdd_repondreVoeu(int numVoeu, EnumReponse reponse) {
+        System.out.println("[BDD_GestionnaireVoeux] bdd_repondreVoeu - numVoeux="+numVoeu+" | reponse="+reponse);
         boolean res = false;
         try {
             // On crée un objet Statement qui va permettre l'execution des requètes
@@ -169,10 +169,8 @@ public class BDD_GestionnaireVoeux {
 
             // On crée un objet Statement qui va permettre l'execution des requètes
             s = conn.createStatement();
-            String query = "UPDATE gv_voeux SET Reponse="+voeu.reponse.value()
-                    + " WHERE NumINE="+INE
-                    + " AND NumMaster="+voeu.master.numMaster
-                    + " AND NumUniversite="+voeu.universite.numUniv+";";
+            String query = "UPDATE gv_voeux SET Reponse="+reponse.value()
+                    + " WHERE numVoeux="+numVoeu+";";
             //System.out.println(query);
             int result = s.executeUpdate(query);
 

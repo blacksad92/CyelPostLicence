@@ -66,7 +66,7 @@ public class AccueilEtudiant extends javax.swing.JFrame {
             }
             model.addRow(new Object[]{v.numVoeu, v.ordre, v.master.numMaster, v.master.nomMaster, v.universite.numUniv, v.universite.nomUniv, etatCand, reponse});
             
-            if (v.etatCandidature==EnumDecision.acceptee) {
+            if (v.etatCandidature==EnumDecision.acceptee && !dejaAccepte) {
                 dejaAccepte = true;
                 voeuAccepte = v;
             }
