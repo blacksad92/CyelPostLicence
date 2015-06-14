@@ -9,6 +9,7 @@ import Client.ClientEtudiant;
 import CyelPostLicence.Master;
 import CyelPostLicence.Universite;
 import Outils.Item;
+import javax.swing.JFrame;
 
 /**
  *
@@ -24,6 +25,7 @@ public class AjouterVoeu_Master extends javax.swing.JFrame {
     public AjouterVoeu_Master() {
         initComponents();
         initListeMaster(); 
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
     
     public AjouterVoeu_Master(ClientEtudiant client) {
@@ -110,7 +112,7 @@ public class AjouterVoeu_Master extends javax.swing.JFrame {
             
             Universite[] accreditation = client.getAccreditations(selectItem.getId());
             new AjouterVoeu_Universite(client, new Master(selectItem.getId(), selectItem.getValeur()), accreditation);
-            
+            this.dispose();
     }//GEN-LAST:event_bt_choisirUniversiteActionPerformed
 
     /**

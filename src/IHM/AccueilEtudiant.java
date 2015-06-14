@@ -50,29 +50,29 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         model.setColumnIdentifiers(new String[]{"ID", "Ordre", "Numero Master", "Master", "Numero Université", "Université", "Etat", "Réponse"});
 
         //On ajoute les ligne contenant les données dans le modèle
-        int i=0;
+        int i = 0;
         boolean dejaAccepte = false;
         voeuAccepte = new Voeu();
-        while (i<tabVoeu.length) {
+        while (i < tabVoeu.length) {
             Voeu v = tabVoeu[i];
-            
+
             String etatCand = v.etatCandidature.toString();
-            if (v.etatCandidature!=EnumDecision.acceptee || dejaAccepte) {
+            if (v.etatCandidature != EnumDecision.acceptee || dejaAccepte) {
                 etatCand = "----";
             }
             String reponse = v.reponse.toString();
-            if (v.reponse==EnumReponse.vide || dejaAccepte) {
+            if (v.reponse == EnumReponse.vide || dejaAccepte) {
                 reponse = "----";
             }
             model.addRow(new Object[]{v.numVoeu, v.ordre, v.master.numMaster, v.master.nomMaster, v.universite.numUniv, v.universite.nomUniv, etatCand, reponse});
-            
-            if (v.etatCandidature==EnumDecision.acceptee) {
+
+            if (v.etatCandidature == EnumDecision.acceptee) {
                 dejaAccepte = true;
                 voeuAccepte = v;
             }
             i++;
         }
-        
+
         if (!dejaAccepte) {
             bt_repondreVoeu.setEnabled(false);
         }
@@ -107,6 +107,13 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         tAreaErreur = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowFocusListener(new java.awt.event.WindowFocusListener() {
+            public void windowGainedFocus(java.awt.event.WindowEvent evt) {
+                formWindowGainedFocus(evt);
+            }
+            public void windowLostFocus(java.awt.event.WindowEvent evt) {
+            }
+        });
 
         jLabel1.setText("Accueil Etudiant");
 
@@ -271,13 +278,13 @@ public class AccueilEtudiant extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_ClasserVoeuxActionPerformed
 
     private void bt_enregistrerClassementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_enregistrerClassementActionPerformed
-        
+
         ArrayList<String> listOrdre;
         listOrdre = new ArrayList<>();
         boolean erreur1DejaLeve = false;
         boolean erreur2DejaLeve = false;
         boolean erreur3DejaLeve = false;
-        
+
         tAreaErreur.setVisible(false);
         String raison = "Votre classement est incorrect : \n";
 
@@ -288,7 +295,7 @@ public class AccueilEtudiant extends javax.swing.JFrame {
                 if (chiffreOrdre <= 0 || chiffreOrdre > tabVoeu.length) {
                     if (!erreur1DejaLeve) {
                         raison += "- Valeur est en dehors de la plage de valeur possible \n";
-                         erreur1DejaLeve = true;
+                        erreur1DejaLeve = true;
                     }
 
                 }
@@ -324,11 +331,27 @@ public class AccueilEtudiant extends javax.swing.JFrame {
 
             bt_ClasserVoeux.setVisible(true);
             bt_enregistrerClassement.setVisible(false);
-
+            actualiserjFrame();
         }
     }//GEN-LAST:event_bt_enregistrerClassementActionPerformed
 
     private void bt_actualiserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_actualiserActionPerformed
+        actualiserjFrame();
+    }//GEN-LAST:event_bt_actualiserActionPerformed
+
+    private void bt_repondreVoeuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_repondreVoeuActionPerformed
+        Voeu v = voeuAccepte;
+
+        RepondreVoeu repondre = new RepondreVoeu(client, v);
+        this.setVisible(false);
+        repondre.setVisible(true);
+    }//GEN-LAST:event_bt_repondreVoeuActionPerformed
+
+    private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
+        actualiserjFrame();
+    }//GEN-LAST:event_formWindowGainedFocus
+
+    public void actualiserjFrame() {
         tAreaInsctruction.setVisible(false);
         tAreaInsctruction.setEditable(false);
         bt_enregistrerClassement.setVisible(false);
@@ -336,15 +359,7 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         tAreaErreur.setVisible(false);
         tAreaErreur.setEditable(false);
         initTableauVoeux();
-    }//GEN-LAST:event_bt_actualiserActionPerformed
-
-    private void bt_repondreVoeuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_repondreVoeuActionPerformed
-        Voeu v = voeuAccepte;
-
-        RepondreVoeu repondre = new RepondreVoeu(client,v);
-        this.setVisible(false);
-        repondre.setVisible(true);
-    }//GEN-LAST:event_bt_repondreVoeuActionPerformed
+    }
 
     /**
      * @param args the command line arguments
