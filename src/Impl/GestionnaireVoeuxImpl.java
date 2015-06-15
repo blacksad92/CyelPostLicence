@@ -8,6 +8,8 @@ package Impl;
 import CyelPostLicence.Academie;
 import CyelPostLicence.Decision;
 import CyelPostLicence.EnumDecision;
+import CyelPostLicence.EnumReponse;
+import CyelPostLicence.EtatCandidature;
 import CyelPostLicence.Etudiant;
 import CyelPostLicence.GestionnaireAcces;
 import CyelPostLicence.GestionnaireCandidatures;
@@ -278,9 +280,28 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
 
     @Override
     public void repondreVoeu(int INE, Voeu voeu) {
-        boolean ok = bdd.bdd_repondreVoeu(INE,voeu);
-        if (!ok) {
-            System.out.println("ERREUR REPONDRE VOEU");
+        // On récupère la liste des voeux de l'étudiant
+        ArrayList<Voeu> listeVoeux = bdd.bdd_listeVoeux(INE,academie.numAcademie);
+        boolean passe = false;
+        Iterator it = listeVoeux.iterator();
+        while (it.hasNext()) {
+            Voeu v = (Voeu) it.next();
+            
+            if (v.numVoeu==voeu.numVoeu) { // Voeu répondu
+                passe = true;
+                bdd.bdd_repondreVoeu(voeu.numVoeu,voeu.reponse);
+            }
+            else if (passe) { // Voeux en dessous
+                bdd.bdd_repondreVoeu(v.numVoeu,EnumReponse.non);
+            }
+            else { // Voeux au dessus
+                EnumReponse rep = EnumReponse.oui;
+                // Si il a répondu non : abandon de tous les voeux, oui : abandon des voeux supérieurs
+                if (voeu.reponse==EnumReponse.non || voeu.reponse==EnumReponse.oui) {
+                    rep = EnumReponse.non;
+                }
+                bdd.bdd_repondreVoeu(v.numVoeu,rep);
+            }
         }
     }
 }
