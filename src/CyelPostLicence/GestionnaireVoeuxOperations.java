@@ -48,6 +48,11 @@ public interface GestionnaireVoeuxOperations
     public void enregistrerVoeux(CyelPostLicence.Etudiant etudiant, CyelPostLicence.Voeu[] listeVoeux);
 
     /**
+     * Operation repondreVoeu
+     */
+    public void repondreVoeu(int INE, CyelPostLicence.Voeu voeu);
+
+    /**
      * Operation consulterVoeux
      */
     public CyelPostLicence.Voeu[] consulterVoeux(int INE, boolean externe);
@@ -68,8 +73,8 @@ public interface GestionnaireVoeuxOperations
     public CyelPostLicence.Etudiant[] recupererListeCandidatures(int numMaster, int numUniversite);
 
     /**
-     * Operation enregistrerDecisions
+     * Operation enregistrerDecision
      */
-    public void enregistrerDecisions(int numMaster, int numAcademie, CyelPostLicence.Reponse[] listeAccepte, CyelPostLicence.Reponse[] listeAttente, CyelPostLicence.Reponse[] listeRefuse);
+    public void enregistrerDecision(CyelPostLicence.Decision decision);
 
 }

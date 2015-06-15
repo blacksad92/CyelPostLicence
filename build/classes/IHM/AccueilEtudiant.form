@@ -8,6 +8,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="windowGainedFocus" listener="java.awt.event.WindowFocusListener" parameters="java.awt.event.WindowEvent" handler="formWindowGainedFocus"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -61,7 +64,7 @@
                               <Component id="bt_ClasserVoeux" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                               <Component id="bt_enregistrerClassement" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="222" max="32767" attributes="0"/>
+                              <EmptySpace pref="190" max="32767" attributes="0"/>
                               <Component id="bt_repondreVoeu" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -176,13 +179,19 @@
     </Component>
     <Component class="javax.swing.JButton" name="bt_repondreVoeu">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Repondre a un voeu"/>
+        <Property name="text" type="java.lang.String" value="R&#xe9;pondre au voeu accept&#xe9;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_repondreVoeuActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="bt_seDeconnecter">
       <Properties>
         <Property name="text" type="java.lang.String" value="Se d&#xe9;connecter"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_seDeconnecterActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="bt_ClasserVoeux">
       <Properties>

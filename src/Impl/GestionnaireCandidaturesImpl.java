@@ -7,10 +7,13 @@ package Impl;
 
 import CyelPostLicence.Academie;
 import CyelPostLicence.Candidature;
+import CyelPostLicence.Decision;
+import CyelPostLicence.EnumDecision;
 import CyelPostLicence.EtatCandidature;
 import CyelPostLicence.Etudiant;
 import CyelPostLicence.GestionnaireAcces;
 import CyelPostLicence.GestionnaireCandidatures;
+import CyelPostLicence.GestionnaireVoeux;
 import CyelPostLicence.Master;
 import CyelPostLicence.Note;
 import CyelPostLicence.Universite;
@@ -67,17 +70,17 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
     }
 
     @Override
-    public EtatCandidature validerCandidature(int numMaster, int numLicence) {
+    public EnumDecision validerCandidature(int numMaster, int numLicence) {
         System.out.println("validerCandidature"+universite.nomUniv);
-        EtatCandidature etat;
+        EnumDecision etat;
         boolean prerequis = bdd.bdd_verifieLicencePrerequis(universite.numUniv, numMaster, numLicence);
         if(prerequis == false)
         {
-            etat = new EtatCandidature(1);
+            etat = new EnumDecision(1);
         }
         else
         {
-             etat = new EtatCandidature(0);
+             etat = new EnumDecision(0);
         }
         return etat;
     }
@@ -144,13 +147,10 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
     }
 
     @Override
-    public void enregistrerCandidatures(Etudiant[] listeEtudiants, int numMaster) {
+    public void enregistrerCandidatures(Etudiant etudiant, int numMaster) {
         System.out.println("CandImpl EnregistrerCandid");
         int numUniv = this.universite.numUniv;
-        for(int i = 0; i < listeEtudiants.length; i++)
-        {
-            bdd.bdd_insertCandidature(listeEtudiants[i], numMaster,numUniv);
-        }
+        bdd.bdd_insertCandidature(etudiant, numMaster,numUniv);
     }
 
     @Override
@@ -165,6 +165,44 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
     @Override
     public void enregistrerClassement(int INE, int classement) {
         bdd.bdd_enregistrerClassement(INE,classement);
+    }
+
+    @Override
+    public void finPeriodeDecision() {
+        System.out.println("[GestionnaireCandidaturesImpl] finPeriodeDecision");
+        // Début de la période 3
+        // On va récupérer toutes les candidatures de l'université puis les renvoyer vers leur gestionnaire de voeux respectives
+        Candidature[] listeCandidatures = bdd.bdd_listeCandidature(universite.numUniv);
+        
+        for (int i=0; i<listeCandidatures.length; i++) {
+            Candidature candidature = listeCandidatures[i];
+            // On récupère le gestionnaire de voeux associé à l'académie de l'étudiant concerné par la candidature
+            GestionnaireVoeux gestVoeux = gestAcces.obtenirGestionnaireVoeux(candidature.etudiant.universite.academie.numAcademie);
+            
+            // Ecriture de la décision finale
+            int classement = candidature.classement;
+            int quota = bdd.bdd_quotaFormation(candidature.numUniversite, candidature.numMaster);
+            
+            EnumDecision libDecision;
+            if (classement<=0) { // REFUSE
+                libDecision = new EnumDecision(2);
+            }
+            else {
+                if (classement<=quota) { // ACCEPTE
+                    libDecision = new EnumDecision(3);
+                }
+                else { // LISTE D'ATTENTE
+                    libDecision = new EnumDecision(4);
+                }
+            }
+            
+            Decision decision = new Decision(candidature.etudiant,candidature.numUniversite,candidature.numMaster,libDecision);
+            
+            System.out.println("[GestionnaireCandidaturesImpl] finPeriodeDecision - Etudiant : "+candidature.etudiant.INE+" | Universite : "+candidature.numUniversite+" | Master : "+candidature.numMaster+" | Décision : "+libDecision+" ("+classement+"/"+quota+")");
+
+            // On enregistre la décision
+            gestVoeux.enregistrerDecision(decision);
+        }
     }
 
 }

@@ -6,6 +6,7 @@
 package Impl;
 
 import CyelPostLicence.Academie;
+import CyelPostLicence.EnumDecision;
 import CyelPostLicence.EnumOrdre;
 import CyelPostLicence.EnumReponse;
 import CyelPostLicence.EtatCandidature;
@@ -54,7 +55,7 @@ public class BDD_GestionnaireVoeux {
                     + "      FROM gv_Voeux v"
                     + "      WHERE (v.NumVoeux = " + num + ")";
             ResultSet rs = s.executeQuery(req);
-            System.out.println(req);
+            //System.out.println(req);
 
             if (rs.next()) {
 
@@ -75,12 +76,42 @@ public class BDD_GestionnaireVoeux {
                         + listeVoeux[0].universite.academie.numAcademie + ",'"
                         + listeVoeux[0].universite.academie.nomAcademie + "',"
                         + etudiant.licence.numLicence + ")";
-                System.out.println(query);
+                //System.out.println(query);
                 int result = s.executeUpdate(query);
 
                 if (result == 1) {
                     res = true;
                 }
+            }
+
+        } catch (Exception e) {
+            // Il y a une erreur
+            e.printStackTrace();
+            return false;
+
+        }
+        return res;
+    }
+    
+    //Enregistre une modification de voeux ou ajoute un voeu
+    public boolean bdd_enregistrerDecision(int INE, int numMaster, int numUniversite, EnumDecision decision) {
+        System.out.println("[BDD_GestionnaireVoeux] bdd_enregistrerDecision");
+        boolean res = false;
+        try {
+            // On crée un objet Statement qui va permettre l'execution des requètes
+            Statement s = conn.createStatement();
+
+            // On crée un objet Statement qui va permettre l'execution des requètes
+            s = conn.createStatement();
+            String query = "UPDATE gv_voeux SET Etat="+decision.value()
+                    + " WHERE NumINE="+INE
+                    + " AND NumMaster="+numMaster
+                    + " AND NumUniversite="+numUniversite+";";
+            //System.out.println(query);
+            int result = s.executeUpdate(query);
+
+            if (result == 1) {
+                res = true;
             }
 
         } catch (Exception e) {
@@ -102,7 +133,8 @@ public class BDD_GestionnaireVoeux {
             String req = "SELECT v.NumVoeux, v.NumAcademie, v.NomAcademie, v.NumUniversite, v.NomUniversite, v.Etat, v.Ordre, v.Reponse, v.NumMaster, v.NomMaster, v.NumLicence"
                     + "      FROM gv_Voeux v"
                     + "      WHERE (v.NumINE = " + INE + ")"
-                    + "      AND v.numAcademie = " + numAcademie;
+                    + "         AND v.numAcademie = " + numAcademie+""
+                    + "      ORDER BY v.Ordre";
             //System.out.println(req);
             ResultSet rs = s.executeQuery(req);
 
@@ -112,7 +144,7 @@ public class BDD_GestionnaireVoeux {
                 Universite univ = new Universite(rs.getInt("v.NumUniversite"), rs.getString("v.NomUniversite"), academie);
                 Master master = new Master(rs.getInt("v.NumMaster"), rs.getString("v.NomMaster"));
                 EnumOrdre enumOrdre = new EnumOrdre(rs.getInt("v.Ordre"));
-                EtatCandidature etatCandid = new EtatCandidature(rs.getInt("v.Etat"));
+                EnumDecision etatCandid = new EnumDecision(rs.getInt("v.Etat"));
                 EnumReponse enumReponse = new EnumReponse(rs.getInt("v.Reponse"));
                 int numLicence = rs.getInt("v.NumLicence");
 
@@ -126,6 +158,60 @@ public class BDD_GestionnaireVoeux {
         }
 
         return listeVoeux;
+    }
+    
+    public boolean bdd_repondreVoeu(int INE, Voeu voeu) {
+        System.out.println("[BDD_GestionnaireVoeux] bdd_repondreVoeu");
+        boolean res = false;
+        try {
+            // On crée un objet Statement qui va permettre l'execution des requètes
+            Statement s = conn.createStatement();
+
+            // On crée un objet Statement qui va permettre l'execution des requètes
+            s = conn.createStatement();
+            String query = "UPDATE gv_voeux SET Reponse="+voeu.reponse.value()
+                    + " WHERE NumINE="+INE
+                    + " AND NumMaster="+voeu.master.numMaster
+                    + " AND NumUniversite="+voeu.universite.numUniv+";";
+            //System.out.println(query);
+            int result = s.executeUpdate(query);
+
+            if (result == 1) {
+                res = true;
+            }
+
+        } catch (Exception e) {
+            // Il y a une erreur
+            e.printStackTrace();
+            return false;
+
+        }
+        return res;
+    }
+    
+    public Integer bdd_INEduVoeu(int numVoeu) {
+          int ine = 0;
+        try {
+            // On crée un objet Statement qui va permettre l'execution des requètes
+            Statement s = conn.createStatement();
+
+            String req = "SELECT v.NumINE"
+                    + "      FROM gv_Voeux v"
+                    + "      WHERE v.NumVoeux = " + numVoeu;
+            //System.out.println(req);
+            ResultSet rs = s.executeQuery(req);
+
+            while (rs.next()) {
+                ine = rs.getInt("v.NumINE");
+            }
+
+        } catch (Exception e) {
+            // Il y a une erreur
+            e.printStackTrace();
+            return null;
+        }
+
+        return ine;
     }
 
     public ArrayList<Voeu> bdd_listeVoeuxParAcademie(int numAcademie) {
@@ -147,7 +233,7 @@ public class BDD_GestionnaireVoeux {
                 Universite univ = new Universite(rs.getInt("v.NumUniversite"), rs.getString("v.NomUniversite"), academie);
                 Master master = new Master(rs.getInt("v.NumMaster"), rs.getString("v.NomMaster"));
                 EnumOrdre enumOrdre = new EnumOrdre(rs.getInt("v.Ordre"));
-                EtatCandidature etatCandid = new EtatCandidature(rs.getInt("v.Etat"));
+                EnumDecision etatCandid = new EnumDecision(rs.getInt("v.Etat"));
                 EnumReponse enumReponse = new EnumReponse(rs.getInt("v.Reponse"));
                 int numLicence = rs.getInt("v.NumLicence");
 

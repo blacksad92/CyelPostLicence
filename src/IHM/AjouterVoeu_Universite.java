@@ -7,6 +7,7 @@ package IHM;
 
 import Client.ClientEtudiant;
 import CyelPostLicence.Academie;
+import CyelPostLicence.EnumDecision;
 import CyelPostLicence.EnumOrdre;
 import CyelPostLicence.EnumReponse;
 import CyelPostLicence.EtatCandidature;
@@ -14,6 +15,8 @@ import CyelPostLicence.Master;
 import CyelPostLicence.Universite;
 import CyelPostLicence.Voeu;
 import Outils.Item;
+import java.awt.event.WindowEvent;
+import javax.swing.JFrame;
 
 /**
  *
@@ -31,6 +34,7 @@ public class AjouterVoeu_Universite extends javax.swing.JFrame {
      */
     public AjouterVoeu_Universite() {
         initComponents();
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
 
     public AjouterVoeu_Universite(ClientEtudiant client) {
@@ -140,9 +144,10 @@ public class AjouterVoeu_Universite extends javax.swing.JFrame {
             Academie academie = getAcademie(selectItem.getId());
             Universite u = new Universite(selectItem.getId(), selectItem.getValeur(), academie);
             Voeu listeV[] = new Voeu[1];
-            listeV[0]= new Voeu(0, u, master, EnumOrdre.vide, EtatCandidature.vide, EnumReponse.vide, client.monEtudiant.licence.numLicence);
+            listeV[0]= new Voeu(0, u, master, EnumOrdre.vide, EnumDecision.vide, EnumReponse.vide, client.monEtudiant.licence.numLicence);
             
             client.enregistrerVoeux(listeV);
+            this.dispose();
     }//GEN-LAST:event_bt_enregistrerVoeuActionPerformed
 
     

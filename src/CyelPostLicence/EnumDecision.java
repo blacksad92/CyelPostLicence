@@ -8,24 +8,24 @@ package CyelPostLicence;
 public final class EnumDecision implements org.omg.CORBA.portable.IDLEntity
 {
     /**
-     * Enum member acceptee value 
+     * Enum member valide value 
      */
-    public static final int _acceptee = 0;
+    public static final int _valide = 0;
 
     /**
-     * Enum member acceptee
+     * Enum member valide
      */
-    public static final EnumDecision acceptee = new EnumDecision(_acceptee);
+    public static final EnumDecision valide = new EnumDecision(_valide);
 
     /**
-     * Enum member listeAttente value 
+     * Enum member nonValide value 
      */
-    public static final int _listeAttente = 1;
+    public static final int _nonValide = 1;
 
     /**
-     * Enum member listeAttente
+     * Enum member nonValide
      */
-    public static final EnumDecision listeAttente = new EnumDecision(_listeAttente);
+    public static final EnumDecision nonValide = new EnumDecision(_nonValide);
 
     /**
      * Enum member refusee value 
@@ -38,9 +38,29 @@ public final class EnumDecision implements org.omg.CORBA.portable.IDLEntity
     public static final EnumDecision refusee = new EnumDecision(_refusee);
 
     /**
+     * Enum member acceptee value 
+     */
+    public static final int _acceptee = 3;
+
+    /**
+     * Enum member acceptee
+     */
+    public static final EnumDecision acceptee = new EnumDecision(_acceptee);
+
+    /**
+     * Enum member listeAttente value 
+     */
+    public static final int _listeAttente = 4;
+
+    /**
+     * Enum member listeAttente
+     */
+    public static final EnumDecision listeAttente = new EnumDecision(_listeAttente);
+
+    /**
      * Enum member vide value 
      */
-    public static final int _vide = 3;
+    public static final int _vide = 5;
 
     /**
      * Enum member vide
@@ -56,7 +76,7 @@ public final class EnumDecision implements org.omg.CORBA.portable.IDLEntity
      * Private constructor
      * @param  the enum value for this new member
      */
-    private EnumDecision( final int value )
+    public EnumDecision( final int value )
     {
         _EnumDecision_value = value;
     }
@@ -89,12 +109,16 @@ public final class EnumDecision implements org.omg.CORBA.portable.IDLEntity
         switch (value)
         {
         case 0 :
-            return acceptee;
+            return valide;
         case 1 :
-            return listeAttente;
+            return nonValide;
         case 2 :
             return refusee;
         case 3 :
+            return acceptee;
+        case 4 :
+            return listeAttente;
+        case 5 :
             return vide;
         }
         throw new org.omg.CORBA.BAD_OPERATION();
@@ -109,12 +133,16 @@ public final class EnumDecision implements org.omg.CORBA.portable.IDLEntity
         switch (_EnumDecision_value)
         {
         case 0 :
-            return "acceptee";
+            return "valide";
         case 1 :
-            return "listeAttente";
+            return "nonValide";
         case 2 :
             return "refusee";
         case 3 :
+            return "acceptee";
+        case 4 :
+            return "listeAttente";
+        case 5 :
             return "vide";
         }
         throw new org.omg.CORBA.BAD_OPERATION();

@@ -5,17 +5,27 @@
  */
 package IHM;
 
+import Client.ClientEtudiant;
+import CyelPostLicence.EnumReponse;
+import CyelPostLicence.Voeu;
+
 /**
  *
  * @author Cy
  */
 public class RepondreVoeu extends javax.swing.JFrame {
-
+    private Voeu voeu;
+    private ClientEtudiant client;
     /**
      * Creates new form RepondreVoeu
      */
-    public RepondreVoeu() {
+    public RepondreVoeu(ClientEtudiant client, Voeu v) {
         initComponents();
+        
+        this.client = client;
+        voeu = v;
+        
+        lb_voeu.setText(v.numVoeu+" ("+v.master.nomMaster+" - "+v.universite.nomUniv+")");
     }
 
     /**
@@ -33,51 +43,69 @@ public class RepondreVoeu extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         cb_reponseVoeu = new javax.swing.JComboBox();
         bt_validerReponse = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Répondre à un Voeu");
 
         jLabel2.setText("Voeu sélectionné :");
 
-        lb_voeu.setText("jLabel3");
+        lb_voeu.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        lb_voeu.setText("<idVoeu>");
 
         jLabel3.setText("Choisir une réponse :");
 
-        cb_reponseVoeu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cb_reponseVoeu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Oui", "Oui mais", "Non", "Non mais" }));
+        cb_reponseVoeu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cb_reponseVoeuActionPerformed(evt);
+            }
+        });
 
         bt_validerReponse.setText("Valider la réponse");
+        bt_validerReponse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_validerReponseActionPerformed(evt);
+            }
+        });
 
-        jLabel4.setText("// Liste déroulante oui, ouimais, non, nonMais");
+        jTextArea1.setEditable(false);
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Monospaced", 0, 11)); // NOI18N
+        jTextArea1.setRows(5);
+        jTextArea1.setText("Réponses possibles :\n- oui : Acceptation définitive du master\n\t(vous ne pourrez plus être\n\taccepté(e) à un master mieux\n\tclassé)\n- oui mais : Acceptation du master mais\n\treste en attente d'un voeu mieu\n\tclassé\n- non : Refus définitif de TOUS les\n\tvoeux\n- non mais : refus du master mais\n\tattente des masters mieux\n\tclassés");
+        jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lb_voeu))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(cb_reponseVoeu, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel4)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(190, 190, 190))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(bt_validerReponse)
-                        .addGap(187, 187, 187))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lb_voeu))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cb_reponseVoeu, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(77, 77, 77)
+                        .addComponent(bt_validerReponse)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 303, Short.MAX_VALUE)
+                .addGap(18, 18, 18))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(216, 216, 216)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -88,18 +116,56 @@ public class RepondreVoeu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(lb_voeu))
-                .addGap(45, 45, 45)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(cb_reponseVoeu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
-                .addComponent(bt_validerReponse)
-                .addGap(33, 33, 33))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jScrollPane1)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(cb_reponseVoeu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(42, 42, 42)
+                        .addComponent(bt_validerReponse)
+                        .addContainerGap(98, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void cb_reponseVoeuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cb_reponseVoeuActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cb_reponseVoeuActionPerformed
+
+    private void bt_validerReponseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_validerReponseActionPerformed
+        String rep = cb_reponseVoeu.getSelectedItem().toString();
+        EnumReponse reponse = new EnumReponse(4);
+        switch (rep) {
+            case "Oui":
+                reponse = new EnumReponse(0);
+                break;
+            case "Oui mais":
+                reponse = new EnumReponse(1);
+                break;
+            case "Non":
+                reponse = new EnumReponse(2);
+                break;
+            case "Non mais":
+                reponse = new EnumReponse(3);
+                break;
+            default:
+                reponse = new EnumReponse(4);
+                break;
+        }
+        voeu.reponse = reponse;
+        
+        client.gestVoeux.repondreVoeu(client.monEtudiant.INE,voeu);
+        
+        AccueilEtudiant accueil = new AccueilEtudiant(client);
+        this.setVisible(false);
+        accueil.setVisible(true);
+    }//GEN-LAST:event_bt_validerReponseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -131,7 +197,7 @@ public class RepondreVoeu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RepondreVoeu().setVisible(true);
+                new RepondreVoeu(null,null);
             }
         });
     }
@@ -142,7 +208,8 @@ public class RepondreVoeu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel lb_voeu;
     // End of variables declaration//GEN-END:variables
 }

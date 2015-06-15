@@ -28,32 +28,43 @@ public abstract class GestionnaireCandidaturesPOA extends org.omg.PortableServer
         return _ids_list;
     }
 
+    private static final java.util.Map operationMap = new java.util.HashMap();
+
+    static {
+            operationMap.put("RAZPeriode",
+                    new Operation_RAZPeriode());
+            operationMap.put("_get_listeMaster",
+                    new Operation__get_listeMaster());
+            operationMap.put("_get_universite",
+                    new Operation__get_universite());
+            operationMap.put("_set_universite",
+                    new Operation__set_universite());
+            operationMap.put("consulterCandidatures",
+                    new Operation_consulterCandidatures());
+            operationMap.put("enregistrerCandidatures",
+                    new Operation_enregistrerCandidatures());
+            operationMap.put("enregistrerClassement",
+                    new Operation_enregistrerClassement());
+            operationMap.put("finPeriodeDecision",
+                    new Operation_finPeriodeDecision());
+            operationMap.put("recupererListeNotes",
+                    new Operation_recupererListeNotes());
+            operationMap.put("validerCandidature",
+                    new Operation_validerCandidature());
+    }
+
     public final org.omg.CORBA.portable.OutputStream _invoke(final String opName,
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler)
     {
 
-        if (opName.equals("RAZPeriode")) {
-                return _invoke_RAZPeriode(_is, handler);
-        } else if (opName.equals("_get_listeMaster")) {
-                return _invoke__get_listeMaster(_is, handler);
-        } else if (opName.equals("_get_universite")) {
-                return _invoke__get_universite(_is, handler);
-        } else if (opName.equals("_set_universite")) {
-                return _invoke__set_universite(_is, handler);
-        } else if (opName.equals("consulterCandidatures")) {
-                return _invoke_consulterCandidatures(_is, handler);
-        } else if (opName.equals("enregistrerCandidatures")) {
-                return _invoke_enregistrerCandidatures(_is, handler);
-        } else if (opName.equals("enregistrerClassement")) {
-                return _invoke_enregistrerClassement(_is, handler);
-        } else if (opName.equals("recupererListeNotes")) {
-                return _invoke_recupererListeNotes(_is, handler);
-        } else if (opName.equals("validerCandidature")) {
-                return _invoke_validerCandidature(_is, handler);
-        } else {
+        final AbstractOperation operation = (AbstractOperation)operationMap.get(opName);
+
+        if (null == operation) {
             throw new org.omg.CORBA.BAD_OPERATION(opName);
         }
+
+        return operation.invoke(this, _is, handler);
     }
 
     // helper methods
@@ -122,10 +133,10 @@ public abstract class GestionnaireCandidaturesPOA extends org.omg.PortableServer
         int arg0_in = _is.read_long();
         int arg1_in = _is.read_long();
 
-        CyelPostLicence.EtatCandidature _arg_result = validerCandidature(arg0_in, arg1_in);
+        CyelPostLicence.EnumDecision _arg_result = validerCandidature(arg0_in, arg1_in);
 
         _output = handler.createReply();
-        CyelPostLicence.EtatCandidatureHelper.write(_output,_arg_result);
+        CyelPostLicence.EnumDecisionHelper.write(_output,_arg_result);
 
         return _output;
     }
@@ -134,7 +145,7 @@ public abstract class GestionnaireCandidaturesPOA extends org.omg.PortableServer
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
-        CyelPostLicence.Etudiant[] arg0_in = CyelPostLicence.ListeEtudiantsHelper.read(_is);
+        CyelPostLicence.Etudiant arg0_in = CyelPostLicence.EtudiantHelper.read(_is);
         int arg1_in = _is.read_long();
 
         enregistrerCandidatures(arg0_in, arg1_in);
@@ -171,6 +182,126 @@ public abstract class GestionnaireCandidaturesPOA extends org.omg.PortableServer
         _output = handler.createReply();
 
         return _output;
+    }
+
+    private org.omg.CORBA.portable.OutputStream _invoke_finPeriodeDecision(
+            final org.omg.CORBA.portable.InputStream _is,
+            final org.omg.CORBA.portable.ResponseHandler handler) {
+        org.omg.CORBA.portable.OutputStream _output;
+
+        finPeriodeDecision();
+
+        _output = handler.createReply();
+
+        return _output;
+    }
+
+    // operation classes
+    private abstract static class AbstractOperation {
+        protected abstract org.omg.CORBA.portable.OutputStream invoke(
+                GestionnaireCandidaturesPOA target,
+                org.omg.CORBA.portable.InputStream _is,
+                org.omg.CORBA.portable.ResponseHandler handler);
+    }
+
+    private static final class Operation__get_universite extends AbstractOperation
+    {
+        protected org.omg.CORBA.portable.OutputStream invoke(
+                final GestionnaireCandidaturesPOA target,
+                final org.omg.CORBA.portable.InputStream _is,
+                final org.omg.CORBA.portable.ResponseHandler handler) {
+            return target._invoke__get_universite(_is, handler);
+        }
+    }
+
+    private static final class Operation__set_universite extends AbstractOperation
+    {
+        protected org.omg.CORBA.portable.OutputStream invoke(
+                final GestionnaireCandidaturesPOA target,
+                final org.omg.CORBA.portable.InputStream _is,
+                final org.omg.CORBA.portable.ResponseHandler handler) {
+            return target._invoke__set_universite(_is, handler);
+        }
+    }
+
+    private static final class Operation__get_listeMaster extends AbstractOperation
+    {
+        protected org.omg.CORBA.portable.OutputStream invoke(
+                final GestionnaireCandidaturesPOA target,
+                final org.omg.CORBA.portable.InputStream _is,
+                final org.omg.CORBA.portable.ResponseHandler handler) {
+            return target._invoke__get_listeMaster(_is, handler);
+        }
+    }
+
+    private static final class Operation_recupererListeNotes extends AbstractOperation
+    {
+        protected org.omg.CORBA.portable.OutputStream invoke(
+                final GestionnaireCandidaturesPOA target,
+                final org.omg.CORBA.portable.InputStream _is,
+                final org.omg.CORBA.portable.ResponseHandler handler) {
+            return target._invoke_recupererListeNotes(_is, handler);
+        }
+    }
+
+    private static final class Operation_RAZPeriode extends AbstractOperation
+    {
+        protected org.omg.CORBA.portable.OutputStream invoke(
+                final GestionnaireCandidaturesPOA target,
+                final org.omg.CORBA.portable.InputStream _is,
+                final org.omg.CORBA.portable.ResponseHandler handler) {
+            return target._invoke_RAZPeriode(_is, handler);
+        }
+    }
+
+    private static final class Operation_validerCandidature extends AbstractOperation
+    {
+        protected org.omg.CORBA.portable.OutputStream invoke(
+                final GestionnaireCandidaturesPOA target,
+                final org.omg.CORBA.portable.InputStream _is,
+                final org.omg.CORBA.portable.ResponseHandler handler) {
+            return target._invoke_validerCandidature(_is, handler);
+        }
+    }
+
+    private static final class Operation_enregistrerCandidatures extends AbstractOperation
+    {
+        protected org.omg.CORBA.portable.OutputStream invoke(
+                final GestionnaireCandidaturesPOA target,
+                final org.omg.CORBA.portable.InputStream _is,
+                final org.omg.CORBA.portable.ResponseHandler handler) {
+            return target._invoke_enregistrerCandidatures(_is, handler);
+        }
+    }
+
+    private static final class Operation_consulterCandidatures extends AbstractOperation
+    {
+        protected org.omg.CORBA.portable.OutputStream invoke(
+                final GestionnaireCandidaturesPOA target,
+                final org.omg.CORBA.portable.InputStream _is,
+                final org.omg.CORBA.portable.ResponseHandler handler) {
+            return target._invoke_consulterCandidatures(_is, handler);
+        }
+    }
+
+    private static final class Operation_enregistrerClassement extends AbstractOperation
+    {
+        protected org.omg.CORBA.portable.OutputStream invoke(
+                final GestionnaireCandidaturesPOA target,
+                final org.omg.CORBA.portable.InputStream _is,
+                final org.omg.CORBA.portable.ResponseHandler handler) {
+            return target._invoke_enregistrerClassement(_is, handler);
+        }
+    }
+
+    private static final class Operation_finPeriodeDecision extends AbstractOperation
+    {
+        protected org.omg.CORBA.portable.OutputStream invoke(
+                final GestionnaireCandidaturesPOA target,
+                final org.omg.CORBA.portable.InputStream _is,
+                final org.omg.CORBA.portable.ResponseHandler handler) {
+            return target._invoke_finPeriodeDecision(_is, handler);
+        }
     }
 
 }

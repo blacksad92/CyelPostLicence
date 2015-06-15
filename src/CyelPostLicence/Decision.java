@@ -13,9 +13,14 @@ public final class Decision implements org.omg.CORBA.portable.IDLEntity
     public CyelPostLicence.Etudiant etudiant;
 
     /**
-     * Struct member master
+     * Struct member numUniversite
      */
-    public CyelPostLicence.Master master;
+    public int numUniversite;
+
+    /**
+     * Struct member numMaster
+     */
+    public int numMaster;
 
     /**
      * Struct member decision
@@ -31,13 +36,15 @@ public final class Decision implements org.omg.CORBA.portable.IDLEntity
     /**
      * Constructor with fields initialization
      * @param etudiant etudiant struct member
-     * @param master master struct member
+     * @param numUniversite numUniversite struct member
+     * @param numMaster numMaster struct member
      * @param decision decision struct member
      */
-    public Decision(CyelPostLicence.Etudiant etudiant, CyelPostLicence.Master master, CyelPostLicence.EnumDecision decision)
+    public Decision(CyelPostLicence.Etudiant etudiant, int numUniversite, int numMaster, CyelPostLicence.EnumDecision decision)
     {
         this.etudiant = etudiant;
-        this.master = master;
+        this.numUniversite = numUniversite;
+        this.numMaster = numMaster;
         this.decision = decision;
     }
 

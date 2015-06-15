@@ -100,4 +100,8 @@ public class ClientEtudiant {
         v = gestVoeux.consulterVoeux(monEtudiant.INE, false);
         return v;
     }
+    
+    public int periode(){
+        return gestVoeux.periode();
+    }
 }

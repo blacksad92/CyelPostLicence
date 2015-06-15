@@ -38,12 +38,12 @@ public interface GestionnaireCandidaturesOperations
     /**
      * Operation validerCandidature
      */
-    public CyelPostLicence.EtatCandidature validerCandidature(int numMaster, int numLicence);
+    public CyelPostLicence.EnumDecision validerCandidature(int numMaster, int numLicence);
 
     /**
      * Operation enregistrerCandidatures
      */
-    public void enregistrerCandidatures(CyelPostLicence.Etudiant[] listeEtudiants, int numMaster);
+    public void enregistrerCandidatures(CyelPostLicence.Etudiant etudiant, int numMaster);
 
     /**
      * Operation consulterCandidatures
@@ -54,5 +54,10 @@ public interface GestionnaireCandidaturesOperations
      * Operation enregistrerClassement
      */
     public void enregistrerClassement(int INE, int classement);
+
+    /**
+     * Operation finPeriodeDecision
+     */
+    public void finPeriodeDecision();
 
 }

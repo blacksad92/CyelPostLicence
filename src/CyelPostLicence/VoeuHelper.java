@@ -89,7 +89,7 @@ public class VoeuHelper
                 _members[3].type = CyelPostLicence.EnumOrdreHelper.type();
                 _members[4] = new org.omg.CORBA.StructMember();
                 _members[4].name = "etatCandidature";
-                _members[4].type = CyelPostLicence.EtatCandidatureHelper.type();
+                _members[4].type = CyelPostLicence.EnumDecisionHelper.type();
                 _members[5] = new org.omg.CORBA.StructMember();
                 _members[5].name = "reponse";
                 _members[5].type = CyelPostLicence.EnumReponseHelper.type();
@@ -127,7 +127,7 @@ public class VoeuHelper
         new_one.universite = CyelPostLicence.UniversiteHelper.read(istream);
         new_one.master = CyelPostLicence.MasterHelper.read(istream);
         new_one.ordre = CyelPostLicence.EnumOrdreHelper.read(istream);
-        new_one.etatCandidature = CyelPostLicence.EtatCandidatureHelper.read(istream);
+        new_one.etatCandidature = CyelPostLicence.EnumDecisionHelper.read(istream);
         new_one.reponse = CyelPostLicence.EnumReponseHelper.read(istream);
         new_one.numLicence = istream.read_long();
 
@@ -145,7 +145,7 @@ public class VoeuHelper
         CyelPostLicence.UniversiteHelper.write(ostream,value.universite);
         CyelPostLicence.MasterHelper.write(ostream,value.master);
         CyelPostLicence.EnumOrdreHelper.write(ostream,value.ordre);
-        CyelPostLicence.EtatCandidatureHelper.write(ostream,value.etatCandidature);
+        CyelPostLicence.EnumDecisionHelper.write(ostream,value.etatCandidature);
         CyelPostLicence.EnumReponseHelper.write(ostream,value.reponse);
         ostream.write_long(value.numLicence);
     }

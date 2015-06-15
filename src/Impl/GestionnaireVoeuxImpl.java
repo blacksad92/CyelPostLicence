@@ -6,18 +6,19 @@
 package Impl;
 
 import CyelPostLicence.Academie;
-import CyelPostLicence.EtatCandidature;
+import CyelPostLicence.Decision;
+import CyelPostLicence.EnumDecision;
 import CyelPostLicence.Etudiant;
 import CyelPostLicence.GestionnaireAcces;
 import CyelPostLicence.GestionnaireCandidatures;
 import CyelPostLicence.GestionnaireVoeux;
-import CyelPostLicence.Reponse;
 import CyelPostLicence.Universite;
 import CyelPostLicence.Voeu;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.Iterator;
 
 /**
  *
@@ -62,10 +63,51 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     @Override
     public void cloturerPeriode() {
         System.out.println("Periode ancienne " + periode);
+        
         if (periode < 4) {
-            periode = periode + 1;
+            periode++;
+            
+            if(periode == 2) {// SI la periode passe a 2, on envoie automatiquement les candidatures
+                //Recuperer les voeux pour l'academie.
+                ArrayList<Voeu> listeVoeux = bdd.bdd_listeVoeuxParAcademie(this.academie.numAcademie);
+                for(int i=0; i< listeVoeux.size(); i++)
+                {
+                    int numMaster = listeVoeux.get(i).master.numMaster;
+                    int numUniversite = listeVoeux.get(i).universite.numUniv;
+                    int numVoeux = listeVoeux.get(i).numVoeu;
+                    int INE = bdd.bdd_INEduVoeu(numVoeux);
+                    Etudiant etu = gestAcces.obtenirEtudiant(INE);
+                    // Recuperer le bon gestionnaire de candidature
+                    GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(numUniversite); 
+                   
+                    // Appeller la méthode enregistrer voeux
+                    if(gestCand != null)
+                    {
+                        gestCand.enregistrerCandidatures(etu, numMaster);
+                    }
+                }
             }
-        System.out.println("Periode nouvelle " + periode);
+            
+            if(periode == 3) { // SI lon passe à la période 3 -> Envoi des décisions des universités vers les académies (on va donc notifier les universités)
+                System.out.println("[GestionnaireVoeuxImpl] cloturerPeriode - PASSAGE PERIODE 3");
+                // Récupérer la liste des universités de l'académie
+                ArrayList<Universite> listeUniv = bdd.bdd_consultUniversitePourUneAcademie(academie.numAcademie);
+                // Pour chaque université
+                Iterator it = listeUniv.iterator();
+                while(it.hasNext()) {
+                    Universite univ = (Universite) it.next();
+                    // Recuperer le bon gestionnaire de candidature
+                    GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(univ.numUniv);
+                    
+                    // Appeller la méthode finPeriodeDecision
+                    if(gestCand != null)
+                    {
+                        gestCand.finPeriodeDecision();
+                    }
+                }
+            }
+        }
+        System.out.println("NOUVELLE PERIODE : " + periode);
     }
 
     @Override
@@ -198,7 +240,7 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
 
                 //Permet de récupérer l'état valide ou non-valide d'un voeu, supprimer l'appel de la méthode dans cloturerPeriode
                 GestionnaireCandidatures gestCandidature = gestAcces.obtenirGestionnaireCandidatures(listeVoeux[0].universite.numUniv);
-                EtatCandidature etatVoeu = gestCandidature.validerCandidature(listeVoeux[0].master.numMaster, etudiant.licence.numLicence);
+                EnumDecision etatVoeu = gestCandidature.validerCandidature(listeVoeux[0].master.numMaster, etudiant.licence.numLicence);
 
                 listeVoeux[0].etatCandidature = etatVoeu;
             }
@@ -215,27 +257,30 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
 
     @Override
     public Etudiant[] recupererListeCandidatures(int numMaster, int numUniversite) {
-        ArrayList<Etudiant> listeEtudiants = new ArrayList<Etudiant>();
-        System.out.println("RecupererCandidature VoeuxImpl" + academie.nomAcademie);
-        ArrayList<Integer> listeINE = bdd.bdd_listeVoeuxParUniversiteParMaster(numMaster, numUniversite);
-        System.out.println("RecupererCandidature TailleListe" + listeINE.size());
-        for (int i = 0; i < listeINE.size(); i++) {
-            int INE = listeINE.get(i);
-            System.out.println("RecupererCandidature VoeuxImpl INE" + INE);
-            Etudiant etu = gestAcces.obtenirEtudiant(INE);
-            listeEtudiants.add(etu);
-        }
-        Etudiant[] tabEtudiants = listeEtudiants.toArray(new Etudiant[listeEtudiants.size()]);
-        System.out.println("SORS VoeuxImps RecupererCandidature");
-        return tabEtudiants;
+        //Plus necessaire a supprimer
+        return null;
     }
 
     @Override
-    public void enregistrerDecisions(int numMaster, int numAcademie, Reponse[] listeAccepte, Reponse[] listeAttente, Reponse[] listeRefuse) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void enregistrerDecision(Decision decision) {
+        System.out.println("[GestionnaireVoeuxImpl] enregistrerDecision");
+        
+        boolean res = bdd.bdd_enregistrerDecision(decision.etudiant.INE, decision.numMaster, decision.numUniversite, decision.decision);
+        
+        if (!res) {
+            System.out.println("/!\\ ERREUR ENREGISTREMENT DECISION /!\\");
+        }
     }
 
     public void maListeUnivs() {
         this.mesIDUnivs = bdd.bdd_recupNumUnivs(academie.numAcademie);
+    }
+
+    @Override
+    public void repondreVoeu(int INE, Voeu voeu) {
+        boolean ok = bdd.bdd_repondreVoeu(INE,voeu);
+        if (!ok) {
+            System.out.println("ERREUR REPONDRE VOEU");
+        }
     }
 }

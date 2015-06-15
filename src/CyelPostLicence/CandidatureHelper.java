@@ -73,14 +73,20 @@ public class CandidatureHelper
                     return org.omg.CORBA.ORB.init().create_recursive_tc(id());
                 _working = true;
                 org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init();
-                org.omg.CORBA.StructMember []_members = new org.omg.CORBA.StructMember[2];
+                org.omg.CORBA.StructMember []_members = new org.omg.CORBA.StructMember[4];
 
                 _members[0] = new org.omg.CORBA.StructMember();
                 _members[0].name = "etudiant";
                 _members[0].type = CyelPostLicence.EtudiantHelper.type();
                 _members[1] = new org.omg.CORBA.StructMember();
-                _members[1].name = "classement";
+                _members[1].name = "numUniversite";
                 _members[1].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_long);
+                _members[2] = new org.omg.CORBA.StructMember();
+                _members[2].name = "numMaster";
+                _members[2].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_long);
+                _members[3] = new org.omg.CORBA.StructMember();
+                _members[3].name = "classement";
+                _members[3].type = orb.get_primitive_tc(org.omg.CORBA.TCKind.tk_long);
                 _tc = orb.create_struct_tc(id(),"Candidature",_members);
                 _working = false;
             }
@@ -109,6 +115,8 @@ public class CandidatureHelper
         CyelPostLicence.Candidature new_one = new CyelPostLicence.Candidature();
 
         new_one.etudiant = CyelPostLicence.EtudiantHelper.read(istream);
+        new_one.numUniversite = istream.read_long();
+        new_one.numMaster = istream.read_long();
         new_one.classement = istream.read_long();
 
         return new_one;
@@ -122,6 +130,8 @@ public class CandidatureHelper
     public static void write(org.omg.CORBA.portable.OutputStream ostream, CyelPostLicence.Candidature value)
     {
         CyelPostLicence.EtudiantHelper.write(ostream,value.etudiant);
+        ostream.write_long(value.numUniversite);
+        ostream.write_long(value.numMaster);
         ostream.write_long(value.classement);
     }
 
