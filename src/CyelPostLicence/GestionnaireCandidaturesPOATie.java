@@ -142,4 +142,12 @@ public class GestionnaireCandidaturesPOATie extends GestionnaireCandidaturesPOA
         _tie.finPeriodeDecision();
     }
 
+    /**
+     * Operation majListe
+     */
+    public void majListe(int INE, CyelPostLicence.Voeu voeu)
+    {
+        _tie.majListe( INE,  voeu);
+    }
+
 }

@@ -445,7 +445,7 @@ public class BDD_GestionnaireVoeux {
         return listeIDUnivs;
     }
 
-    void bdd_RAZ(int numAcademie) throws SQLException {
+    public void bdd_RAZ(int numAcademie) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM gv_voeux WHERE NumAcademie=?;");
         stmt.setInt(1, numAcademie);
         int rs = stmt.executeUpdate();

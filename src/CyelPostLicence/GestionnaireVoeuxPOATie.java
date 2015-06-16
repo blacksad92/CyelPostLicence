@@ -166,4 +166,12 @@ public class GestionnaireVoeuxPOATie extends GestionnaireVoeuxPOA
         _tie.enregistrerDecision( decision);
     }
 
+    /**
+     * Operation supprimerVoeux
+     */
+    public void supprimerVoeux(int numVoeu)
+    {
+        _tie.supprimerVoeux( numVoeu);
+    }
+
 }

@@ -65,7 +65,20 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     @Override
     public void cloturerPeriode() {
         System.out.println("Periode ancienne " + periode);
-        
+        if (periode == 4){
+            ArrayList<Voeu> listeVoeuxAvecReponse = bdd.bdd_listeVoeuxParAcademie(this.academie.numAcademie);
+            for (int i=0; i< listeVoeuxAvecReponse.size();i++){
+                int numUniversite = listeVoeuxAvecReponse.get(i).universite.numUniv;
+                int numVoeu = listeVoeuxAvecReponse.get(i).numVoeu;
+                int INE = bdd.bdd_INEduVoeu(numVoeu);
+                GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(numUniversite);
+                // Appeller la méthode enregistrer voeux
+                    if(gestCand != null)
+                    {
+                        gestCand.majListe(INE, listeVoeuxAvecReponse.get(i));
+                    }
+            }
+        }
         if (periode < 4) {
             periode++;
             
@@ -303,5 +316,10 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
                 bdd.bdd_repondreVoeu(v.numVoeu,rep);
             }
         }
+    }
+
+    @Override
+    public void supprimerVoeux(int numVoeu) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

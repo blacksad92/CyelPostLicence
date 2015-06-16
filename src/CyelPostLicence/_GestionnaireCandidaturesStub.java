@@ -501,4 +501,55 @@ public class _GestionnaireCandidaturesStub extends org.omg.CORBA.portable.Object
         }
     }
 
+    /**
+     * Operation majListe
+     */
+    public void majListe(int INE, CyelPostLicence.Voeu voeu)
+    {
+        while(true)
+        {
+            if (!this._is_local())
+            {
+                org.omg.CORBA.portable.InputStream _input = null;
+                try
+                {
+                    org.omg.CORBA.portable.OutputStream _output = this._request("majListe",true);
+                    _output.write_long(INE);
+                    CyelPostLicence.VoeuHelper.write(_output,voeu);
+                    _input = this._invoke(_output);
+                    return;
+                }
+                catch(org.omg.CORBA.portable.RemarshalException _exception)
+                {
+                    continue;
+                }
+                catch(org.omg.CORBA.portable.ApplicationException _exception)
+                {
+                    String _exception_id = _exception.getId();
+                    throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
+                }
+                finally
+                {
+                    this._releaseReply(_input);
+                }
+            }
+            else
+            {
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("majListe",_opsClass);
+                if (_so == null)
+                   continue;
+                CyelPostLicence.GestionnaireCandidaturesOperations _self = (CyelPostLicence.GestionnaireCandidaturesOperations) _so.servant;
+                try
+                {
+                    _self.majListe( INE,  voeu);
+                    return;
+                }
+                finally
+                {
+                    _servant_postinvoke(_so);
+                }
+            }
+        }
+    }
+
 }

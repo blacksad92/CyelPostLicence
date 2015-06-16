@@ -60,4 +60,9 @@ public interface GestionnaireCandidaturesOperations
      */
     public void finPeriodeDecision();
 
+    /**
+     * Operation majListe
+     */
+    public void majListe(int INE, CyelPostLicence.Voeu voeu);
+
 }

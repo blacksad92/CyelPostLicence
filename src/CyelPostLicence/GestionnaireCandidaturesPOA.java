@@ -47,6 +47,8 @@ public abstract class GestionnaireCandidaturesPOA extends org.omg.PortableServer
                     new Operation_enregistrerClassement());
             operationMap.put("finPeriodeDecision",
                     new Operation_finPeriodeDecision());
+            operationMap.put("majListe",
+                    new Operation_majListe());
             operationMap.put("recupererListeNotes",
                     new Operation_recupererListeNotes());
             operationMap.put("validerCandidature",
@@ -196,6 +198,20 @@ public abstract class GestionnaireCandidaturesPOA extends org.omg.PortableServer
         return _output;
     }
 
+    private org.omg.CORBA.portable.OutputStream _invoke_majListe(
+            final org.omg.CORBA.portable.InputStream _is,
+            final org.omg.CORBA.portable.ResponseHandler handler) {
+        org.omg.CORBA.portable.OutputStream _output;
+        int arg0_in = _is.read_long();
+        CyelPostLicence.Voeu arg1_in = CyelPostLicence.VoeuHelper.read(_is);
+
+        majListe(arg0_in, arg1_in);
+
+        _output = handler.createReply();
+
+        return _output;
+    }
+
     // operation classes
     private abstract static class AbstractOperation {
         protected abstract org.omg.CORBA.portable.OutputStream invoke(
@@ -301,6 +317,16 @@ public abstract class GestionnaireCandidaturesPOA extends org.omg.PortableServer
                 final org.omg.CORBA.portable.InputStream _is,
                 final org.omg.CORBA.portable.ResponseHandler handler) {
             return target._invoke_finPeriodeDecision(_is, handler);
+        }
+    }
+
+    private static final class Operation_majListe extends AbstractOperation
+    {
+        protected org.omg.CORBA.portable.OutputStream invoke(
+                final GestionnaireCandidaturesPOA target,
+                final org.omg.CORBA.portable.InputStream _is,
+                final org.omg.CORBA.portable.ResponseHandler handler) {
+            return target._invoke_majListe(_is, handler);
         }
     }
 

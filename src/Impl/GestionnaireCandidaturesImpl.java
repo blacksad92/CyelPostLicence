@@ -17,6 +17,7 @@ import CyelPostLicence.GestionnaireVoeux;
 import CyelPostLicence.Master;
 import CyelPostLicence.Note;
 import CyelPostLicence.Universite;
+import CyelPostLicence.Voeu;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -204,5 +205,11 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
             gestVoeux.enregistrerDecision(decision);
         }
     }
-
+    
+    public void majListe(int INE, Voeu voeu){
+        if ((voeu.reponse.value() == 2) || (voeu.reponse.value() == 3)){
+            bdd.bdd_modifierClassement(INE, voeu);
+        }
+    
+    }
 }

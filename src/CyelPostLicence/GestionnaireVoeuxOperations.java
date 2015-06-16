@@ -77,4 +77,9 @@ public interface GestionnaireVoeuxOperations
      */
     public void enregistrerDecision(CyelPostLicence.Decision decision);
 
+    /**
+     * Operation supprimerVoeux
+     */
+    public void supprimerVoeux(int numVoeu);
+
 }

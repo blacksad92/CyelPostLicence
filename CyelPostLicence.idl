@@ -139,6 +139,7 @@ module CyelPostLicence {
 		ListeCandidatures consulterCandidatures(in long numMaster, in long numUniversite);
 		void enregistrerClassement(in long INE, in long classement);
 		void finPeriodeDecision();
+		void majListe(in long INE, in Voeu voeu);
 	};
 	
 	interface GestionnaireVoeux {
@@ -153,5 +154,6 @@ module CyelPostLicence {
 		void RAZPeriode();
 		ListeEtudiants recupererListeCandidatures(in long numMaster, in long numUniversite);
 		void enregistrerDecision(in Decision decision);
+		void supprimerVoeux(in long numVoeu);
 	};
 };

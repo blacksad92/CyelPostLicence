@@ -13,6 +13,7 @@ import CyelPostLicence.Licence;
 import CyelPostLicence.Master;
 import CyelPostLicence.Note;
 import CyelPostLicence.Universite;
+import CyelPostLicence.Voeu;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -327,7 +328,7 @@ public class BDD_GestionnaireCandidature {
         return res;
     }
 
-    void bdd_RAZ(int numUniv) throws SQLException {
+    public void bdd_RAZ(int numUniv) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM gc_candidatures WHERE NumUniversite=?;");
         stmt.setInt(1, numUniv);
         int rs = stmt.executeUpdate();
@@ -348,6 +349,44 @@ public class BDD_GestionnaireCandidature {
             return false;
         }
     }
+   
      
-     
+    public boolean bdd_modifierClassement(int INE, Voeu voeu){
+        try {
+            int classement = 0;
+            int numMaster = voeu.master.numMaster;
+            int numUniversite = voeu.universite.numUniv;
+            
+            //Recupere le classement du voeu à supprimer
+            PreparedStatement stmt = conn.prepareStatement("SELECT Classement FROM gc_candidatures WHERE NumINE=? AND NumMaster=? AND NumUniversite=?;");
+            stmt.setInt(1, INE);
+            stmt.setInt(2, numMaster);
+            stmt.setInt(3, numUniversite);
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()) {                                                          
+                classement = rs.getInt("Classement");
+            }
+            
+            //Modifie le classement de toutes les candidatures 
+            stmt = conn.prepareStatement("UPDATE gc_candidatures SET Classement=Classement-1 WHERE Classement > ? AND NumMaster=? AND NumUniversite=?;");
+            stmt.setInt(1, classement);
+            stmt.setInt(2, numMaster);
+            stmt.setInt(3, numUniversite);
+            stmt.executeUpdate();
+            
+            //Supprime l'enregistrement dans les candidatures qui correspond au voeu "non" et "non mais"
+            stmt = conn.prepareStatement("DELETE gc_candidatures WHERE NumINE=? AND NumMaster=? AND NumUniversite=?;");
+            stmt.setInt(1, INE);
+            stmt.setInt(2, numMaster);
+            stmt.setInt(3, numUniversite);
+            stmt.executeUpdate();
+            
+            return true;
+        } catch (Exception e) {
+            // Il y a une erreur
+            e.printStackTrace();
+            return false;
+        }
+    }
 }

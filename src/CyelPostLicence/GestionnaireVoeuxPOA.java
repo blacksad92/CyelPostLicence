@@ -57,6 +57,8 @@ public abstract class GestionnaireVoeuxPOA extends org.omg.PortableServer.Servan
                     new Operation_recupererListeCandidatures());
             operationMap.put("repondreVoeu",
                     new Operation_repondreVoeu());
+            operationMap.put("supprimerVoeux",
+                    new Operation_supprimerVoeux());
     }
 
     public final org.omg.CORBA.portable.OutputStream _invoke(final String opName,
@@ -236,6 +238,19 @@ public abstract class GestionnaireVoeuxPOA extends org.omg.PortableServer.Servan
         return _output;
     }
 
+    private org.omg.CORBA.portable.OutputStream _invoke_supprimerVoeux(
+            final org.omg.CORBA.portable.InputStream _is,
+            final org.omg.CORBA.portable.ResponseHandler handler) {
+        org.omg.CORBA.portable.OutputStream _output;
+        int arg0_in = _is.read_long();
+
+        supprimerVoeux(arg0_in);
+
+        _output = handler.createReply();
+
+        return _output;
+    }
+
     // operation classes
     private abstract static class AbstractOperation {
         protected abstract org.omg.CORBA.portable.OutputStream invoke(
@@ -371,6 +386,16 @@ public abstract class GestionnaireVoeuxPOA extends org.omg.PortableServer.Servan
                 final org.omg.CORBA.portable.InputStream _is,
                 final org.omg.CORBA.portable.ResponseHandler handler) {
             return target._invoke_enregistrerDecision(_is, handler);
+        }
+    }
+
+    private static final class Operation_supprimerVoeux extends AbstractOperation
+    {
+        protected org.omg.CORBA.portable.OutputStream invoke(
+                final GestionnaireVoeuxPOA target,
+                final org.omg.CORBA.portable.InputStream _is,
+                final org.omg.CORBA.portable.ResponseHandler handler) {
+            return target._invoke_supprimerVoeux(_is, handler);
         }
     }
 
