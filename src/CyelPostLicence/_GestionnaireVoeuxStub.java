@@ -640,7 +640,7 @@ public class _GestionnaireVoeuxStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation supprimerVoeux
      */
-    public void supprimerVoeux(int numVoeu)
+    public void supprimerVoeux(int numVoeu, int numUniv)
     {
         while(true)
         {
@@ -651,6 +651,7 @@ public class _GestionnaireVoeuxStub extends org.omg.CORBA.portable.ObjectImpl
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("supprimerVoeux",true);
                     _output.write_long(numVoeu);
+                    _output.write_long(numUniv);
                     _input = this._invoke(_output);
                     return;
                 }
@@ -676,7 +677,7 @@ public class _GestionnaireVoeuxStub extends org.omg.CORBA.portable.ObjectImpl
                 CyelPostLicence.GestionnaireVoeuxOperations _self = (CyelPostLicence.GestionnaireVoeuxOperations) _so.servant;
                 try
                 {
-                    _self.supprimerVoeux( numVoeu);
+                    _self.supprimerVoeux( numVoeu,  numUniv);
                     return;
                 }
                 finally

@@ -10,8 +10,14 @@ import CyelPostLicence.EnumDecision;
 import CyelPostLicence.EnumOrdre;
 import CyelPostLicence.EnumReponse;
 import CyelPostLicence.Voeu;
+import static com.sun.xml.internal.fastinfoset.alphabet.BuiltInRestrictedAlphabets.table;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
+import javax.swing.AbstractAction;
+import javax.swing.Action;
 import javax.swing.JFrame;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -35,17 +41,24 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         initComponents();
         tAreaInsctruction.setVisible(false);
         tAreaInsctruction.setEditable(false);
-        bt_enregistrerClassement.setVisible(false);
+        bt_enregistrerClassement.setVisible(true);
         tAreaErreur.setVisible(false);
         tAreaErreur.setEditable(false);
         this.client = client;
         initTableauVoeux();
         this.setVisible(true);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        jTable_voeux.setEnabled(true);
+
+        tAreaInsctruction.setText("Pour classer vos voeux : \n"
+                + " - Double clic sur la cellule de la colonne \"ordre\".\n"
+                + " - Saisir un chiffre entre 1 et " + tabVoeu.length + " \n"
+                + " - Vérifier qu'il n'y a pas de doublon");
+
         if (client.periode() != 1) {
-            bt_ClasserVoeux.setEnabled(false);
+            bt_enregistrerClassement.setEnabled(false);
         } else {
-            bt_ClasserVoeux.setEnabled(true);
+            bt_enregistrerClassement.setEnabled(true);
         }
     }
 
@@ -54,7 +67,7 @@ public class AccueilEtudiant extends javax.swing.JFrame {
 
         DefaultTableModel model = new DefaultTableModel();
         //On renseigne les identifiants des colonnes dans le modèle
-        model.setColumnIdentifiers(new String[]{"ID", "Ordre", "Numero Master", "Master", "Numero Université", "Université", "Etat", "Réponse"});
+        model.setColumnIdentifiers(new String[]{"ID", "Ordre", "Numero Master", "Master", "Numero Université", "Université", "Etat", "Réponse", ""});
 
         //On ajoute les ligne contenant les données dans le modèle
         int i = 0;
@@ -71,9 +84,9 @@ public class AccueilEtudiant extends javax.swing.JFrame {
             if (v.reponse == EnumReponse.vide || dejaAccepte) {
                 reponse = "----";
             }
-            model.addRow(new Object[]{v.numVoeu, v.ordre, v.master.numMaster, v.master.nomMaster, v.universite.numUniv, v.universite.nomUniv, etatCand, reponse});
-            
-            if (v.etatCandidature==EnumDecision.acceptee && !dejaAccepte) {
+            model.addRow(new Object[]{v.numVoeu, v.ordre, v.master.numMaster, v.master.nomMaster, v.universite.numUniv, v.universite.nomUniv, etatCand, reponse, "Supprimer"});
+
+            if (v.etatCandidature == EnumDecision.acceptee && !dejaAccepte) {
                 dejaAccepte = true;
                 voeuAccepte = v;
             }
@@ -86,7 +99,25 @@ public class AccueilEtudiant extends javax.swing.JFrame {
 
         //On ajoute le modèle dans la Jtable
         jTable_voeux.setModel(model);
-        jTable_voeux.setEnabled(false);
+
+        //Ajout du bouton supprimer et de son traitement dans la jTable
+        Action delete = new AbstractAction() {
+            public void actionPerformed(ActionEvent e) {
+                JTable table = (JTable) e.getSource();
+                int row = table.getSelectedRow();
+                Object val = table.getValueAt(row, 0);
+                int id = Integer.parseInt(val.toString());
+                
+                val = table.getValueAt(row, 4);
+                int univ = Integer.parseInt(val.toString());
+                client.supprimerVoeux(id, univ);
+                actualiserjFrame();
+            }
+        };
+
+        ButtonColumn buttonColumn = new ButtonColumn(jTable_voeux, delete, 8);
+        buttonColumn.setMnemonic(KeyEvent.VK_D);
+
     }
 
     /**
@@ -105,7 +136,6 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         bt_ajouterVoeux = new javax.swing.JButton();
         bt_repondreVoeu = new javax.swing.JButton();
         bt_seDeconnecter = new javax.swing.JButton();
-        bt_ClasserVoeux = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tAreaInsctruction = new javax.swing.JTextArea();
         bt_enregistrerClassement = new javax.swing.JButton();
@@ -139,7 +169,7 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTable_voeux);
 
-        bt_ajouterVoeux.setText("Ajouter un voeux");
+        bt_ajouterVoeux.setText("Ajouter un voeu");
         bt_ajouterVoeux.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_ajouterVoeuxActionPerformed(evt);
@@ -157,13 +187,6 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         bt_seDeconnecter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bt_seDeconnecterActionPerformed(evt);
-            }
-        });
-
-        bt_ClasserVoeux.setText("Classer ses voeux");
-        bt_ClasserVoeux.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bt_ClasserVoeuxActionPerformed(evt);
             }
         });
 
@@ -230,17 +253,16 @@ public class AccueilEtudiant extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bt_ajouterVoeux))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 466, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(bt_ajouterVoeux)
-                                .addGap(249, 249, 249)
-                                .addComponent(bt_ClasserVoeux)
-                                .addGap(40, 40, 40)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(bt_enregistrerClassement)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
+                                .addGap(301, 301, 301)
                                 .addComponent(bt_repondreVoeu)))))
                 .addContainerGap())
         );
@@ -260,8 +282,7 @@ public class AccueilEtudiant extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bt_ajouterVoeux)
                     .addComponent(bt_repondreVoeu)
-                    .addComponent(bt_ClasserVoeux)
-                    .addComponent(bt_enregistrerClassement))
+                    .addComponent(bt_enregistrerClassement, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 108, Short.MAX_VALUE)
@@ -275,19 +296,6 @@ public class AccueilEtudiant extends javax.swing.JFrame {
     private void bt_ajouterVoeuxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ajouterVoeuxActionPerformed
         new AjouterVoeu_Master(client);
     }//GEN-LAST:event_bt_ajouterVoeuxActionPerformed
-
-    private void bt_ClasserVoeuxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_ClasserVoeuxActionPerformed
-        jTable_voeux.setEnabled(true);
-
-        tAreaInsctruction.setText("Pour classer vos voeux : \n"
-                + " - Double clic sur la cellule de la colonne \"ordre\".\n"
-                + " - Saisir un chiffre entre 1 et " + tabVoeu.length + " \n"
-                + " - Vérifier qu'il n'y a pas de doublon");
-        tAreaInsctruction.setVisible(true);
-        bt_enregistrerClassement.setVisible(true);
-        bt_ClasserVoeux.setVisible(false);
-
-    }//GEN-LAST:event_bt_ClasserVoeuxActionPerformed
 
     private void bt_enregistrerClassementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_enregistrerClassementActionPerformed
 
@@ -340,9 +348,6 @@ public class AccueilEtudiant extends javax.swing.JFrame {
                 Voeu[] tab = {v};
                 client.enregistrerVoeux(tab);
             }
-
-            bt_ClasserVoeux.setVisible(true);
-            bt_enregistrerClassement.setVisible(false);
             actualiserjFrame();
         }
     }//GEN-LAST:event_bt_enregistrerClassementActionPerformed
@@ -369,17 +374,20 @@ public class AccueilEtudiant extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_seDeconnecterActionPerformed
 
     public void actualiserjFrame() {
-        tAreaInsctruction.setVisible(false);
+
+        tAreaInsctruction.setVisible(true);
         tAreaInsctruction.setEditable(false);
-        bt_enregistrerClassement.setVisible(false);
-        bt_ClasserVoeux.setVisible(true);
         tAreaErreur.setVisible(false);
         tAreaErreur.setEditable(false);
         initTableauVoeux();
+        tAreaInsctruction.setText("Pour classer vos voeux : \n"
+                + " - Double clic sur la cellule de la colonne \"ordre\".\n"
+                + " - Saisir un chiffre entre 1 et " + tabVoeu.length + " \n"
+                + " - Vérifier qu'il n'y a pas de doublon");
         if (client.periode() != 1) {
-            bt_ClasserVoeux.setEnabled(false);
+            bt_enregistrerClassement.setEnabled(false);
         } else {
-            bt_ClasserVoeux.setEnabled(true);
+            bt_enregistrerClassement.setEnabled(true);
         }
     }
 
@@ -419,7 +427,6 @@ public class AccueilEtudiant extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bt_ClasserVoeux;
     private javax.swing.JButton bt_actualiser;
     private javax.swing.JButton bt_ajouterVoeux;
     private javax.swing.JButton bt_enregistrerClassement;

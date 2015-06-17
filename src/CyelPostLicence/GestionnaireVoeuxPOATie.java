@@ -169,9 +169,9 @@ public class GestionnaireVoeuxPOATie extends GestionnaireVoeuxPOA
     /**
      * Operation supprimerVoeux
      */
-    public void supprimerVoeux(int numVoeu)
+    public void supprimerVoeux(int numVoeu, int numUniv)
     {
-        _tie.supprimerVoeux( numVoeu);
+        _tie.supprimerVoeux( numVoeu,  numUniv);
     }
 
 }

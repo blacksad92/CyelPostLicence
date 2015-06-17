@@ -47,9 +47,9 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     public ArrayList<Voeu> listeVoeuxParAcademie;
 
     public GestionnaireVoeuxImpl() {
-        academie = new Academie(1, "Toulouse");
+       //academie = new Academie(1, "Toulouse");
         //academie = new Academie(2, "Montpellier");
-        //academie = new Academie(3, "Nice");
+        academie = new Academie(3, "Nice");
         //academie = new Academie(4, "Aix-Marseille");
         //academie = new Academie(5, "Bordeaux");
         //academie = new Academie(6, "Corse");
@@ -60,6 +60,7 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
         listeTempo = new ArrayList<Voeu>();
         listeVoeuxParAcademie = new ArrayList<Voeu>();
         System.out.println(academie.nomAcademie);
+        maListeUnivs();
     }
 
     @Override
@@ -319,7 +320,19 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     }
 
     @Override
-    public void supprimerVoeux(int numVoeu) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void supprimerVoeux(int numVoeu, int numUniv) {
+        
+        if (mesIDUnivs.contains(numUniv)){
+            try {
+            bdd.bdd_SupprimerVoeux(numVoeu);
+        } catch (SQLException ex) {
+            System.out.print(ex);
+        }
+        }else{
+            GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(numUniv);
+            Universite univ = gestCand.universite();
+            GestionnaireVoeux gestVoeux = gestAcces.obtenirGestionnaireVoeux(univ.academie.numAcademie);
+            gestVoeux.supprimerVoeux(numVoeu, numUniv);
+        } 
     }
 }

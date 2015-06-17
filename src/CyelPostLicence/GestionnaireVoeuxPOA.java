@@ -243,8 +243,9 @@ public abstract class GestionnaireVoeuxPOA extends org.omg.PortableServer.Servan
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
         int arg0_in = _is.read_long();
+        int arg1_in = _is.read_long();
 
-        supprimerVoeux(arg0_in);
+        supprimerVoeux(arg0_in, arg1_in);
 
         _output = handler.createReply();
 

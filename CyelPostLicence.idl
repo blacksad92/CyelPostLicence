@@ -154,6 +154,6 @@ module CyelPostLicence {
 		void RAZPeriode();
 		ListeEtudiants recupererListeCandidatures(in long numMaster, in long numUniversite);
 		void enregistrerDecision(in Decision decision);
-		void supprimerVoeux(in long numVoeu);
+		void supprimerVoeux(in long numVoeu, in long numUniv);
 	};
 };

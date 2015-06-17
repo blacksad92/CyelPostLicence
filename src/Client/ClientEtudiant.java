@@ -43,7 +43,7 @@ public class ClientEtudiant {
             org.omg.CORBA.Object distantAcces = nameRoot.resolve(nameToFind);
             System.out.println("Objet '" + idObj + "' trouve aupres du service de noms. IOR de l'objet :");
             System.out.println(orb.object_to_string(distantAcces));
-            
+
             //Creation de l'objet distant gestAcces
             gestAcces = CyelPostLicence.GestionnaireAccesHelper.narrow(distantAcces);
 
@@ -64,11 +64,13 @@ public class ClientEtudiant {
             e.printStackTrace();
         }
     }
-
+    
+    //Obtient la liste des académies auprès du gestionnaire de référentiel
     public Academie[] listeAcademie() {
         return gestReferentiel.listeAcademies();
     }
 
+    //Obtient la liste des masters auprès du gestionnaire de référentiel
     public Master[] listeMaster() {
         return gestReferentiel.listeMasters();
     }
@@ -83,25 +85,34 @@ public class ClientEtudiant {
         gestVoeux = gestAcces.obtenirGestionnaireVoeux(academie.numAcademie);
     }
 
+    //Obtient la liste des accréditation d'un diplome auprès du gestionnaire de voeux
     public Universite[] getAccreditations(int numDiplome) {
         Universite[] u;
         u = gestVoeux.consulterAcreditations(numDiplome, false);
-
         return u;
     }
 
+     //Enregistrement d'un voeux auprès du gestionnaire de voeux associés à l'étudiant
     public boolean enregistrerVoeux(Voeu[] listeVoeux) {
         gestVoeux.enregistrerVoeux(monEtudiant, listeVoeux);
         return true;
     }
 
+    //Obtient la liste des voeux de l'étudiant
     public Voeu[] mesVoeux() {
         Voeu[] v;
         v = gestVoeux.consulterVoeux(monEtudiant.INE, false);
         return v;
     }
     
-    public int periode(){
+    //Obtient la période auprès du gestionnaire de voeux
+    public int periode() {
         return gestVoeux.periode();
     }
+
+    //Suppresion d'un voeux auprès du gestionnaire de voeux associés à l'étudiant
+    public void supprimerVoeux(int numVoeu, int numUniv) {
+        gestVoeux.supprimerVoeux(numVoeu, numUniv);
+    }
+
 }

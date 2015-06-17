@@ -53,18 +53,18 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="jScrollPane2" min="-2" pref="466" max="-2" attributes="0"/>
+                          <Component id="jScrollPane2" min="-2" pref="466" max="-2" attributes="0"/>
+                          <Component id="bt_ajouterVoeux" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="jScrollPane3" min="-2" pref="466" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" attributes="0">
-                              <Component id="bt_ajouterVoeux" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="249" max="-2" attributes="0"/>
-                              <Component id="bt_ClasserVoeux" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="bt_enregistrerClassement" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace pref="190" max="32767" attributes="0"/>
+                              <EmptySpace min="-2" pref="301" max="-2" attributes="0"/>
                               <Component id="bt_repondreVoeu" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -91,8 +91,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="bt_ajouterVoeux" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="bt_repondreVoeu" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="bt_ClasserVoeux" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="bt_enregistrerClassement" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="bt_enregistrerClassement" alignment="0" min="-2" pref="23" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -171,7 +170,7 @@
     </Container>
     <Component class="javax.swing.JButton" name="bt_ajouterVoeux">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ajouter un voeux"/>
+        <Property name="text" type="java.lang.String" value="Ajouter un voeu"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_ajouterVoeuxActionPerformed"/>
@@ -191,14 +190,6 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_seDeconnecterActionPerformed"/>
-      </Events>
-    </Component>
-    <Component class="javax.swing.JButton" name="bt_ClasserVoeux">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Classer ses voeux"/>
-      </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bt_ClasserVoeuxActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane2">

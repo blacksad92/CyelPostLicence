@@ -92,7 +92,7 @@ public class BDD_GestionnaireVoeux {
         }
         return res;
     }
-    
+
     //Enregistre une modification de voeux ou ajoute un voeu
     public boolean bdd_enregistrerDecision(int INE, int numMaster, int numUniversite, EnumDecision decision) {
         System.out.println("[BDD_GestionnaireVoeux] bdd_enregistrerDecision");
@@ -103,10 +103,10 @@ public class BDD_GestionnaireVoeux {
 
             // On crée un objet Statement qui va permettre l'execution des requètes
             s = conn.createStatement();
-            String query = "UPDATE gv_voeux SET Etat="+decision.value()
-                    + " WHERE NumINE="+INE
-                    + " AND NumMaster="+numMaster
-                    + " AND NumUniversite="+numUniversite+";";
+            String query = "UPDATE gv_voeux SET Etat=" + decision.value()
+                    + " WHERE NumINE=" + INE
+                    + " AND NumMaster=" + numMaster
+                    + " AND NumUniversite=" + numUniversite + ";";
             //System.out.println(query);
             int result = s.executeUpdate(query);
 
@@ -133,7 +133,7 @@ public class BDD_GestionnaireVoeux {
             String req = "SELECT v.NumVoeux, v.NumAcademie, v.NomAcademie, v.NumUniversite, v.NomUniversite, v.Etat, v.Ordre, v.Reponse, v.NumMaster, v.NomMaster, v.NumLicence"
                     + "      FROM gv_Voeux v"
                     + "      WHERE (v.NumINE = " + INE + ")"
-                    + "         AND v.numAcademie = " + numAcademie+""
+                    + "         AND v.numAcademie = " + numAcademie + ""
                     + "      ORDER BY v.Ordre";
             //System.out.println(req);
             ResultSet rs = s.executeQuery(req);
@@ -159,9 +159,9 @@ public class BDD_GestionnaireVoeux {
 
         return listeVoeux;
     }
-    
+
     public boolean bdd_repondreVoeu(int numVoeu, EnumReponse reponse) {
-        System.out.println("[BDD_GestionnaireVoeux] bdd_repondreVoeu - numVoeux="+numVoeu+" | reponse="+reponse);
+        System.out.println("[BDD_GestionnaireVoeux] bdd_repondreVoeu - numVoeux=" + numVoeu + " | reponse=" + reponse);
         boolean res = false;
         try {
             // On crée un objet Statement qui va permettre l'execution des requètes
@@ -169,8 +169,8 @@ public class BDD_GestionnaireVoeux {
 
             // On crée un objet Statement qui va permettre l'execution des requètes
             s = conn.createStatement();
-            String query = "UPDATE gv_voeux SET Reponse="+reponse.value()
-                    + " WHERE numVoeux="+numVoeu+";";
+            String query = "UPDATE gv_voeux SET Reponse=" + reponse.value()
+                    + " WHERE numVoeux=" + numVoeu + ";";
             //System.out.println(query);
             int result = s.executeUpdate(query);
 
@@ -186,9 +186,9 @@ public class BDD_GestionnaireVoeux {
         }
         return res;
     }
-    
+
     public Integer bdd_INEduVoeu(int numVoeu) {
-          int ine = 0;
+        int ine = 0;
         try {
             // On crée un objet Statement qui va permettre l'execution des requètes
             Statement s = conn.createStatement();
@@ -424,7 +424,7 @@ public class BDD_GestionnaireVoeux {
             Statement s = conn.createStatement();
 
             String req = "SELECT u.NumUniversite"
-                    + "      FROM gv_universites u"
+                    + "      FROM gv_universites u, gv_academies a"
                     + "      WHERE a.NumAcademie =" + numAcademie
                     + "     AND a.NumAcademie = u.NumAcademie";
             //System.out.println(req);
@@ -448,6 +448,12 @@ public class BDD_GestionnaireVoeux {
     public void bdd_RAZ(int numAcademie) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM gv_voeux WHERE NumAcademie=?;");
         stmt.setInt(1, numAcademie);
+        int rs = stmt.executeUpdate();
+    }
+
+    public void bdd_SupprimerVoeux(int numVoeu) throws SQLException {
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM gv_voeux WHERE NumVoeux=?;");
+        stmt.setInt(1, numVoeu);
         int rs = stmt.executeUpdate();
     }
 

@@ -80,6 +80,6 @@ public interface GestionnaireVoeuxOperations
     /**
      * Operation supprimerVoeux
      */
-    public void supprimerVoeux(int numVoeu);
+    public void supprimerVoeux(int numVoeu, int numUniv);
 
 }
