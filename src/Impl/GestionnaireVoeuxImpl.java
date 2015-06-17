@@ -66,7 +66,10 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     @Override
     public void cloturerPeriode() {
         System.out.println("Periode ancienne " + periode);
-        if (periode == 4){
+        
+        if (periode < 4) {
+            periode++;
+            if (periode == 4){
             ArrayList<Voeu> listeVoeuxAvecReponse = bdd.bdd_listeVoeuxParAcademie(this.academie.numAcademie);
             for (int i=0; i< listeVoeuxAvecReponse.size();i++){
                 int numUniversite = listeVoeuxAvecReponse.get(i).universite.numUniv;
@@ -80,9 +83,6 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
                     }
             }
         }
-        if (periode < 4) {
-            periode++;
-            
             if(periode == 2) {// SI la periode passe a 2, on envoie automatiquement les candidatures
                 //Recuperer les voeux pour l'academie.
                 ArrayList<Voeu> listeVoeux = bdd.bdd_listeVoeuxParAcademie(this.academie.numAcademie);

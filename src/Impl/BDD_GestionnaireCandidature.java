@@ -376,7 +376,7 @@ public class BDD_GestionnaireCandidature {
             stmt.executeUpdate();
             
             //Supprime l'enregistrement dans les candidatures qui correspond au voeu "non" et "non mais"
-            stmt = conn.prepareStatement("DELETE gc_candidatures WHERE NumINE=? AND NumMaster=? AND NumUniversite=?;");
+            stmt = conn.prepareStatement("DELETE FROM gc_candidatures WHERE NumINE=? AND NumMaster=? AND NumUniversite=?;");
             stmt.setInt(1, INE);
             stmt.setInt(2, numMaster);
             stmt.setInt(3, numUniversite);
