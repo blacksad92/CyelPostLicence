@@ -30,7 +30,7 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
         initComponents();
         this.client = client;
         int periode = this.client.getPeriode();
-        
+        lb_periode.setText("Periode "+Integer.toString(client.getPeriode()));
         
         initTableauCand();
        
@@ -54,6 +54,7 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
         bt_classerListeAttente = new javax.swing.JButton();
         bt_refuser = new javax.swing.JButton();
         bt_accepter = new javax.swing.JButton();
+        lb_periode = new javax.swing.JLabel();
 
         jLabel2.setText("jLabel2");
 
@@ -112,6 +113,8 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
             }
         });
 
+        lb_periode.setText("jLabel4");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,7 +125,9 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1034, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(442, 442, 442)
+                        .addGap(81, 81, 81)
+                        .addComponent(lb_periode)
+                        .addGap(327, 327, 327)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel3))
@@ -142,11 +147,17 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3)
+                        .addGap(18, 18, 18))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(lb_periode)
+                        .addGap(27, 27, 27)))
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -260,6 +271,7 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable_candidatures;
+    private javax.swing.JLabel lb_periode;
     // End of variables declaration//GEN-END:variables
 
     private void initTableauCand() {
