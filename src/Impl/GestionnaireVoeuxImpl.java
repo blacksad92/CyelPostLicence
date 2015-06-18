@@ -47,9 +47,9 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     public ArrayList<Voeu> listeVoeuxParAcademie;
 
     public GestionnaireVoeuxImpl() {
-       //academie = new Academie(1, "Toulouse");
+        academie = new Academie(1, "Toulouse");
         //academie = new Academie(2, "Montpellier");
-        academie = new Academie(3, "Nice");
+        //academie = new Academie(3, "Nice");
         //academie = new Academie(4, "Aix-Marseille");
         //academie = new Academie(5, "Bordeaux");
         //academie = new Academie(6, "Corse");
@@ -69,20 +69,7 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
         
         if (periode < 4) {
             periode++;
-            if (periode == 4){
-            ArrayList<Voeu> listeVoeuxAvecReponse = bdd.bdd_listeVoeuxParAcademie(this.academie.numAcademie);
-            for (int i=0; i< listeVoeuxAvecReponse.size();i++){
-                int numUniversite = listeVoeuxAvecReponse.get(i).universite.numUniv;
-                int numVoeu = listeVoeuxAvecReponse.get(i).numVoeu;
-                int INE = bdd.bdd_INEduVoeu(numVoeu);
-                GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(numUniversite);
-                // Appeller la méthode enregistrer voeux
-                    if(gestCand != null)
-                    {
-                        gestCand.majListe(INE, listeVoeuxAvecReponse.get(i));
-                    }
-            }
-        }
+            
             if(periode == 2) {// SI la periode passe a 2, on envoie automatiquement les candidatures
                 //Recuperer les voeux pour l'academie.
                 ArrayList<Voeu> listeVoeux = bdd.bdd_listeVoeuxParAcademie(this.academie.numAcademie);
@@ -119,6 +106,21 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
                     if(gestCand != null)
                     {
                         gestCand.finPeriodeDecision();
+                    }
+                }
+            }
+            
+            if (periode == 4){
+                ArrayList<Voeu> listeVoeuxAvecReponse = bdd.bdd_listeVoeuxParAcademie(this.academie.numAcademie);
+                for (int i=0; i< listeVoeuxAvecReponse.size();i++){
+                    int numUniversite = listeVoeuxAvecReponse.get(i).universite.numUniv;
+                    int numVoeu = listeVoeuxAvecReponse.get(i).numVoeu;
+                    int INE = bdd.bdd_INEduVoeu(numVoeu);
+                    GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(numUniversite);
+                    // Appeller la méthode enregistrer voeux
+                    if(gestCand != null)
+                    {
+                        gestCand.majListe(INE, listeVoeuxAvecReponse.get(i));
                     }
                 }
             }

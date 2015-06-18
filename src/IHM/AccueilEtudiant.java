@@ -77,11 +77,11 @@ public class AccueilEtudiant extends javax.swing.JFrame {
             Voeu v = tabVoeu[i];
 
             String etatCand = v.etatCandidature.toString();
-            if (v.etatCandidature != EnumDecision.acceptee || dejaAccepte) {
+            if (dejaAccepte) {
                 etatCand = "----";
             }
             String reponse = v.reponse.toString();
-            if (v.reponse == EnumReponse.vide || dejaAccepte) {
+            if (dejaAccepte) {
                 reponse = "----";
             }
             model.addRow(new Object[]{v.numVoeu, v.ordre, v.master.numMaster, v.master.nomMaster, v.universite.numUniv, v.universite.nomUniv, etatCand, reponse, "Supprimer"});

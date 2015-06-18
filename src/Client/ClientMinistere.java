@@ -6,8 +6,11 @@
 
 package Client;
 
+import CyelPostLicence.GestionnaireCandidatures;
 import CyelPostLicence.GestionnaireVoeux;
+import CyelPostLicence.Universite;
 import Outils.CorbaName;
+import java.util.ArrayList;
 import org.omg.CosNaming.NamingContext;
 
 /**
@@ -62,6 +65,17 @@ public class ClientMinistere {
         for(int i=0; i < tabGestVoeux.length ; i++)
         {
             tabGestVoeux[i].RAZPeriode();
+        }
+    }
+    
+    public void actualiserListes() {
+        System.out.println("[ClientMinistere] actualiserListes");
+        // Récupérer la liste des universités
+        GestionnaireCandidatures[] listeGestCand = gestAcces.ListeGestionnairesCandidatures();
+        // Pour chaque université
+        for (int i=0; i<listeGestCand.length; i++) {
+            // Appeller la méthode finPeriodeDecision
+            listeGestCand[i].finPeriodeDecision();
         }
     }
 }

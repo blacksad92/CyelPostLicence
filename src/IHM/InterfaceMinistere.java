@@ -15,6 +15,7 @@ import Client.ClientMinistere;
 public class InterfaceMinistere extends javax.swing.JFrame {
     
     public static ClientMinistere client;
+    public static int periode;
 
     /**
      * Creates new form InterfaceMinistere
@@ -27,6 +28,8 @@ public class InterfaceMinistere extends javax.swing.JFrame {
         this.client = client;
         initComponents();
         this.setVisible(true);
+        this.periode = 0;
+        bt_actualiserListes.setEnabled(false);
     }
 
     /**
@@ -40,6 +43,8 @@ public class InterfaceMinistere extends javax.swing.JFrame {
 
         bt_cloturerPeriode = new javax.swing.JButton();
         bt_RAZ = new javax.swing.JButton();
+        bt_actualiserListes = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,37 +64,74 @@ public class InterfaceMinistere extends javax.swing.JFrame {
             }
         });
 
+        bt_actualiserListes.setText("Actualiser les listes (période 4)");
+        bt_actualiserListes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_actualiserListesActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel1.setText("Ministère");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(bt_RAZ, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bt_cloturerPeriode, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(bt_cloturerPeriode, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(bt_actualiserListes, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(bt_RAZ, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(266, 266, 266))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(bt_cloturerPeriode, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bt_RAZ, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jLabel1)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(bt_actualiserListes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bt_cloturerPeriode, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(bt_RAZ, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_cloturerPeriodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_cloturerPeriodeActionPerformed
+        if (periode < 4) {
+            periode++;
+        }
         client.cloturerPeriode();
+        if (periode == 4) {
+            bt_actualiserListes.setEnabled(true);
+        }
+        else {
+            bt_actualiserListes.setEnabled(false);
+        }
     }//GEN-LAST:event_bt_cloturerPeriodeActionPerformed
 
     private void bt_RAZActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_RAZActionPerformed
+        periode = 0;
         client.RAZPeriode();
     }//GEN-LAST:event_bt_RAZActionPerformed
+
+    private void bt_actualiserListesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_actualiserListesActionPerformed
+        client.actualiserListes();
+    }//GEN-LAST:event_bt_actualiserListesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -122,13 +164,15 @@ public class InterfaceMinistere extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 client = new ClientMinistere(args);
-                new InterfaceMinistere();
+                new InterfaceMinistere(client);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_RAZ;
+    private javax.swing.JButton bt_actualiserListes;
     private javax.swing.JButton bt_cloturerPeriode;
+    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
