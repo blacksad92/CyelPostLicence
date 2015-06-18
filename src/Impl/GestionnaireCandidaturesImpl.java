@@ -70,9 +70,10 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
         System.out.println(universite.nomUniv);
     }
 
+    //Verifie si le master demandé est valide avec la licence de l'etudiant. 
+    // Retourne un etat valide ou non valide
     @Override
     public EnumDecision validerCandidature(int numMaster, int numLicence) {
-        System.out.println("validerCandidature"+universite.nomUniv);
         EnumDecision etat;
         boolean prerequis = bdd.bdd_verifieLicencePrerequis(universite.numUniv, numMaster, numLicence);
         if(prerequis == false)
@@ -86,10 +87,9 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
         return etat;
     }
 
+    //Recupere les notes d'un etudiant grace a son numéro INE
     @Override
-    public Note[] recupererListeNotes(int INE, boolean externe) {
-        System.out.println("[GestionnaireCandidaturesImpl] Recupereration des notes de "+INE);
-        
+    public Note[] recupererListeNotes(int INE, boolean externe) {        
         if (!externe) {
             listeNotes = new ArrayList<Note>();
             Note[] notesExternes;
@@ -140,20 +140,21 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
         return tabeauMaster;
     }
 
+    //Recupere en BDD toutes les candidatures d'une universite pour un master
     @Override
     public Candidature[] consulterCandidatures(int numMaster, int numUniversite) {
-        System.out.println("CandImpl consulterCandid");    
         Candidature[] candidature = bdd.bdd_listeCandidature(numUniversite, numMaster);
         return candidature;
     }
 
+    // Enregistre en BDD un etudiant pour un master (une candidature)
     @Override
     public void enregistrerCandidatures(Etudiant etudiant, int numMaster) {
-        System.out.println("CandImpl EnregistrerCandid");
         int numUniv = this.universite.numUniv;
         bdd.bdd_insertCandidature(etudiant, numMaster,numUniv);
     }
 
+    //Vide la base de données de ses données afin de simuler un retour en période 1 (au debut)
     @Override
     public void RAZPeriode() {
         try {
@@ -170,7 +171,6 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
 
     @Override
     public void finPeriodeDecision() {
-        System.out.println("[GestionnaireCandidaturesImpl] finPeriodeDecision");
         // Début de la période 3
         // On va récupérer toutes les candidatures de l'université puis les renvoyer vers leur gestionnaire de voeux respectives
         Candidature[] listeCandidatures = bdd.bdd_listeCandidature(universite.numUniv);

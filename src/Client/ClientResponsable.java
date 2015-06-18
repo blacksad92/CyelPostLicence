@@ -108,8 +108,8 @@ public class ClientResponsable {
         return u;
     }
 
+    //Recupere le bon gestionnaire de candidature grace au numéro de l'universite
     public void obtenirGestionnaireCandidatures(int numUniversite) {
-        System.out.println("cR obtenirGestionnaire Candidatures");
         gestCandidature = gestAcces.obtenirGestionnaireCandidatures(numUniversite);
     }
 
@@ -121,23 +121,22 @@ public class ClientResponsable {
         gestCandidature.enregistrerCandidatures(etudiants, NumMaster);*/
     }
 
+    //Recupere les candidatures pour son universite dans son master
     public Candidature[] mesCandidatures() {
-        System.out.println("CR mesCandidatures");
         int NumUniversite = gestCandidature.universite().numUniv;
-        System.out.println("CR mesCandidatures numUniversite" + NumUniversite);
         Candidature[] candidatures;
         candidatures = gestCandidature.consulterCandidatures(NumMaster, NumUniversite);
-        System.out.println("CR mesCandidatures etudiants" + candidatures.length);
         return candidatures;
     }
 
+    //Recupere les notes d'un candidat a partir de son numéro INE
     public Note[] recupererNotesCandidat(int INE) {
-        System.out.println("[ClientResponsable] Recupereration des notes de " + INE);
         Note[] notes = gestCandidature.recupererListeNotes(INE, false);
 
         return notes;
     }
     
+    //Enregistre le classement de la candidature a partir du numéro INE de l'etudiant qui postule
     public void enregistrerClassement(int INE, int classement) {
         gestCandidature.enregistrerClassement(INE, classement);
     }
