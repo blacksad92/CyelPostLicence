@@ -130,22 +130,22 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
 
     @Override
     public void RAZPeriode() {
+        try {
         System.out.println("Periode actuelle " + periode);
         System.out.println("Remise à zéro de la période");
         periode = 1;
         ArrayList<Universite> liste = bdd.bdd_consultUniversitePourUneAcademie(academie.numAcademie);
-        System.out.println(liste.get(0).numUniv);
-        System.out.println(liste.get(1).numUniv);
-        System.out.println(liste.get(2).numUniv);
-        System.out.println(liste.size());
+        //System.out.println(liste.get(0).numUniv);
+        //System.out.println(liste.get(1).numUniv);
+        //System.out.println(liste.size());
         for (int i = 0; i < liste.size(); i++) {
             GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(liste.get(i).numUniv);
             if (gestCand != null){
-            gestCand.RAZPeriode();}
+                gestCand.RAZPeriode();
+                bdd.bdd_RAZ(academie.numAcademie);
+            }
         }
         
-         try {
-         bdd.bdd_RAZ(academie.numAcademie);
          System.out.println("La période a été remis à : "+periode);
          } catch (SQLException ex) {
          Logger.getLogger(GestionnaireVoeuxImpl.class.getName()).log(Level.SEVERE, null, ex);
