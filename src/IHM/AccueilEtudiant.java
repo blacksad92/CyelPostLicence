@@ -59,6 +59,7 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         } else {
             bt_enregistrerClassement.setEnabled(true);
         }
+        lb_periode.setText("Période : "+Integer.toString(client.gestVoeux.periode()));
     }
 
     public void initTableauVoeux() {
@@ -141,6 +142,7 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         bt_actualiser = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tAreaErreur = new javax.swing.JTextArea();
+        lb_periode = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
@@ -226,6 +228,8 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         tAreaErreur.setSelectionColor(new java.awt.Color(0, 0, 0));
         jScrollPane3.setViewportView(tAreaErreur);
 
+        lb_periode.setText("jLabel3");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -233,6 +237,8 @@ public class AccueilEtudiant extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(bt_actualiser)
+                .addGap(136, 136, 136)
+                .addComponent(lb_periode)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -272,7 +278,8 @@ public class AccueilEtudiant extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(bt_seDeconnecter)
-                    .addComponent(bt_actualiser))
+                    .addComponent(bt_actualiser)
+                    .addComponent(lb_periode))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
@@ -438,6 +445,7 @@ public class AccueilEtudiant extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable_voeux;
+    private javax.swing.JLabel lb_periode;
     private javax.swing.JTextArea tAreaErreur;
     private javax.swing.JTextArea tAreaInsctruction;
     // End of variables declaration//GEN-END:variables

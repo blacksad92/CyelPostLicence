@@ -30,7 +30,7 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
         initComponents();
         this.client = client;
         int periode = this.client.getPeriode();
-        
+        lb_periode.setText("Periode "+Integer.toString(client.getPeriode()));
         
         initTableauCand();
        
@@ -54,6 +54,8 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
         bt_classerListeAttente = new javax.swing.JButton();
         bt_refuser = new javax.swing.JButton();
         bt_accepter = new javax.swing.JButton();
+        lb_periode = new javax.swing.JLabel();
+        bt_actualiser = new javax.swing.JButton();
 
         jLabel2.setText("jLabel2");
 
@@ -112,6 +114,15 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
             }
         });
 
+        lb_periode.setText("jLabel4");
+
+        bt_actualiser.setText("Actualiser");
+        bt_actualiser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bt_actualiserActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -122,7 +133,11 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1034, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(442, 442, 442)
+                        .addGap(52, 52, 52)
+                        .addComponent(bt_actualiser)
+                        .addGap(120, 120, 120)
+                        .addComponent(lb_periode)
+                        .addGap(163, 163, 163)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel3))
@@ -142,10 +157,17 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lb_periode)
+                            .addComponent(bt_actualiser))))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -215,6 +237,13 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
         acc.setVisible(true);
     }//GEN-LAST:event_bt_accepterActionPerformed
 
+    private void bt_actualiserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_actualiserActionPerformed
+      AccueilResponsableFormation acc = new AccueilResponsableFormation(client);
+       this.setVisible(false);
+       acc.setVisible(true);
+       
+    }//GEN-LAST:event_bt_actualiserActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -252,6 +281,7 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bt_accepter;
+    private javax.swing.JButton bt_actualiser;
     private javax.swing.JButton bt_classerListeAttente;
     private javax.swing.JButton bt_consulterNotes;
     private javax.swing.JButton bt_refuser;
@@ -260,6 +290,7 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable_candidatures;
+    private javax.swing.JLabel lb_periode;
     // End of variables declaration//GEN-END:variables
 
     private void initTableauCand() {

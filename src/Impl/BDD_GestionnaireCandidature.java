@@ -165,7 +165,7 @@ public class BDD_GestionnaireCandidature {
                     + "      AND c.NumMaster = m.NumMaster"
                     + "     AND m.NumMaster = "+NumMaster
                     + "     ORDER BY c.Classement";
-            System.out.println(req);
+            //System.out.println(req);
             ResultSet rs = s.executeQuery(req);
             
             while (rs.next()) {
@@ -205,7 +205,7 @@ public class BDD_GestionnaireCandidature {
                     + "      WHERE c.NumUniversite = "+NumUniversite+""
                     + "      AND c.NumMaster = m.NumMaster"
                     + "     ORDER BY c.Classement";
-            System.out.println(req);
+            //System.out.println(req);
             ResultSet rs = s.executeQuery(req);
             
             while (rs.next()) {

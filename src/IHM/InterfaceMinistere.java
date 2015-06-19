@@ -22,14 +22,16 @@ public class InterfaceMinistere extends javax.swing.JFrame {
      */
     public InterfaceMinistere() {
         initComponents();
+        //lb_periode.setText("Periode "+Integer.toString(periode));
     }
     
     public InterfaceMinistere(ClientMinistere client) {
         this.client = client;
         initComponents();
         this.setVisible(true);
-        this.periode = 0;
+        this.periode = 1;
         bt_actualiserListes.setEnabled(false);
+        lb_periode.setText("Periode "+Integer.toString(periode));
     }
 
     /**
@@ -45,6 +47,7 @@ public class InterfaceMinistere extends javax.swing.JFrame {
         bt_RAZ = new javax.swing.JButton();
         bt_actualiserListes = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        lb_periode = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,6 +77,8 @@ public class InterfaceMinistere extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel1.setText("Ministère");
 
+        lb_periode.setText("jLabel2");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -83,14 +88,16 @@ public class InterfaceMinistere extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(bt_cloturerPeriode, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(bt_actualiserListes, javax.swing.GroupLayout.DEFAULT_SIZE, 306, Short.MAX_VALUE))
+                        .addGap(64, 64, 64)
+                        .addComponent(bt_actualiserListes, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(bt_RAZ, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(93, 93, 93)
+                .addComponent(lb_periode)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(266, 266, 266))
         );
@@ -98,10 +105,12 @@ public class InterfaceMinistere extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(lb_periode))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(bt_actualiserListes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bt_actualiserListes)
                     .addComponent(bt_cloturerPeriode, javax.swing.GroupLayout.PREFERRED_SIZE, 54, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(bt_RAZ, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -122,10 +131,11 @@ public class InterfaceMinistere extends javax.swing.JFrame {
         else {
             bt_actualiserListes.setEnabled(false);
         }
+        lb_periode.setText("Periode "+Integer.toString(periode));
     }//GEN-LAST:event_bt_cloturerPeriodeActionPerformed
 
     private void bt_RAZActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_RAZActionPerformed
-        periode = 0;
+        periode = 1;
         client.RAZPeriode();
     }//GEN-LAST:event_bt_RAZActionPerformed
 
@@ -174,5 +184,6 @@ public class InterfaceMinistere extends javax.swing.JFrame {
     private javax.swing.JButton bt_actualiserListes;
     private javax.swing.JButton bt_cloturerPeriode;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel lb_periode;
     // End of variables declaration//GEN-END:variables
 }
