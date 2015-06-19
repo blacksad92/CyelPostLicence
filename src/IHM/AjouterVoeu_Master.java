@@ -36,6 +36,7 @@ public class AjouterVoeu_Master extends javax.swing.JFrame {
     }
 
      public void initListeMaster() {
+        cb_listeMaster.removeAllItems();
         Master[] listeM = client.listeMaster();
         for (int i = 0; i < listeM.length; i++) {
             cb_listeMaster.addItem(new Item(listeM[i].numMaster, listeM[i].nomMaster));

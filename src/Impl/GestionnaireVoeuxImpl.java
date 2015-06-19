@@ -9,7 +9,6 @@ import CyelPostLicence.Academie;
 import CyelPostLicence.Decision;
 import CyelPostLicence.EnumDecision;
 import CyelPostLicence.EnumReponse;
-import CyelPostLicence.EtatCandidature;
 import CyelPostLicence.Etudiant;
 import CyelPostLicence.GestionnaireAcces;
 import CyelPostLicence.GestionnaireCandidatures;
@@ -28,8 +27,10 @@ import java.util.Iterator;
  */
 public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA {
 
-    public ArrayList<Universite> listeUniv;
-    public Universite[] tableauUniv;
+    public ArrayList<Universite> listeAccredUniv;
+    public Universite[] tableauAccredUniv;
+    public ArrayList<Universite> listeAccredUnivExt;
+    public Universite[] tableauAccredUnivExt;
     public ArrayList<Universite> listeUniv2;
     public Universite[] tableauUniv2;
     public ArrayList<Voeu> listeVoeu;
@@ -54,7 +55,8 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
         //academie = new Academie(5, "Bordeaux");
         //academie = new Academie(6, "Corse");
 
-        listeUniv = new ArrayList<Universite>();
+        listeAccredUniv = new ArrayList<Universite>();
+        listeAccredUnivExt = new ArrayList<Universite>();
         listeUniv2 = new ArrayList<Universite>();
         listeVoeu = new ArrayList<Voeu>();
         listeTempo = new ArrayList<Voeu>();
@@ -66,60 +68,56 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     @Override
     public void cloturerPeriode() {
         System.out.println("Periode ancienne " + periode);
-        
+
         if (periode < 4) {
             periode++;
-            
-            if(periode == 2) {// SI la periode passe a 2, on envoie automatiquement les candidatures
+
+            if (periode == 2) {// SI la periode passe a 2, on envoie automatiquement les candidatures
                 //Recuperer les voeux pour l'academie.
                 ArrayList<Voeu> listeVoeux = bdd.bdd_listeVoeuxParAcademie(this.academie.numAcademie);
-                for(int i=0; i< listeVoeux.size(); i++)
-                {
+                for (int i = 0; i < listeVoeux.size(); i++) {
                     int numMaster = listeVoeux.get(i).master.numMaster;
                     int numUniversite = listeVoeux.get(i).universite.numUniv;
                     int numVoeux = listeVoeux.get(i).numVoeu;
                     int INE = bdd.bdd_INEduVoeu(numVoeux);
                     Etudiant etu = gestAcces.obtenirEtudiant(INE);
                     // Recuperer le bon gestionnaire de candidature
-                    GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(numUniversite); 
-                   
+                    GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(numUniversite);
+
                     // Appeller la méthode enregistrer voeux
-                    if(gestCand != null)
-                    {
+                    if (gestCand != null) {
                         gestCand.enregistrerCandidatures(etu, numMaster);
                     }
                 }
             }
-            
-            if(periode == 3) { // SI lon passe à la période 3 -> Envoi des décisions des universités vers les académies (on va donc notifier les universités)
+
+            if (periode == 3) { // SI lon passe à la période 3 -> Envoi des décisions des universités vers les académies (on va donc notifier les universités)
                 System.out.println("[GestionnaireVoeuxImpl] cloturerPeriode - PASSAGE PERIODE 3");
                 // Récupérer la liste des universités de l'académie
                 ArrayList<Universite> listeUniv = bdd.bdd_consultUniversitePourUneAcademie(academie.numAcademie);
                 // Pour chaque université
                 Iterator it = listeUniv.iterator();
-                while(it.hasNext()) {
+                while (it.hasNext()) {
                     Universite univ = (Universite) it.next();
                     // Recuperer le bon gestionnaire de candidature
                     GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(univ.numUniv);
-                    
+
                     // Appeller la méthode finPeriodeDecision
-                    if(gestCand != null)
-                    {
+                    if (gestCand != null) {
                         gestCand.finPeriodeDecision();
                     }
                 }
             }
-            
-            if (periode == 4){
+
+            if (periode == 4) {
                 ArrayList<Voeu> listeVoeuxAvecReponse = bdd.bdd_listeVoeuxParAcademie(this.academie.numAcademie);
-                for (int i=0; i< listeVoeuxAvecReponse.size();i++){
+                for (int i = 0; i < listeVoeuxAvecReponse.size(); i++) {
                     int numUniversite = listeVoeuxAvecReponse.get(i).universite.numUniv;
                     int numVoeu = listeVoeuxAvecReponse.get(i).numVoeu;
                     int INE = bdd.bdd_INEduVoeu(numVoeu);
                     GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(numUniversite);
                     // Appeller la méthode enregistrer voeux
-                    if(gestCand != null)
-                    {
+                    if (gestCand != null) {
                         gestCand.majListe(INE, listeVoeuxAvecReponse.get(i));
                     }
                 }
@@ -140,16 +138,17 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
         System.out.println(liste.size());
         for (int i = 0; i < liste.size(); i++) {
             GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(liste.get(i).numUniv);
-            if (gestCand != null){
-            gestCand.RAZPeriode();}
+            if (gestCand != null) {
+                gestCand.RAZPeriode();
+            }
         }
-        
-         try {
-         bdd.bdd_RAZ(academie.numAcademie);
-         System.out.println("La période a été remis à : "+periode);
-         } catch (SQLException ex) {
-         Logger.getLogger(GestionnaireVoeuxImpl.class.getName()).log(Level.SEVERE, null, ex);
-         }
+
+        try {
+            bdd.bdd_RAZ(academie.numAcademie);
+            System.out.println("La période a été remis à : " + periode);
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionnaireVoeuxImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
@@ -161,42 +160,6 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     @Override
     public void academie(Academie value) {
         this.academie = value;
-    }
-
-    @Override
-    public Universite[] consulterAcreditations(int numMaster, boolean externe) {
-
-        if (!externe) {
-            listeUniv = new ArrayList<Universite>();
-            Universite[] univExterne;
-            //Liste de toutes les académies
-            GestionnaireVoeux[] listeGestVoeux = gestAcces.listeGestionnairesVoeux();
-
-            for (int i = 0; i < listeGestVoeux.length; i++) {
-                univExterne = listeGestVoeux[i].consulterAcreditations(numMaster, true);
-                if (univExterne.length > 0) {
-                    if (listeUniv.contains(univExterne[0]) == false) {
-                        listeUniv.add(univExterne[0]); /**/ /*ELEA : Pourquoi juste univEcterne[0] et pas tous ?*/
-                        /* ROMAIN : Parceque bdd_consultAccreditations ne retourne qu'une université 
-                         par conséquent la recursive consulterAcreditations retourne un tableau avec un seul élément*/
-
-
-                    }
-                }
-            }
-        }
-
-        if (externe) {
-            Universite u = bdd.bdd_consultAccreditations(academie.numAcademie, numMaster);
-            if (u != null) {
-                if (listeUniv.contains(u) == false) {
-                    listeUniv.add(u);
-                }
-            }
-        }
-
-        tableauUniv = listeUniv.toArray(new Universite[listeUniv.size()]);
-        return tableauUniv;
     }
 
     @Override
@@ -282,9 +245,9 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     @Override
     public void enregistrerDecision(Decision decision) {
         System.out.println("[GestionnaireVoeuxImpl] enregistrerDecision");
-        
+
         boolean res = bdd.bdd_enregistrerDecision(decision.etudiant.INE, decision.numMaster, decision.numUniversite, decision.decision);
-        
+
         if (!res) {
             System.out.println("/!\\ ERREUR ENREGISTREMENT DECISION /!\\");
         }
@@ -297,44 +260,76 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     @Override
     public void repondreVoeu(int INE, Voeu voeu) {
         // On récupère la liste des voeux de l'étudiant
-        ArrayList<Voeu> listeVoeux = bdd.bdd_listeVoeux(INE,academie.numAcademie);
+        ArrayList<Voeu> listeVoeux = bdd.bdd_listeVoeux(INE, academie.numAcademie);
         boolean passe = false;
         Iterator it = listeVoeux.iterator();
         while (it.hasNext()) {
             Voeu v = (Voeu) it.next();
-            
-            if (v.numVoeu==voeu.numVoeu) { // Voeu répondu
+
+            if (v.numVoeu == voeu.numVoeu) { // Voeu répondu
                 passe = true;
-                bdd.bdd_repondreVoeu(voeu.numVoeu,voeu.reponse);
-            }
-            else if (passe) { // Voeux en dessous
-                bdd.bdd_repondreVoeu(v.numVoeu,EnumReponse.non);
-            }
-            else { // Voeux au dessus
+                bdd.bdd_repondreVoeu(voeu.numVoeu, voeu.reponse);
+            } else if (passe) { // Voeux en dessous
+                bdd.bdd_repondreVoeu(v.numVoeu, EnumReponse.non);
+            } else { // Voeux au dessus
                 EnumReponse rep = EnumReponse.oui;
                 // Si il a répondu non : abandon de tous les voeux, oui : abandon des voeux supérieurs
-                if (voeu.reponse==EnumReponse.non || voeu.reponse==EnumReponse.oui) {
+                if (voeu.reponse == EnumReponse.non || voeu.reponse == EnumReponse.oui) {
                     rep = EnumReponse.non;
                 }
-                bdd.bdd_repondreVoeu(v.numVoeu,rep);
+                bdd.bdd_repondreVoeu(v.numVoeu, rep);
             }
         }
     }
 
     @Override
     public void supprimerVoeux(int numVoeu, int numUniv) {
-        
-        if (mesIDUnivs.contains(numUniv)){
+
+        if (mesIDUnivs.contains(numUniv)) {
             try {
-            bdd.bdd_SupprimerVoeux(numVoeu);
-        } catch (SQLException ex) {
-            System.out.print(ex);
-        }
-        }else{
+                bdd.bdd_SupprimerVoeux(numVoeu);
+            } catch (SQLException ex) {
+                System.out.print(ex);
+            }
+        } else {
             GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(numUniv);
             Universite univ = gestCand.universite();
             GestionnaireVoeux gestVoeux = gestAcces.obtenirGestionnaireVoeux(univ.academie.numAcademie);
             gestVoeux.supprimerVoeux(numVoeu, numUniv);
-        } 
+        }
+    }
+
+    public Universite[] consulterAcreditations(int numMaster) {
+
+        listeAccredUniv = new ArrayList<Universite>();
+        Universite[] univExterne;
+        //Liste de toutes les académies
+        GestionnaireVoeux[] listeGestVoeux = gestAcces.listeGestionnairesVoeux();
+
+        for (int i = 0; i < listeGestVoeux.length; i++) {
+            univExterne = listeGestVoeux[i].consulterAcreditationsExternes(numMaster);
+            if (univExterne.length > 0) {
+                if (listeAccredUniv.contains(univExterne[0]) == false) {
+                    listeAccredUniv.add(univExterne[0]);
+                }
+            }
+        }
+
+        tableauAccredUniv = listeAccredUniv.toArray(new Universite[listeAccredUniv.size()]);
+        return tableauAccredUniv;
+    }
+
+    public Universite[] consulterAcreditationsExternes(int numMaster) {
+        listeAccredUnivExt = new ArrayList<Universite>();
+        Universite u = bdd.bdd_consultAccreditations(academie.numAcademie, numMaster);
+        if (u != null) {
+            if (listeAccredUnivExt.contains(u) == false) {
+                listeAccredUnivExt = new ArrayList<Universite>();
+                listeAccredUnivExt.add(u);
+            }
+        }
+
+        tableauAccredUnivExt = listeAccredUnivExt.toArray(new Universite[listeAccredUnivExt.size()]);
+        return tableauAccredUnivExt;
     }
 }

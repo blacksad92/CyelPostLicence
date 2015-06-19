@@ -146,7 +146,8 @@ module CyelPostLicence {
 		attribute Academie academie;
 		attribute long periode;
 		readonly attribute ListeUniversites listeUniversite;
-		ListeUniversites consulterAcreditations(in long numMaster, in boolean externe);
+		ListeUniversites consulterAcreditations(in long numMaster);
+		ListeUniversites consulterAcreditationsExternes(in long numMaster);
 		void enregistrerVoeux(in Etudiant etudiant, in ListeVoeux listeVoeux);
 		void repondreVoeu(in long INE, in Voeu voeu);
 		ListeVoeux consulterVoeux(in long INE, in boolean externe);

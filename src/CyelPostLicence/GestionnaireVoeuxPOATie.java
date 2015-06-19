@@ -105,9 +105,17 @@ public class GestionnaireVoeuxPOATie extends GestionnaireVoeuxPOA
     /**
      * Operation consulterAcreditations
      */
-    public CyelPostLicence.Universite[] consulterAcreditations(int numMaster, boolean externe)
+    public CyelPostLicence.Universite[] consulterAcreditations(int numMaster)
     {
-        return _tie.consulterAcreditations( numMaster,  externe);
+        return _tie.consulterAcreditations( numMaster);
+    }
+
+    /**
+     * Operation consulterAcreditationsExternes
+     */
+    public CyelPostLicence.Universite[] consulterAcreditationsExternes(int numMaster)
+    {
+        return _tie.consulterAcreditationsExternes( numMaster);
     }
 
     /**

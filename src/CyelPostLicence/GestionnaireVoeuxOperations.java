@@ -40,7 +40,12 @@ public interface GestionnaireVoeuxOperations
     /**
      * Operation consulterAcreditations
      */
-    public CyelPostLicence.Universite[] consulterAcreditations(int numMaster, boolean externe);
+    public CyelPostLicence.Universite[] consulterAcreditations(int numMaster);
+
+    /**
+     * Operation consulterAcreditationsExternes
+     */
+    public CyelPostLicence.Universite[] consulterAcreditationsExternes(int numMaster);
 
     /**
      * Operation enregistrerVoeux

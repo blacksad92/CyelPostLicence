@@ -10,12 +10,10 @@ import CyelPostLicence.Academie;
 import CyelPostLicence.EnumDecision;
 import CyelPostLicence.EnumOrdre;
 import CyelPostLicence.EnumReponse;
-import CyelPostLicence.EtatCandidature;
 import CyelPostLicence.Master;
 import CyelPostLicence.Universite;
 import CyelPostLicence.Voeu;
 import Outils.Item;
-import java.awt.event.WindowEvent;
 import javax.swing.JFrame;
 
 /**
@@ -54,6 +52,7 @@ public class AjouterVoeu_Universite extends javax.swing.JFrame {
     }
     
     public void initcb_ListeUniversites() {
+        cb_listeUniversites.removeAllItems();
         for (int i = 0; i < listeUniversite.length; i++) {
             cb_listeUniversites.addItem(new Item(listeUniversite[i].numUniv, listeUniversite[i].nomUniv));
         }

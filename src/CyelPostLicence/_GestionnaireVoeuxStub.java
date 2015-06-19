@@ -237,7 +237,7 @@ public class _GestionnaireVoeuxStub extends org.omg.CORBA.portable.ObjectImpl
     /**
      * Operation consulterAcreditations
      */
-    public CyelPostLicence.Universite[] consulterAcreditations(int numMaster, boolean externe)
+    public CyelPostLicence.Universite[] consulterAcreditations(int numMaster)
     {
         while(true)
         {
@@ -248,7 +248,6 @@ public class _GestionnaireVoeuxStub extends org.omg.CORBA.portable.ObjectImpl
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("consulterAcreditations",true);
                     _output.write_long(numMaster);
-                    _output.write_boolean(externe);
                     _input = this._invoke(_output);
                     CyelPostLicence.Universite[] _arg_ret = CyelPostLicence.ListeUniversitesHelper.read(_input);
                     return _arg_ret;
@@ -275,7 +274,57 @@ public class _GestionnaireVoeuxStub extends org.omg.CORBA.portable.ObjectImpl
                 CyelPostLicence.GestionnaireVoeuxOperations _self = (CyelPostLicence.GestionnaireVoeuxOperations) _so.servant;
                 try
                 {
-                    return _self.consulterAcreditations( numMaster,  externe);
+                    return _self.consulterAcreditations( numMaster);
+                }
+                finally
+                {
+                    _servant_postinvoke(_so);
+                }
+            }
+        }
+    }
+
+    /**
+     * Operation consulterAcreditationsExternes
+     */
+    public CyelPostLicence.Universite[] consulterAcreditationsExternes(int numMaster)
+    {
+        while(true)
+        {
+            if (!this._is_local())
+            {
+                org.omg.CORBA.portable.InputStream _input = null;
+                try
+                {
+                    org.omg.CORBA.portable.OutputStream _output = this._request("consulterAcreditationsExternes",true);
+                    _output.write_long(numMaster);
+                    _input = this._invoke(_output);
+                    CyelPostLicence.Universite[] _arg_ret = CyelPostLicence.ListeUniversitesHelper.read(_input);
+                    return _arg_ret;
+                }
+                catch(org.omg.CORBA.portable.RemarshalException _exception)
+                {
+                    continue;
+                }
+                catch(org.omg.CORBA.portable.ApplicationException _exception)
+                {
+                    String _exception_id = _exception.getId();
+                    throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
+                }
+                finally
+                {
+                    this._releaseReply(_input);
+                }
+            }
+            else
+            {
+                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("consulterAcreditationsExternes",_opsClass);
+                if (_so == null)
+                   continue;
+                CyelPostLicence.GestionnaireVoeuxOperations _self = (CyelPostLicence.GestionnaireVoeuxOperations) _so.servant;
+                try
+                {
+                    return _self.consulterAcreditationsExternes( numMaster);
                 }
                 finally
                 {

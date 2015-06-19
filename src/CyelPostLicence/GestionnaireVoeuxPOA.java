@@ -47,6 +47,8 @@ public abstract class GestionnaireVoeuxPOA extends org.omg.PortableServer.Servan
                     new Operation_cloturerPeriode());
             operationMap.put("consulterAcreditations",
                     new Operation_consulterAcreditations());
+            operationMap.put("consulterAcreditationsExternes",
+                    new Operation_consulterAcreditationsExternes());
             operationMap.put("consulterVoeux",
                     new Operation_consulterVoeux());
             operationMap.put("enregistrerDecision",
@@ -133,9 +135,22 @@ public abstract class GestionnaireVoeuxPOA extends org.omg.PortableServer.Servan
             final org.omg.CORBA.portable.ResponseHandler handler) {
         org.omg.CORBA.portable.OutputStream _output;
         int arg0_in = _is.read_long();
-        boolean arg1_in = _is.read_boolean();
 
-        CyelPostLicence.Universite[] _arg_result = consulterAcreditations(arg0_in, arg1_in);
+        CyelPostLicence.Universite[] _arg_result = consulterAcreditations(arg0_in);
+
+        _output = handler.createReply();
+        CyelPostLicence.ListeUniversitesHelper.write(_output,_arg_result);
+
+        return _output;
+    }
+
+    private org.omg.CORBA.portable.OutputStream _invoke_consulterAcreditationsExternes(
+            final org.omg.CORBA.portable.InputStream _is,
+            final org.omg.CORBA.portable.ResponseHandler handler) {
+        org.omg.CORBA.portable.OutputStream _output;
+        int arg0_in = _is.read_long();
+
+        CyelPostLicence.Universite[] _arg_result = consulterAcreditationsExternes(arg0_in);
 
         _output = handler.createReply();
         CyelPostLicence.ListeUniversitesHelper.write(_output,_arg_result);
@@ -317,6 +332,16 @@ public abstract class GestionnaireVoeuxPOA extends org.omg.PortableServer.Servan
                 final org.omg.CORBA.portable.InputStream _is,
                 final org.omg.CORBA.portable.ResponseHandler handler) {
             return target._invoke_consulterAcreditations(_is, handler);
+        }
+    }
+
+    private static final class Operation_consulterAcreditationsExternes extends AbstractOperation
+    {
+        protected org.omg.CORBA.portable.OutputStream invoke(
+                final GestionnaireVoeuxPOA target,
+                final org.omg.CORBA.portable.InputStream _is,
+                final org.omg.CORBA.portable.ResponseHandler handler) {
+            return target._invoke_consulterAcreditationsExternes(_is, handler);
         }
     }
 

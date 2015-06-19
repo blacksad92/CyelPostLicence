@@ -88,7 +88,7 @@ public class ClientEtudiant {
     //Obtient la liste des accréditation d'un diplome auprès du gestionnaire de voeux
     public Universite[] getAccreditations(int numDiplome) {
         Universite[] u;
-        u = gestVoeux.consulterAcreditations(numDiplome, false);
+        u = gestVoeux.consulterAcreditations(numDiplome);
         return u;
     }
 
