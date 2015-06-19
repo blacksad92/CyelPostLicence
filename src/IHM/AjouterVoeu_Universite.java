@@ -22,11 +22,11 @@ import javax.swing.JFrame;
  */
 public class AjouterVoeu_Universite extends javax.swing.JFrame {
 
-    
     private ClientEtudiant client;
     private Master master;
     private Universite[] listeUniversite;
-    
+    private Voeu[] tabVoeu;
+
     /**
      * Creates new form AjouterVoeu_Universite
      */
@@ -50,15 +50,14 @@ public class AjouterVoeu_Universite extends javax.swing.JFrame {
         initcb_ListeUniversites();
         this.setVisible(true);
     }
-    
+
     public void initcb_ListeUniversites() {
         cb_listeUniversites.removeAllItems();
         for (int i = 0; i < listeUniversite.length; i++) {
             cb_listeUniversites.addItem(new Item(listeUniversite[i].numUniv, listeUniversite[i].nomUniv));
         }
     }
-    
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -139,28 +138,42 @@ public class AjouterVoeu_Universite extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void bt_enregistrerVoeuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_enregistrerVoeuActionPerformed
-            Item selectItem = (Item) cb_listeUniversites.getSelectedItem();
-            Academie academie = getAcademie(selectItem.getId());
-            Universite u = new Universite(selectItem.getId(), selectItem.getValeur(), academie);
-            Voeu listeV[] = new Voeu[1];
-            listeV[0]= new Voeu(0, u, master, EnumOrdre.vide, EnumDecision.vide, EnumReponse.vide, client.monEtudiant.licence.numLicence);
-            
-            client.enregistrerVoeux(listeV);
-            this.dispose();
-    }//GEN-LAST:event_bt_enregistrerVoeuActionPerformed
-
-    
-    public Academie getAcademie(int numeroUniv){
-        Academie a = null;
-        
-        for (int i = 0; i < listeUniversite.length; i++) {
-            if (listeUniversite[i].numUniv == numeroUniv){
-               a = listeUniversite[i].academie;
+        boolean doublon = false;
+        tabVoeu = client.mesVoeux();
+        Item selectItem = (Item) cb_listeUniversites.getSelectedItem();
+        Academie academie = getAcademie(selectItem.getId());
+        Universite u = new Universite(selectItem.getId(), selectItem.getValeur(), academie);
+        Voeu listeV[] = new Voeu[1];
+        for (int i = 0; i < tabVoeu.length; i++) {
+            if ((tabVoeu[i].universite.numUniv == u.numUniv) && (tabVoeu[i].master.numMaster == master.numMaster)) {
+                doublon = true;
             }
         }
+
+        if (doublon) {
+            new PopUpErreur().setVisible(true);
+            this.dispose();
+        } else {
+            listeV[0] = new Voeu(0, u, master, EnumOrdre.vide, EnumDecision.vide, EnumReponse.vide, client.monEtudiant.licence.numLicence);
+            client.enregistrerVoeux(listeV);
+            this.dispose();
+        }
+
         
+    }//GEN-LAST:event_bt_enregistrerVoeuActionPerformed
+
+    public Academie getAcademie(int numeroUniv) {
+        Academie a = null;
+
+        for (int i = 0; i < listeUniversite.length; i++) {
+            if (listeUniversite[i].numUniv == numeroUniv) {
+                a = listeUniversite[i].academie;
+            }
+        }
+
         return a;
     }
+
     /**
      * @param args the command line arguments
      */
