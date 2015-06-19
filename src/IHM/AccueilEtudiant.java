@@ -49,15 +49,22 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         jTable_voeux.setEnabled(true);
 
-        tAreaInsctruction.setText("Pour classer vos voeux : \n"
-                + " - Double clic sur la cellule de la colonne \"ordre\".\n"
-                + " - Saisir un chiffre entre 1 et " + tabVoeu.length + " \n"
-                + " - Vérifier qu'il n'y a pas de doublon");
+
 
         if (client.periode() != 1) {
             bt_enregistrerClassement.setEnabled(false);
+            bt_ajouterVoeux.setEnabled(false);
+            jTable_voeux.setEnabled(false);
+            tAreaInsctruction.setText("La première période est fini :\n"
+                    + "L'ajout, la suppresion et le classement de voeux n'est plus possible");
         } else {
             bt_enregistrerClassement.setEnabled(true);
+            bt_ajouterVoeux.setEnabled(true);
+            jTable_voeux.setEnabled(true);
+                    tAreaInsctruction.setText("Pour classer vos voeux : \n"
+                + " - Double clic sur la cellule de la colonne \"ordre\".\n"
+                + " - Saisir un chiffre entre 1 et " + tabVoeu.length + " \n"
+                + " - Vérifier qu'il n'y a pas de doublon");
         }
         lb_periode.setText("Période : "+Integer.toString(client.gestVoeux.periode()));
     }
@@ -117,6 +124,8 @@ public class AccueilEtudiant extends javax.swing.JFrame {
 
         ButtonColumn buttonColumn = new ButtonColumn(jTable_voeux, delete, 8);
         buttonColumn.setMnemonic(KeyEvent.VK_D);
+        
+        this.repaint();
 
     }
 
@@ -387,15 +396,23 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         tAreaErreur.setVisible(false);
         tAreaErreur.setEditable(false);
         initTableauVoeux();
-        tAreaInsctruction.setText("Pour classer vos voeux : \n"
+
+        if (client.periode() != 1) {
+            bt_enregistrerClassement.setEnabled(false);
+            bt_ajouterVoeux.setEnabled(false);
+            jTable_voeux.setEnabled(false);
+            tAreaInsctruction.setText("La première période est fini :\n"
+                    + "L'ajout, la suppresion et le classement de voeux n'est plus possible");
+        } else {
+            bt_enregistrerClassement.setEnabled(true);
+            bt_ajouterVoeux.setEnabled(true);
+            jTable_voeux.setEnabled(true);
+                    tAreaInsctruction.setText("Pour classer vos voeux : \n"
                 + " - Double clic sur la cellule de la colonne \"ordre\".\n"
                 + " - Saisir un chiffre entre 1 et " + tabVoeu.length + " \n"
                 + " - Vérifier qu'il n'y a pas de doublon");
-        if (client.periode() != 1) {
-            bt_enregistrerClassement.setEnabled(false);
-        } else {
-            bt_enregistrerClassement.setEnabled(true);
         }
+        lb_periode.setText("Période : "+Integer.toString(client.gestVoeux.periode()));
     }
 
     /**

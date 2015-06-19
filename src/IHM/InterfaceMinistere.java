@@ -29,7 +29,7 @@ public class InterfaceMinistere extends javax.swing.JFrame {
         this.client = client;
         initComponents();
         this.setVisible(true);
-        this.periode = 1;
+        this.periode = client.periode();
         bt_actualiserListes.setEnabled(false);
         lb_periode.setText("Periode "+Integer.toString(periode));
     }
@@ -137,6 +137,7 @@ public class InterfaceMinistere extends javax.swing.JFrame {
     private void bt_RAZActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_RAZActionPerformed
         periode = 1;
         client.RAZPeriode();
+        lb_periode.setText("Periode "+Integer.toString(periode));
     }//GEN-LAST:event_bt_RAZActionPerformed
 
     private void bt_actualiserListesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_actualiserListesActionPerformed

@@ -80,4 +80,13 @@ public class ClientMinistere {
             listeGestCand[i].finPeriodeDecision();
         }
     }
+    
+    public int periode() {
+        int periode =  0;
+        tabGestVoeux = gestAcces.listeGestionnairesVoeux();
+        if (tabGestVoeux.length>0){
+            periode = tabGestVoeux[0].periode();
+        }
+        return periode;
+    }
 }
