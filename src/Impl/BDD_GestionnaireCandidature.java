@@ -327,7 +327,8 @@ public class BDD_GestionnaireCandidature {
         }
         return res;
     }
-
+    
+    // Fais un delete en BD pour supprimer toutes les candidatures appartenant à une numéro d'universite passé en entrée 
     public void bdd_RAZ(int numUniv) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM gc_candidatures WHERE NumUniversite=?;");
         stmt.setInt(1, numUniv);
@@ -368,7 +369,9 @@ public class BDD_GestionnaireCandidature {
                 classement = rs.getInt("Classement");
             }
             
-            //Modifie le classement de toutes les candidatures 
+            /*Modifie le classement de toutes les candidatures, c'est à dire applique -1 au classement
+                permet par la suite à étudiant de passer de la liste d'attente à la liste des acceptés
+            */
             stmt = conn.prepareStatement("UPDATE gc_candidatures SET Classement=Classement-1 WHERE Classement > ? AND NumMaster=? AND NumUniversite=?;");
             stmt.setInt(1, classement);
             stmt.setInt(2, numMaster);

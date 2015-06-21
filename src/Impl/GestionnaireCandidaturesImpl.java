@@ -221,6 +221,10 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
         }
     }
     
+    /*cette méthode va faire la mise à jour des candidatures si la réponse d'un étudiant
+        à un voeu est un "non" ou un "non mais"
+    */
+    @Override
     public void majListe(int INE, Voeu voeu){
         if ((voeu.reponse.value() == 2) || (voeu.reponse.value() == 3)){
             bdd.bdd_modifierClassement(INE, voeu);

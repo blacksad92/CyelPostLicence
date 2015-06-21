@@ -91,7 +91,7 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
                     // Recuperer le bon gestionnaire de candidature
                     GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(numUniversite);
 
-                    // Appeller la méthode enregistrer voeux
+                    // Appeller la méthode enregistrer candidatures
                     if (gestCand != null) {
                         gestCand.enregistrerCandidatures(etu, numMaster);
                     }
@@ -115,7 +115,9 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
                     }
                 }
             }
-
+            /* Lorsque la periode passe à 4, il faut mettre à jour le classement des candidatures
+                en fonction de la réponse adressée par l'étudiant 
+            */ 
             if (periode == 4) {
                 ArrayList<Voeu> listeVoeuxAvecReponse = bdd.bdd_listeVoeuxParAcademie(this.academie.numAcademie);
                 for (int i = 0; i < listeVoeuxAvecReponse.size(); i++) {
@@ -123,7 +125,7 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
                     int numVoeu = listeVoeuxAvecReponse.get(i).numVoeu;
                     int INE = bdd.bdd_INEduVoeu(numVoeu);
                     GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(numUniversite);
-                    // Appeller la méthode enregistrer voeux
+                    // On appelle la méthode majListe sur tous les gestionnaires de candidatures en activité
                     if (gestCand != null) {
                         gestCand.majListe(INE, listeVoeuxAvecReponse.get(i));
                     }
@@ -132,21 +134,20 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
         }
         System.out.println("NOUVELLE PERIODE : " + periode);
     }
-
-    @Override
+    
+// Permet de remettre la période à 1 et de supprimer en BD les voeux et les candidatures
+    @Override    
     public void RAZPeriode() {
         try {
         System.out.println("Periode actuelle " + periode);
         System.out.println("Remise à zéro de la période");
         periode = 1;
         ArrayList<Universite> liste = bdd.bdd_consultUniversitePourUneAcademie(academie.numAcademie);
-        //System.out.println(liste.get(0).numUniv);
-        //System.out.println(liste.get(1).numUniv);
-        //System.out.println(liste.size());
         for (int i = 0; i < liste.size(); i++) {
             GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(liste.get(i).numUniv);
 
             if (gestCand != null){
+                // on appelle le RAZ pour chaque gestionnaire de candidatures en activité
                 gestCand.RAZPeriode();
                 bdd.bdd_RAZ(academie.numAcademie);
             }
@@ -156,8 +157,6 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
          } catch (SQLException ex) {
          Logger.getLogger(GestionnaireVoeuxImpl.class.getName()).log(Level.SEVERE, null, ex);
          }
-
-
     }
 
     @Override
