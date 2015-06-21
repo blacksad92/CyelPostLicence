@@ -42,10 +42,24 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
         bdd = new BDD_GestionnaireCandidature();
         listeMaster = new ArrayList<Master>();
         
-        Academie academie = new Academie(1, "Toulouse");
+        ////// NOUVEAUX : Pour scénario
+        Academie academie;
+        
+        academie = new Academie(1, "Toulouse");
+        universite = new Universite(1, "Universite Paul Sabatier", academie);
+        //universite = new Universite(2, "Universite Capitole", academie);
+        //universite = new Universite(3, "Universite Jean Jaures", academie);
+        
+        //academie = new Academie(2, "Nice");      
+        //universite = new Universite(4, "Polytech Nice", academie);
+        //universite = new Universite(5, "Universite Nice Sophia Antipolis", academie);  
+        
+        ///////////////////////////////////////////////////////////////////////////
+        ////// ANCIENS
+        //Academie academie = new Academie(1, "Toulouse");
         //universite = new Universite(1, "Universite Paul Sabatier", academie);
         //universite = new Universite(2, "Universite Jean Jaures", academie);
-        universite = new Universite(5, "Universite Capitole", academie);
+        //universite = new Universite(5, "Universite Capitole", academie);
         
         //Academie academie = new Academie(5, "Bordeaux");
         //universite = new Universite(3, "Universite Montaigne", academie);
@@ -65,6 +79,7 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
         
         //Academie academie = new Academie(6, "Corse");
         //universite = new Universite(11, "Universite Pasquale Paoli", academie);
+        ///////////////////////////////////////////////////////////////////////////
 
         //listeUniv = new ArrayList<Universite>();
         System.out.println(universite.nomUniv);

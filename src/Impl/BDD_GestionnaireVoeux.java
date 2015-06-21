@@ -355,8 +355,8 @@ public class BDD_GestionnaireVoeux {
         return res;
     }
 
-    public Universite bdd_consultAccreditations(int numAcademie, int numMaster) {
-        Universite univ = null;
+    public ArrayList<Universite> bdd_consultAccreditations(int numAcademie, int numMaster) {
+        ArrayList<Universite> listeUniv = new ArrayList<Universite>();
         try {
             // On crée un objet Statement qui va permettre l'execution des requètes
             Statement s = conn.createStatement();
@@ -374,8 +374,9 @@ public class BDD_GestionnaireVoeux {
             while (rs.next()) {
 
                 Academie academie = new Academie(rs.getInt("ac.NumAcademie"), rs.getString("ac.NomAcademie"));
-                univ = new Universite(rs.getInt("u.NumUniversite"), rs.getString("u.NomUniversite"), academie);
-
+                Universite univ = new Universite(rs.getInt("u.NumUniversite"), rs.getString("u.NomUniversite"), academie);
+                listeUniv.add(univ);
+                
             }
 
         } catch (Exception e) {
@@ -384,7 +385,7 @@ public class BDD_GestionnaireVoeux {
             return null;
         }
 
-        return univ;
+        return listeUniv;
     }
 
     public ArrayList<Integer> bdd_listeVoeuxParUniversiteParMaster(int numMaster, int numUniv) {

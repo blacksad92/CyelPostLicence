@@ -48,12 +48,19 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     public ArrayList<Voeu> listeVoeuxParAcademie;
 
     public GestionnaireVoeuxImpl() {
+        ////// NOUVEAUX : Pour scénario
         academie = new Academie(1, "Toulouse");
+        //academie = new Academie(2, "Nice");
+        
+        ///////////////////////////////////////////////////////////////////////////
+        ////// ANCIENS
+        //academie = new Academie(1, "Toulouse");
         //academie = new Academie(2, "Montpellier");
         //academie = new Academie(3, "Nice");
         //academie = new Academie(4, "Aix-Marseille");
         //academie = new Academie(5, "Bordeaux");
         //academie = new Academie(6, "Corse");
+        ///////////////////////////////////////////////////////////////////////////
 
         listeAccredUniv = new ArrayList<Universite>();
         listeAccredUnivExt = new ArrayList<Universite>();
@@ -309,27 +316,17 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
 
         for (int i = 0; i < listeGestVoeux.length; i++) {
             univExterne = listeGestVoeux[i].consulterAcreditationsExternes(numMaster);
-            if (univExterne.length > 0) {
-                if (listeAccredUniv.contains(univExterne[0]) == false) {
-                    listeAccredUniv.add(univExterne[0]);
-                }
+            for (int j=0;j<univExterne.length;j++) {
+                listeAccredUniv.add(univExterne[j]);
             }
         }
-
+        
         tableauAccredUniv = listeAccredUniv.toArray(new Universite[listeAccredUniv.size()]);
         return tableauAccredUniv;
     }
 
     public Universite[] consulterAcreditationsExternes(int numMaster) {
-        listeAccredUnivExt = new ArrayList<Universite>();
-        Universite u = bdd.bdd_consultAccreditations(academie.numAcademie, numMaster);
-        if (u != null) {
-            if (listeAccredUnivExt.contains(u) == false) {
-                listeAccredUnivExt = new ArrayList<Universite>();
-                listeAccredUnivExt.add(u);
-            }
-        }
-
+        listeAccredUnivExt = bdd.bdd_consultAccreditations(academie.numAcademie, numMaster);
         tableauAccredUnivExt = listeAccredUnivExt.toArray(new Universite[listeAccredUnivExt.size()]);
         return tableauAccredUnivExt;
     }

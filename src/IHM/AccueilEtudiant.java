@@ -67,6 +67,7 @@ public class AccueilEtudiant extends javax.swing.JFrame {
                 + " - Vérifier qu'il n'y a pas de doublon");
         }
         lb_periode.setText("Période : "+Integer.toString(client.gestVoeux.periode()));
+        lb_etudiant.setText(client.monEtudiant.nom+" "+client.monEtudiant.prenom);
     }
 
     public void initTableauVoeux() {
@@ -152,6 +153,7 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tAreaErreur = new javax.swing.JTextArea();
         lb_periode = new javax.swing.JLabel();
+        lb_etudiant = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowFocusListener(new java.awt.event.WindowFocusListener() {
@@ -237,7 +239,9 @@ public class AccueilEtudiant extends javax.swing.JFrame {
         tAreaErreur.setSelectionColor(new java.awt.Color(0, 0, 0));
         jScrollPane3.setViewportView(tAreaErreur);
 
-        lb_periode.setText("jLabel3");
+        lb_periode.setText("<Periode>");
+
+        lb_etudiant.setText("<Etudiant>");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -245,9 +249,12 @@ public class AccueilEtudiant extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(bt_actualiser)
-                .addGap(136, 136, 136)
-                .addComponent(lb_periode)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(bt_actualiser)
+                        .addGap(136, 136, 136)
+                        .addComponent(lb_periode))
+                    .addComponent(lb_etudiant))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
@@ -290,7 +297,9 @@ public class AccueilEtudiant extends javax.swing.JFrame {
                     .addComponent(bt_actualiser)
                     .addComponent(lb_periode))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(lb_etudiant))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -462,6 +471,7 @@ public class AccueilEtudiant extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable_voeux;
+    private javax.swing.JLabel lb_etudiant;
     private javax.swing.JLabel lb_periode;
     private javax.swing.JTextArea tAreaErreur;
     private javax.swing.JTextArea tAreaInsctruction;

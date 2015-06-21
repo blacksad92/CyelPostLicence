@@ -112,6 +112,14 @@ public class AjouterVoeu_Master extends javax.swing.JFrame {
             Item selectItem = (Item) cb_listeMaster.getSelectedItem();
             
             Universite[] accreditation = client.getAccreditations(selectItem.getId());
+            /**/
+            
+            System.out.println("[AjouterVoeu_Master] Accréditations");
+            for (int i=0;i<accreditation.length;i++) {
+                System.out.println(accreditation[i].numUniv+" "+accreditation[i].nomUniv);
+            }
+            
+            /**/
             new AjouterVoeu_Universite(client, new Master(selectItem.getId(), selectItem.getValeur()), accreditation);
             this.dispose();
     }//GEN-LAST:event_bt_choisirUniversiteActionPerformed
