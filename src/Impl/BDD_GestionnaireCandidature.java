@@ -335,11 +335,11 @@ public class BDD_GestionnaireCandidature {
         int rs = stmt.executeUpdate();
     }
     
-    public boolean bdd_enregistrerClassement(int INE, int classement) {
+    public boolean bdd_enregistrerClassement(int INE, int NumMaster, int NumUniv, int classement) {
         try {
             // On crée un objet Statement qui va permettre l'execution des requètes
             Statement s = conn.createStatement();
-            String query = "UPDATE gc_candidatures SET Classement="+classement+" WHERE NumINE='"+INE+"'";
+            String query = "UPDATE gc_candidatures SET Classement="+classement+" WHERE NumINE="+INE+" AND NumMaster="+NumMaster+" AND NumUniversite="+NumUniv;
             //System.out.println(query);
             s.executeUpdate(query);
             

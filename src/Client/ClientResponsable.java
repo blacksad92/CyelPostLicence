@@ -138,6 +138,6 @@ public class ClientResponsable {
     
     //Enregistre le classement de la candidature a partir du numéro INE de l'etudiant qui postule
     public void enregistrerClassement(int INE, int classement) {
-        gestCandidature.enregistrerClassement(INE, classement);
+        gestCandidature.enregistrerClassement(INE, NumMaster, classement);
     }
 }

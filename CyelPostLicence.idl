@@ -137,7 +137,7 @@ module CyelPostLicence {
 		EnumDecision validerCandidature(in long numMaster, in long numLicence);
 		void enregistrerCandidatures(in Etudiant etudiant, in long numMaster);
 		ListeCandidatures consulterCandidatures(in long numMaster, in long numUniversite);
-		void enregistrerClassement(in long INE, in long classement);
+		void enregistrerClassement(in long INE, in long NumMaster, in long classement);
 		void finPeriodeDecision();
 		void majListe(in long INE, in Voeu voeu);
 	};

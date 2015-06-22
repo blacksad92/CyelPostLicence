@@ -129,9 +129,9 @@ public class GestionnaireCandidaturesPOATie extends GestionnaireCandidaturesPOA
     /**
      * Operation enregistrerClassement
      */
-    public void enregistrerClassement(int INE, int classement)
+    public void enregistrerClassement(int INE, int NumMaster, int classement)
     {
-        _tie.enregistrerClassement( INE,  classement);
+        _tie.enregistrerClassement( INE,  NumMaster,  classement);
     }
 
     /**

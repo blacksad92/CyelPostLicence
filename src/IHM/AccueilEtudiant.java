@@ -421,6 +421,14 @@ public class AccueilEtudiant extends javax.swing.JFrame {
                 + " - Saisir un chiffre entre 1 et " + tabVoeu.length + " \n"
                 + " - Vérifier qu'il n'y a pas de doublon");
         }
+        
+        if (client.periode() >= 3) {
+            bt_repondreVoeu.setEnabled(true);
+        }
+        else {
+            bt_repondreVoeu.setEnabled(false);
+        }
+        
         lb_periode.setText("Période : "+Integer.toString(client.gestVoeux.periode()));
     }
 

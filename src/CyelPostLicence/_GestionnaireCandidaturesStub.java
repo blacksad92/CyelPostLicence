@@ -404,7 +404,7 @@ public class _GestionnaireCandidaturesStub extends org.omg.CORBA.portable.Object
     /**
      * Operation enregistrerClassement
      */
-    public void enregistrerClassement(int INE, int classement)
+    public void enregistrerClassement(int INE, int NumMaster, int classement)
     {
         while(true)
         {
@@ -415,6 +415,7 @@ public class _GestionnaireCandidaturesStub extends org.omg.CORBA.portable.Object
                 {
                     org.omg.CORBA.portable.OutputStream _output = this._request("enregistrerClassement",true);
                     _output.write_long(INE);
+                    _output.write_long(NumMaster);
                     _output.write_long(classement);
                     _input = this._invoke(_output);
                     return;
@@ -441,7 +442,7 @@ public class _GestionnaireCandidaturesStub extends org.omg.CORBA.portable.Object
                 CyelPostLicence.GestionnaireCandidaturesOperations _self = (CyelPostLicence.GestionnaireCandidaturesOperations) _so.servant;
                 try
                 {
-                    _self.enregistrerClassement( INE,  classement);
+                    _self.enregistrerClassement( INE,  NumMaster,  classement);
                     return;
                 }
                 finally

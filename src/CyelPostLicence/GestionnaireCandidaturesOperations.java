@@ -53,7 +53,7 @@ public interface GestionnaireCandidaturesOperations
     /**
      * Operation enregistrerClassement
      */
-    public void enregistrerClassement(int INE, int classement);
+    public void enregistrerClassement(int INE, int NumMaster, int classement);
 
     /**
      * Operation finPeriodeDecision

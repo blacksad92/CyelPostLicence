@@ -17,6 +17,7 @@ import CyelPostLicence.Universite;
 import CyelPostLicence.Voeu;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Iterator;
@@ -83,17 +84,21 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
                 //Recuperer les voeux pour l'academie.
                 ArrayList<Voeu> listeVoeux = bdd.bdd_listeVoeuxParAcademie(this.academie.numAcademie);
                 for (int i = 0; i < listeVoeux.size(); i++) {
-                    int numMaster = listeVoeux.get(i).master.numMaster;
-                    int numUniversite = listeVoeux.get(i).universite.numUniv;
-                    int numVoeux = listeVoeux.get(i).numVoeu;
-                    int INE = bdd.bdd_INEduVoeu(numVoeux);
-                    Etudiant etu = gestAcces.obtenirEtudiant(INE);
-                    // Recuperer le bon gestionnaire de candidature
-                    GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(numUniversite);
+                    /**/System.out.println("[cloturerPeriode] NumVoeu="+listeVoeux.get(i).numVoeu+" | Etat="+listeVoeux.get(i).etatCandidature.value()+" | nonValide="+EnumDecision.nonValide.value());
+                    if (listeVoeux.get(i).etatCandidature.value()!=EnumDecision.nonValide.value()) { // On ne passe aux universités que les candidatures valides
+                        /**/System.out.println("ok : "+listeVoeux.get(i).etatCandidature.value()+"!="+EnumDecision.nonValide.value());
+                        int numMaster = listeVoeux.get(i).master.numMaster;
+                        int numUniversite = listeVoeux.get(i).universite.numUniv;
+                        int numVoeux = listeVoeux.get(i).numVoeu;
+                        int INE = bdd.bdd_INEduVoeu(numVoeux);
+                        Etudiant etu = gestAcces.obtenirEtudiant(INE);
+                        // Recuperer le bon gestionnaire de candidature
+                        GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(numUniversite);
 
-                    // Appeller la méthode enregistrer candidatures
-                    if (gestCand != null) {
-                        gestCand.enregistrerCandidatures(etu, numMaster);
+                        // Appeller la méthode enregistrer candidatures
+                        if (gestCand != null) {
+                            gestCand.enregistrerCandidatures(etu, numMaster);
+                        }
                     }
                 }
             }
@@ -204,7 +209,25 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
                     }
                 }
             }
-            tableauConsulterVoeu = listeVoeu.toArray(new Voeu[listeVoeu.size()]);
+            
+            // Tri du tableau résultat
+            Comparator comparator = new Comparator<Voeu>() {
+                @Override
+                public int compare(Voeu  voeu1, Voeu  voeu2)
+                {
+                    int res = 0;
+                    if (voeu1.ordre.value() < voeu2.ordre.value()) {
+                        res = -1;
+                    }
+                    if (voeu1.ordre.value() > voeu2.ordre.value()) {
+                        res = 1;
+                    }
+                    return res;
+                }
+            };
+            listeVoeu.sort(comparator);
+            
+            tableauConsulterVoeu = listeVoeu.toArray(new Voeu[listeVoeu.size()]);            
             return tableauConsulterVoeu;
         }
 
@@ -218,6 +241,16 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
         }
         return tableauConsulterVoeu;
     }
+    /*
+    private Voeu[] ordonnerListeVoeux(Voeu[] tabVoeux) {
+        int n=0;
+        
+        ArrayList<Voeu> listeRetour = new ArrayList<Voeu>();
+        for (int i=0;i<tabVoeux.length;i++) {
+            if ()
+        }
+    }
+    */
 
     @Override
     public void enregistrerVoeux(Etudiant etudiant, Voeu[] listeVoeux) {
@@ -267,7 +300,14 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     @Override
     public void repondreVoeu(int INE, Voeu voeu) {
         // On récupère la liste des voeux de l'étudiant
-        ArrayList<Voeu> listeVoeux = bdd.bdd_listeVoeux(INE, academie.numAcademie);
+        ArrayList<Voeu> listeVoeux = new ArrayList<Voeu>();
+        Voeu[] tabVoeux = consulterVoeux(INE,false);
+        if (tabVoeux.length > 0) {
+            for (Voeu v : tabVoeux) {
+                listeVoeux.add(v);
+            }
+        }
+        
         boolean passe = false;
         Iterator it = listeVoeux.iterator();
         while (it.hasNext()) {

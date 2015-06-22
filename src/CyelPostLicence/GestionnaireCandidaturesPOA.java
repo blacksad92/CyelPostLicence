@@ -178,8 +178,9 @@ public abstract class GestionnaireCandidaturesPOA extends org.omg.PortableServer
         org.omg.CORBA.portable.OutputStream _output;
         int arg0_in = _is.read_long();
         int arg1_in = _is.read_long();
+        int arg2_in = _is.read_long();
 
-        enregistrerClassement(arg0_in, arg1_in);
+        enregistrerClassement(arg0_in, arg1_in, arg2_in);
 
         _output = handler.createReply();
 

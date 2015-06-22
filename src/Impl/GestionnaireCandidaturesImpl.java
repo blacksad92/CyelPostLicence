@@ -180,8 +180,8 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
     }
 
     @Override
-    public void enregistrerClassement(int INE, int classement) {
-        bdd.bdd_enregistrerClassement(INE,classement);
+    public void enregistrerClassement(int INE, int NumMaster, int classement) {
+        bdd.bdd_enregistrerClassement(INE,NumMaster,universite.numUniv, classement);
     }
 
     @Override
