@@ -47,6 +47,7 @@ public class GestionnaireAccesImpl extends CyelPostLicence.GestionnaireAccesPOA 
     @Override
     public void inscriptionGestionnaireVoeux(GestionnaireVoeux gestVoeux) {
         listeGestionnairesVoeux.add(gestVoeux);
+        System.out.println("Gestionnaire de Voeux enregistré sur le Gestionnaire d'Accès");
     }
 
     @Override
@@ -104,32 +105,31 @@ public class GestionnaireAccesImpl extends CyelPostLicence.GestionnaireAccesPOA 
         int indice;
         boolean trouve = false;
         indice = 0;
-         System.out.println("Acces Impl, avant WHILE "+trouve);
-         System.out.println("Acces Impl, num Universite"+numUniversite);
-         System.out.println("Acces Impl, size liste"+listeGestionnairesCandidatures.size());
-         System.out.println("Acces Impl, indice"+indice);
+         //System.out.println("Acces Impl, avant WHILE "+trouve);
+         //System.out.println("Acces Impl, num Universite"+numUniversite);
+         //System.out.println("Acces Impl, size liste"+listeGestionnairesCandidatures.size());
+         //System.out.println("Acces Impl, indice"+indice);
         while(indice < listeGestionnairesCandidatures.size() && trouve == false)
         {
-            System.out.println("Acces Impl, liste gestionnaires candidatures"+listeGestionnairesCandidatures.get(indice).universite().numUniv);
+            //System.out.println("Acces Impl, liste gestionnaires candidatures"+listeGestionnairesCandidatures.get(indice).universite().numUniv);
             if (numUniversite == listeGestionnairesCandidatures.get(indice).universite().numUniv)
             {
                   gestCandidature = listeGestionnairesCandidatures.get(indice);
                   trouve = true;
-                  System.out.println("Acces Impl, trouve"+trouve);
+                  //System.out.println("Acces Impl, trouve"+trouve);
                  
             }
             indice++;
         }
-        System.out.println("Acces Impl, avant RETURN trouve"+trouve);
+        //System.out.println("Acces Impl, avant RETURN trouve"+trouve);
         return (gestCandidature);
     
     }
 
     @Override
     public void inscriptionGestionnaireCandidatures(GestionnaireCandidatures gestCandidatures) {
-        System.out.println("Taille avant enregistrement"+listeGestionnairesCandidatures.size());
         listeGestionnairesCandidatures.add(gestCandidatures);
-         System.out.println("Taille apres enregistrement"+listeGestionnairesCandidatures.size());
+        System.out.println("Gestionnaire de Candidatures enregistré sur le Gestionnaire d'Accès");
     }
 
     @Override

@@ -210,7 +210,7 @@ public class AccueilResponsableFormation extends javax.swing.JFrame {
         for(int i=0; i<jTable_candidatures.getRowCount(); i++) {
             classement = (String) jTable_candidatures.getModel().getValueAt(i,0);
             ine = (int) jTable_candidatures.getModel().getValueAt(i,1);
-            System.out.println(ine+" : "+classement);
+            //System.out.println(ine+" : "+classement);
             client.enregistrerClassement(ine,Integer.parseInt(classement));
         }
         
