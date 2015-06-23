@@ -21,6 +21,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Comparator;
 
 /**
  *
@@ -182,6 +183,32 @@ public class BDD_GestionnaireCandidature {
             e.printStackTrace();
             return null;
         }
+            
+        // Tri du tableau résultat
+        Comparator comparator = new Comparator<Candidature>() {
+            @Override
+            public int compare(Candidature cand1, Candidature cand2)
+            {
+                int res = 0;
+                if (cand1.classement==-1) {
+                    res = 1;
+                }
+                else if (cand2.classement==-1) {
+                    res = -1;
+                }
+                else {
+                    if (cand1.classement < cand2.classement) {
+                        res = -1;
+                    }
+                    else if (cand1.classement > cand2.classement) {
+                        res = 1;
+                    }
+                }
+                return res;
+            }
+        };
+        listeCandidatures.sort(comparator);
+        
         Candidature[] tabCandidatures = listeCandidatures.toArray(new Candidature[listeCandidatures.size()]);
         
         return tabCandidatures;

@@ -158,8 +158,8 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
     //Recupere en BDD toutes les candidatures d'une universite pour un master
     @Override
     public Candidature[] consulterCandidatures(int numMaster, int numUniversite) {
-        Candidature[] candidature = bdd.bdd_listeCandidature(numUniversite, numMaster);
-        return candidature;
+        Candidature[] listeCandidatures = bdd.bdd_listeCandidature(numUniversite, numMaster);
+        return listeCandidatures;
     }
 
     // Enregistre en BDD un etudiant pour un master (une candidature)
