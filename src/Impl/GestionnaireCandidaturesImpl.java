@@ -34,8 +34,6 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
     public BDD_GestionnaireCandidature bdd;
     public ArrayList<Master> listeMaster;
     public Master[] tabeauMaster;
-    ArrayList<Note> listeNotes = new ArrayList<Note>();
-    Note[] tableauNotes;
     
     public GestionnaireCandidaturesImpl() {
 
@@ -105,10 +103,11 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
     //Recupere les notes d'un etudiant grace a son numéro INE
     @Override
     public Note[] recupererListeNotes(int INE, boolean externe) {        
+        ArrayList<Note> listeNotes = new ArrayList<Note>();
+        
         if (!externe) {
-            listeNotes = new ArrayList<Note>();
             Note[] notesExternes;
-            //Liste de toustes les universités
+            //Liste de toutes les universités
             GestionnaireCandidatures[] listeGestCandidatures = gestAcces.ListeGestionnairesCandidatures();
             for (int i = 0; i < listeGestCandidatures.length; i++) {
                 notesExternes = listeGestCandidatures[i].recupererListeNotes(INE, true);
@@ -122,7 +121,7 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
         }
 
         if (externe) {
-            Note[] notes = bdd.bdd_listeNotes(INE);
+            Note[] notes = bdd.bdd_listeNotes(INE,universite.numUniv);
             
             for (int i = 0; i < notes.length; i++) {
                 if (listeNotes.contains(notes[i]) == false) {
@@ -132,7 +131,7 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
             
         }
 
-        tableauNotes = listeNotes.toArray(new Note[listeNotes.size()]);
+        Note[] tableauNotes = listeNotes.toArray(new Note[listeNotes.size()]);
         
         return tableauNotes;
     }

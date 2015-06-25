@@ -42,7 +42,7 @@ public class BDD_GestionnaireCandidature {
         }
     }
     
-     public Note[] bdd_listeNotes(int INE) {
+     public Note[] bdd_listeNotes(int INE, int numUniv) {
         ArrayList<Note> listeNotes = new ArrayList<Note>();
         
         try {
@@ -56,7 +56,8 @@ public class BDD_GestionnaireCandidature {
             
             String req = "SELECT r.Semestre, r.NumSemestre, r.Moyenne, r.CodeObtention, r.Position, r.NumUniversite, r.NumLicence, r.NomLicence"
                     + "      FROM gc_resultats r"
-                    + "      WHERE NumINE = "+INE;
+                    + "      WHERE NumINE = "+INE
+                    + "         AND NumUniversite = "+numUniv;
             //System.out.println(req);
             ResultSet rs = s.executeQuery(req);
             

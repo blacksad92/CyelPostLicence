@@ -34,6 +34,7 @@ public class ConsulterNotesCandidat extends javax.swing.JFrame {
     }
     
     private void initTableauNotes(Note[] notes) {
+        jTable_notes.removeAll();
         if(notes != null)
         {
             DefaultTableModel model = new DefaultTableModel();
