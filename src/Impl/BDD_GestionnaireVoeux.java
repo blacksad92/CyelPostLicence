@@ -9,7 +9,6 @@ import CyelPostLicence.Academie;
 import CyelPostLicence.EnumDecision;
 import CyelPostLicence.EnumOrdre;
 import CyelPostLicence.EnumReponse;
-import CyelPostLicence.EtatCandidature;
 import CyelPostLicence.Etudiant;
 import CyelPostLicence.Master;
 import CyelPostLicence.Universite;
@@ -122,7 +121,8 @@ public class BDD_GestionnaireVoeux {
         }
         return res;
     }
-
+    
+    //Retourne la liste de voeu d'un étudiant dans une académie
     public ArrayList<Voeu> bdd_listeVoeux(int INE, int numAcademie) {
         ArrayList<Voeu> listeVoeux = new ArrayList<Voeu>();
 
@@ -160,6 +160,7 @@ public class BDD_GestionnaireVoeux {
         return listeVoeux;
     }
 
+    //Enregistre la réponse d'un étudiant à un voeu
     public boolean bdd_repondreVoeu(int numVoeu, EnumReponse reponse) {
         System.out.println("[BDD_GestionnaireVoeux] bdd_repondreVoeu - numVoeux=" + numVoeu + " | reponse=" + reponse);
         boolean res = false;
@@ -187,6 +188,7 @@ public class BDD_GestionnaireVoeux {
         return res;
     }
 
+    //Retourne le numéro INE correspondant à un voeu
     public Integer bdd_INEduVoeu(int numVoeu) {
         int ine = 0;
         try {
@@ -212,6 +214,7 @@ public class BDD_GestionnaireVoeux {
         return ine;
     }
 
+    //Retourne la liste des voeux d'une académie
     public ArrayList<Voeu> bdd_listeVoeuxParAcademie(int numAcademie) {
         ArrayList<Voeu> listeVoeux = new ArrayList<Voeu>();
 
@@ -247,6 +250,7 @@ public class BDD_GestionnaireVoeux {
         return listeVoeux;
     }
 
+    //Retourne la liste des universié d'une académie
     public ArrayList<Universite> bdd_consultUniversitePourUneAcademie(int numAcademie) {
         ArrayList<Universite> listeUniversites = new ArrayList<Universite>();
         try {
@@ -276,6 +280,7 @@ public class BDD_GestionnaireVoeux {
         return listeUniversites;
     }
 
+    //Retourne la liste des master pour une université
     public Master[] bdd_consultMastersPourUneUniversite(int numUniversite) {
         ArrayList<Master> listeMasters = new ArrayList<Master>();
         try {
@@ -305,6 +310,7 @@ public class BDD_GestionnaireVoeux {
         return tabMasters;
     }
 
+    //Modifie le classement d'un voeu
     public boolean bdd_modifieClassement(int numVoeux, int ordre) {
 
         boolean res = false;
@@ -330,6 +336,7 @@ public class BDD_GestionnaireVoeux {
         return res;
     }
 
+    //Modifie l'état d'un voeu
     public boolean bdd_modifieEtat(int numVoeux, int etat) {
 
         boolean res = false;
@@ -355,6 +362,7 @@ public class BDD_GestionnaireVoeux {
         return res;
     }
 
+    //Retourne la liste des universités accrédité pour un master
     public ArrayList<Universite> bdd_consultAccreditations(int numAcademie, int numMaster) {
         ArrayList<Universite> listeUniv = new ArrayList<Universite>();
         try {
@@ -418,6 +426,7 @@ public class BDD_GestionnaireVoeux {
         return listeINE;
     }
 
+    //Retourne les numéro d'université d'une académie
     public ArrayList<Integer> bdd_recupNumUnivs(int numAcademie) {
         ArrayList<Integer> listeIDUnivs = new ArrayList<Integer>();
         try {
@@ -452,6 +461,7 @@ public class BDD_GestionnaireVoeux {
         int rs = stmt.executeUpdate();
     }
 
+    //Supprime un voeu
     public void bdd_SupprimerVoeux(int numVoeu) throws SQLException {
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM gv_voeux WHERE NumVoeux=?;");
         stmt.setInt(1, numVoeu);

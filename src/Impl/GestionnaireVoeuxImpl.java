@@ -32,27 +32,31 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     public Universite[] tableauAccredUniv;
     public ArrayList<Universite> listeAccredUnivExt;
     public Universite[] tableauAccredUnivExt;
-    public ArrayList<Universite> listeUniv2;
-    public Universite[] tableauUniv2;
+
+    public ArrayList<Universite> maListeUniv;
+    public Universite[] monTableauUniv;
+
     public ArrayList<Voeu> listeVoeu;
-    public ArrayList<Voeu> listeTempo;
-    public Voeu[] tabtemp;
+    public ArrayList<Voeu> listeVoeuExterne;
+
+    public Voeu[] tabVoeuExterne;
     public Voeu[] tableauTempo;
     public Voeu[] tableauConsulterVoeu;
 
-    public Academie academie;
+    public ArrayList<Voeu> listeVoeuxParAcademie;
     public ArrayList<Integer> mesIDUnivs = new ArrayList();
+
     public BDD_GestionnaireVoeux bdd = new BDD_GestionnaireVoeux();
     public GestionnaireAcces gestAcces;
     public static int nbGest = 0;
     public static int periode = 1;
-    public ArrayList<Voeu> listeVoeuxParAcademie;
+    public Academie academie;
 
     public GestionnaireVoeuxImpl() {
         ////// NOUVEAUX : Pour scénario
         academie = new Academie(1, "Toulouse");
         //academie = new Academie(2, "Nice");
-        
+
         ///////////////////////////////////////////////////////////////////////////
         ////// ANCIENS
         //academie = new Academie(1, "Toulouse");
@@ -62,15 +66,15 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
         //academie = new Academie(5, "Bordeaux");
         //academie = new Academie(6, "Corse");
         ///////////////////////////////////////////////////////////////////////////
-
         listeAccredUniv = new ArrayList<Universite>();
         listeAccredUnivExt = new ArrayList<Universite>();
-        listeUniv2 = new ArrayList<Universite>();
+        maListeUniv = new ArrayList<Universite>();
         listeVoeu = new ArrayList<Voeu>();
-        listeTempo = new ArrayList<Voeu>();
+        listeVoeuExterne = new ArrayList<Voeu>();
         listeVoeuxParAcademie = new ArrayList<Voeu>();
-        System.out.println(academie.nomAcademie);
         maListeUnivs();
+
+        System.out.println(academie.nomAcademie);
     }
 
     @Override
@@ -84,9 +88,11 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
                 //Recuperer les voeux pour l'academie.
                 ArrayList<Voeu> listeVoeux = bdd.bdd_listeVoeuxParAcademie(this.academie.numAcademie);
                 for (int i = 0; i < listeVoeux.size(); i++) {
-                    /**/System.out.println("[cloturerPeriode] NumVoeu="+listeVoeux.get(i).numVoeu+" | Etat="+listeVoeux.get(i).etatCandidature.value()+" | nonValide="+EnumDecision.nonValide.value());
-                    if (listeVoeux.get(i).etatCandidature.value()!=EnumDecision.nonValide.value()) { // On ne passe aux universités que les candidatures valides
-                        /**/System.out.println("ok : "+listeVoeux.get(i).etatCandidature.value()+"!="+EnumDecision.nonValide.value());
+                    /**/
+                    System.out.println("[cloturerPeriode] NumVoeu=" + listeVoeux.get(i).numVoeu + " | Etat=" + listeVoeux.get(i).etatCandidature.value() + " | nonValide=" + EnumDecision.nonValide.value());
+                    if (listeVoeux.get(i).etatCandidature.value() != EnumDecision.nonValide.value()) { // On ne passe aux universités que les candidatures valides
+                        /**/
+                        System.out.println("ok : " + listeVoeux.get(i).etatCandidature.value() + "!=" + EnumDecision.nonValide.value());
                         int numMaster = listeVoeux.get(i).master.numMaster;
                         int numUniversite = listeVoeux.get(i).universite.numUniv;
                         int numVoeux = listeVoeux.get(i).numVoeu;
@@ -121,8 +127,8 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
                 }
             }
             /* Lorsque la periode passe à 4, il faut mettre à jour le classement des candidatures
-                en fonction de la réponse adressée par l'étudiant 
-            */ 
+             en fonction de la réponse adressée par l'étudiant 
+             */
             if (periode == 4) {
                 ArrayList<Voeu> listeVoeuxAvecReponse = bdd.bdd_listeVoeuxParAcademie(this.academie.numAcademie);
                 for (int i = 0; i < listeVoeuxAvecReponse.size(); i++) {
@@ -139,59 +145,58 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
         }
         System.out.println("NOUVELLE PERIODE : " + periode);
     }
-    
-// Permet de remettre la période à 1 et de supprimer en BD les voeux et les candidatures
-    @Override    
+
+    //Permet de remettre la période à 1 et de supprimer en BD les voeux et les candidatures
+    @Override
     public void RAZPeriode() {
         try {
-        System.out.println("Periode actuelle " + periode);
-        System.out.println("Remise à zéro de la période");
-        periode = 1;
-        ArrayList<Universite> liste = bdd.bdd_consultUniversitePourUneAcademie(academie.numAcademie);
-        for (int i = 0; i < liste.size(); i++) {
-            GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(liste.get(i).numUniv);
+            System.out.println("Periode actuelle " + periode);
+            System.out.println("Remise à zéro de la période");
+            periode = 1;
+            ArrayList<Universite> liste = bdd.bdd_consultUniversitePourUneAcademie(academie.numAcademie);
+            for (int i = 0; i < liste.size(); i++) {
+                GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(liste.get(i).numUniv);
 
-            if (gestCand != null){
-                // on appelle le RAZ pour chaque gestionnaire de candidatures en activité
-                gestCand.RAZPeriode();
-                bdd.bdd_RAZ(academie.numAcademie);
+                if (gestCand != null) {
+                    // on appelle le RAZ pour chaque gestionnaire de candidatures en activité
+                    gestCand.RAZPeriode();
+                    bdd.bdd_RAZ(academie.numAcademie);
+                }
             }
+
+            System.out.println("La période a été remis à : " + periode);
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionnaireVoeuxImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-         System.out.println("La période a été remis à : "+periode);
-         } catch (SQLException ex) {
-         Logger.getLogger(GestionnaireVoeuxImpl.class.getName()).log(Level.SEVERE, null, ex);
-         }
     }
 
+    //Getter de l'académie correspondant au gestionnaire de voeux
     @Override
     public Academie academie() {
         return academie;
     }
 
+    //Setter de l'académie correspondant au gestionnaire de voeux
     @Override
     public void academie(Academie value) {
         this.academie = value;
     }
 
+    //Getter de la période
     @Override
     public int periode() {
         return periode;
     }
 
-//TODO Implémenter cette méthode
-    @Override
-    public void periode(int value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+    //Retourne la liste des université de l'académie
     @Override
     public Universite[] listeUniversite() {
-        listeUniv2 = bdd.bdd_consultUniversitePourUneAcademie(academie.numAcademie);
-        tableauUniv2 = listeUniv2.toArray(new Universite[listeUniv2.size()]);
-        return tableauUniv2;
+        maListeUniv = bdd.bdd_consultUniversitePourUneAcademie(academie.numAcademie);
+        monTableauUniv = maListeUniv.toArray(new Universite[maListeUniv.size()]);
+        return monTableauUniv;
     }
 
+    //Retourne la liste des voeux d'un étudiant
     @Override
     public Voeu[] consulterVoeux(int INE, boolean externe) {
 
@@ -209,12 +214,11 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
                     }
                 }
             }
-            
+
             // Tri du tableau résultat
             Comparator comparator = new Comparator<Voeu>() {
                 @Override
-                public int compare(Voeu  voeu1, Voeu  voeu2)
-                {
+                public int compare(Voeu voeu1, Voeu voeu2) {
                     int res = 0;
                     if (voeu1.ordre.value() < voeu2.ordre.value()) {
                         res = -1;
@@ -226,32 +230,33 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
                 }
             };
             listeVoeu.sort(comparator);
-            
-            tableauConsulterVoeu = listeVoeu.toArray(new Voeu[listeVoeu.size()]);            
+
+            tableauConsulterVoeu = listeVoeu.toArray(new Voeu[listeVoeu.size()]);
             return tableauConsulterVoeu;
         }
 
         if (externe) {
-            listeTempo = bdd.bdd_listeVoeux(INE, this.academie.numAcademie);
-            tabtemp = new Voeu[listeTempo.size()];
-            if (listeTempo.size() > 0) {
-                tabtemp = listeTempo.toArray(new Voeu[listeTempo.size()]);
+            listeVoeuExterne = bdd.bdd_listeVoeux(INE, this.academie.numAcademie);
+            tabVoeuExterne = new Voeu[listeVoeuExterne.size()];
+            if (listeVoeuExterne.size() > 0) {
+                tabVoeuExterne = listeVoeuExterne.toArray(new Voeu[listeVoeuExterne.size()]);
             }
-            return tabtemp;
+            return tabVoeuExterne;
         }
         return tableauConsulterVoeu;
     }
     /*
-    private Voeu[] ordonnerListeVoeux(Voeu[] tabVoeux) {
-        int n=0;
+     private Voeu[] ordonnerListeVoeux(Voeu[] tabVoeux) {
+     int n=0;
         
-        ArrayList<Voeu> listeRetour = new ArrayList<Voeu>();
-        for (int i=0;i<tabVoeux.length;i++) {
-            if ()
-        }
-    }
-    */
+     ArrayList<Voeu> listeRetour = new ArrayList<Voeu>();
+     for (int i=0;i<tabVoeux.length;i++) {
+     if ()
+     }
+     }
+     */
 
+    //Enregistrer les voeux d'un étudiant
     @Override
     public void enregistrerVoeux(Etudiant etudiant, Voeu[] listeVoeux) {
 
@@ -277,12 +282,6 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     }
 
     @Override
-    public Etudiant[] recupererListeCandidatures(int numMaster, int numUniversite) {
-        //Plus necessaire a supprimer
-        return null;
-    }
-
-    @Override
     public void enregistrerDecision(Decision decision) {
         System.out.println("[GestionnaireVoeuxImpl] enregistrerDecision");
 
@@ -293,6 +292,7 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
         }
     }
 
+    //Inialisation de la liste des ID des université
     public void maListeUnivs() {
         this.mesIDUnivs = bdd.bdd_recupNumUnivs(academie.numAcademie);
     }
@@ -301,13 +301,13 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     public void repondreVoeu(int INE, Voeu voeu) {
         // On récupère la liste des voeux de l'étudiant
         ArrayList<Voeu> listeVoeux = new ArrayList<Voeu>();
-        Voeu[] tabVoeux = consulterVoeux(INE,false);
+        Voeu[] tabVoeux = consulterVoeux(INE, false);
         if (tabVoeux.length > 0) {
             for (Voeu v : tabVoeux) {
                 listeVoeux.add(v);
             }
         }
-        
+
         boolean passe = false;
         Iterator it = listeVoeux.iterator();
         while (it.hasNext()) {
@@ -330,22 +330,28 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
     }
 
     @Override
+    //Supprimer un voeux d'un étudiant
     public void supprimerVoeux(int numVoeu, int numUniv) {
 
+        //Si l'université est de notre académie
         if (mesIDUnivs.contains(numUniv)) {
+            //On supprime le voeu
             try {
                 bdd.bdd_SupprimerVoeux(numVoeu);
             } catch (SQLException ex) {
                 System.out.print(ex);
             }
         } else {
+            //Sinon on obtient le bon gestionnaire de voeux auprès du gestionnaire d'accés
             GestionnaireCandidatures gestCand = gestAcces.obtenirGestionnaireCandidatures(numUniv);
             Universite univ = gestCand.universite();
             GestionnaireVoeux gestVoeux = gestAcces.obtenirGestionnaireVoeux(univ.academie.numAcademie);
             gestVoeux.supprimerVoeux(numVoeu, numUniv);
         }
     }
-
+    
+    //Retourne la liste des université qui dispose de l'accréditation d'un master
+    @Override
     public Universite[] consulterAcreditations(int numMaster) {
 
         listeAccredUniv = new ArrayList<Universite>();
@@ -354,19 +360,27 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
         GestionnaireVoeux[] listeGestVoeux = gestAcces.listeGestionnairesVoeux();
 
         for (int i = 0; i < listeGestVoeux.length; i++) {
+            //Pour chaque gestionnaire de Voeux on appelle la méthode consulterAcreditationsExternes
             univExterne = listeGestVoeux[i].consulterAcreditationsExternes(numMaster);
-            for (int j=0;j<univExterne.length;j++) {
+            for (int j = 0; j < univExterne.length; j++) {
                 listeAccredUniv.add(univExterne[j]);
             }
         }
-        
+
         tableauAccredUniv = listeAccredUniv.toArray(new Universite[listeAccredUniv.size()]);
         return tableauAccredUniv;
     }
-
+    
+    //Retourne la liste des université de l'académie courante qui dispose de l'accréditation d'un master
+    @Override
     public Universite[] consulterAcreditationsExternes(int numMaster) {
         listeAccredUnivExt = bdd.bdd_consultAccreditations(academie.numAcademie, numMaster);
         tableauAccredUnivExt = listeAccredUnivExt.toArray(new Universite[listeAccredUnivExt.size()]);
         return tableauAccredUnivExt;
+    }
+
+    @Override
+    public void periode(int value) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

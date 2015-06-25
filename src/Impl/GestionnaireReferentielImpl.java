@@ -35,18 +35,21 @@ public class GestionnaireReferentielImpl extends CyelPostLicence.GestionnaireRef
         tableauLicence = bdd.bdd_listeLicences();
     }
     
+    //Getter de la liste complète des académies
     @Override
     public Academie[] listeAcademies() {
        
         return tableauAcademie;
     }
 
+    //Getter de la liste complète des masters
     @Override
     public Master[] listeMasters() {
         
         return tableauMaster;
     }
 
+    //Getter de la liste complète des licences
     @Override
     public Licence[] listeLicences() {
         

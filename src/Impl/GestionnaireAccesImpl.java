@@ -38,18 +38,21 @@ public class GestionnaireAccesImpl extends CyelPostLicence.GestionnaireAccesPOA 
         this.listeGestionnairesCandidatures = new ArrayList<GestionnaireCandidatures>();
     }
     
+    //Retourne la liste des Gestionnaire de voeux
     @Override
     public GestionnaireVoeux[] listeGestionnairesVoeux() {
         tableauGestionnairesVoeux = listeGestionnairesVoeux.toArray(new GestionnaireVoeux[listeGestionnairesVoeux.size()]);
         return tableauGestionnairesVoeux;
     }
 
+    //Enregistre un gestionnaire de voeux dans le gestionnaire d'acces
     @Override
     public void inscriptionGestionnaireVoeux(GestionnaireVoeux gestVoeux) {
         listeGestionnairesVoeux.add(gestVoeux);
         System.out.println("Gestionnaire de Voeux enregistré sur le Gestionnaire d'Accès");
     }
 
+    //Retourne le gestionnaire d'acces correspondant au numéro d'académie
     @Override
     public GestionnaireVoeux obtenirGestionnaireVoeux(int numAcademie) {
         GestionnaireVoeux gestVoeux = null;
@@ -69,6 +72,7 @@ public class GestionnaireAccesImpl extends CyelPostLicence.GestionnaireAccesPOA 
     
     }
 
+    //Identification d'une responsable de formation, Retourne le gestionnaire de Voeux qui lui est rattaché
     @Override
     public GestionnaireVoeux identificationUniv(String login, String password, int numAcademie) throws ResponsableInconnu {
         if (bdd.bdd_identificationUniv(login, password)){
@@ -93,12 +97,14 @@ public class GestionnaireAccesImpl extends CyelPostLicence.GestionnaireAccesPOA 
         }
     }
 
+    //Identification d'un étudiant auprès du gestionnaire d'acces
     @Override
     public Etudiant identification(int INE, Academie academie) throws EtudiantInconnu, AcademieIncorrecte {
         Etudiant etu = bdd.bdd_identification(INE, academie);
         return etu;
     }
 
+    //Retourne un gestionnaire de candidature en fonction d'un numéro d'université
     @Override
     public GestionnaireCandidatures obtenirGestionnaireCandidatures(int numUniversite) {
       GestionnaireCandidatures gestCandidature = null;
@@ -126,6 +132,7 @@ public class GestionnaireAccesImpl extends CyelPostLicence.GestionnaireAccesPOA 
     
     }
 
+    //Enregistre un gestionnaire de voeux dans le gestionnaire d'acces
     @Override
     public void inscriptionGestionnaireCandidatures(GestionnaireCandidatures gestCandidatures) {
         listeGestionnairesCandidatures.add(gestCandidatures);
@@ -137,6 +144,7 @@ public class GestionnaireAccesImpl extends CyelPostLicence.GestionnaireAccesPOA 
         return bdd.bdd_consultEtudiant(INE);
     }
 
+    //Retourne la liste des Gestionnaire de voeux
     @Override
     public GestionnaireCandidatures[] ListeGestionnairesCandidatures() {
         tableauGestionnairesCandidatures = listeGestionnairesCandidatures.toArray(new GestionnaireCandidatures[listeGestionnairesCandidatures.size()]);

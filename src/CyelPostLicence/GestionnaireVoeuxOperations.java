@@ -73,11 +73,6 @@ public interface GestionnaireVoeuxOperations
     public void RAZPeriode();
 
     /**
-     * Operation recupererListeCandidatures
-     */
-    public CyelPostLicence.Etudiant[] recupererListeCandidatures(int numMaster, int numUniversite);
-
-    /**
      * Operation enregistrerDecision
      */
     public void enregistrerDecision(CyelPostLicence.Decision decision);

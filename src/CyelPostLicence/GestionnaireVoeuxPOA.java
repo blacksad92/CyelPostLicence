@@ -55,8 +55,6 @@ public abstract class GestionnaireVoeuxPOA extends org.omg.PortableServer.Servan
                     new Operation_enregistrerDecision());
             operationMap.put("enregistrerVoeux",
                     new Operation_enregistrerVoeux());
-            operationMap.put("recupererListeCandidatures",
-                    new Operation_recupererListeCandidatures());
             operationMap.put("repondreVoeu",
                     new Operation_repondreVoeu());
             operationMap.put("supprimerVoeux",
@@ -225,21 +223,6 @@ public abstract class GestionnaireVoeuxPOA extends org.omg.PortableServer.Servan
         return _output;
     }
 
-    private org.omg.CORBA.portable.OutputStream _invoke_recupererListeCandidatures(
-            final org.omg.CORBA.portable.InputStream _is,
-            final org.omg.CORBA.portable.ResponseHandler handler) {
-        org.omg.CORBA.portable.OutputStream _output;
-        int arg0_in = _is.read_long();
-        int arg1_in = _is.read_long();
-
-        CyelPostLicence.Etudiant[] _arg_result = recupererListeCandidatures(arg0_in, arg1_in);
-
-        _output = handler.createReply();
-        CyelPostLicence.ListeEtudiantsHelper.write(_output,_arg_result);
-
-        return _output;
-    }
-
     private org.omg.CORBA.portable.OutputStream _invoke_enregistrerDecision(
             final org.omg.CORBA.portable.InputStream _is,
             final org.omg.CORBA.portable.ResponseHandler handler) {
@@ -392,16 +375,6 @@ public abstract class GestionnaireVoeuxPOA extends org.omg.PortableServer.Servan
                 final org.omg.CORBA.portable.InputStream _is,
                 final org.omg.CORBA.portable.ResponseHandler handler) {
             return target._invoke_RAZPeriode(_is, handler);
-        }
-    }
-
-    private static final class Operation_recupererListeCandidatures extends AbstractOperation
-    {
-        protected org.omg.CORBA.portable.OutputStream invoke(
-                final GestionnaireVoeuxPOA target,
-                final org.omg.CORBA.portable.InputStream _is,
-                final org.omg.CORBA.portable.ResponseHandler handler) {
-            return target._invoke_recupererListeCandidatures(_is, handler);
         }
     }
 

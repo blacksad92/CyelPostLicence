@@ -34,7 +34,7 @@ public class BDD_GestionnaireReferentiel {
         }
     }
     
-    
+    //Retourne la liste complète des licences
     public Licence[] bdd_listeLicences() {
         ArrayList<Licence> listeLicences = new ArrayList<Licence>();
         
@@ -63,6 +63,7 @@ public class BDD_GestionnaireReferentiel {
         return tabLicences;
     }
     
+     //Retourne la liste complète des masters
     public Master[] bdd_listeMasters() {
         ArrayList<Master> listeMasters = new ArrayList<Master>();
         
@@ -91,6 +92,7 @@ public class BDD_GestionnaireReferentiel {
         return tabMasters;
     }
     
+     //Retourne la liste complète des académies
     public Academie[] bdd_listeAcademies() {
         ArrayList<Academie> listeAcademies = new ArrayList<Academie>();
         
@@ -118,5 +120,4 @@ public class BDD_GestionnaireReferentiel {
         
         return tabAcademies;
     }
-    
 }

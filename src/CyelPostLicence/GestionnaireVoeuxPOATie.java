@@ -159,14 +159,6 @@ public class GestionnaireVoeuxPOATie extends GestionnaireVoeuxPOA
     }
 
     /**
-     * Operation recupererListeCandidatures
-     */
-    public CyelPostLicence.Etudiant[] recupererListeCandidatures(int numMaster, int numUniversite)
-    {
-        return _tie.recupererListeCandidatures( numMaster,  numUniversite);
-    }
-
-    /**
      * Operation enregistrerDecision
      */
     public void enregistrerDecision(CyelPostLicence.Decision decision)

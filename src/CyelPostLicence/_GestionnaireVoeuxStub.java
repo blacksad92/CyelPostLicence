@@ -586,57 +586,6 @@ public class _GestionnaireVoeuxStub extends org.omg.CORBA.portable.ObjectImpl
     }
 
     /**
-     * Operation recupererListeCandidatures
-     */
-    public CyelPostLicence.Etudiant[] recupererListeCandidatures(int numMaster, int numUniversite)
-    {
-        while(true)
-        {
-            if (!this._is_local())
-            {
-                org.omg.CORBA.portable.InputStream _input = null;
-                try
-                {
-                    org.omg.CORBA.portable.OutputStream _output = this._request("recupererListeCandidatures",true);
-                    _output.write_long(numMaster);
-                    _output.write_long(numUniversite);
-                    _input = this._invoke(_output);
-                    CyelPostLicence.Etudiant[] _arg_ret = CyelPostLicence.ListeEtudiantsHelper.read(_input);
-                    return _arg_ret;
-                }
-                catch(org.omg.CORBA.portable.RemarshalException _exception)
-                {
-                    continue;
-                }
-                catch(org.omg.CORBA.portable.ApplicationException _exception)
-                {
-                    String _exception_id = _exception.getId();
-                    throw new org.omg.CORBA.UNKNOWN("Unexpected User Exception: "+ _exception_id);
-                }
-                finally
-                {
-                    this._releaseReply(_input);
-                }
-            }
-            else
-            {
-                org.omg.CORBA.portable.ServantObject _so = _servant_preinvoke("recupererListeCandidatures",_opsClass);
-                if (_so == null)
-                   continue;
-                CyelPostLicence.GestionnaireVoeuxOperations _self = (CyelPostLicence.GestionnaireVoeuxOperations) _so.servant;
-                try
-                {
-                    return _self.recupererListeCandidatures( numMaster,  numUniversite);
-                }
-                finally
-                {
-                    _servant_postinvoke(_so);
-                }
-            }
-        }
-    }
-
-    /**
      * Operation enregistrerDecision
      */
     public void enregistrerDecision(CyelPostLicence.Decision decision)

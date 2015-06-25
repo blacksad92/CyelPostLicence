@@ -9,7 +9,6 @@ import CyelPostLicence.Academie;
 import CyelPostLicence.Candidature;
 import CyelPostLicence.Decision;
 import CyelPostLicence.EnumDecision;
-import CyelPostLicence.EtatCandidature;
 import CyelPostLicence.Etudiant;
 import CyelPostLicence.GestionnaireAcces;
 import CyelPostLicence.GestionnaireCandidatures;
