@@ -42,14 +42,14 @@ public class GestionnaireCandidaturesImpl extends CyelPostLicence.GestionnaireCa
         ////// NOUVEAUX : Pour scénario
         Academie academie;
         
-        academie = new Academie(1, "Toulouse");
-        universite = new Universite(1, "Universite Paul Sabatier", academie);
+        //academie = new Academie(1, "Toulouse");
+        //universite = new Universite(1, "Universite Paul Sabatier", academie);
         //universite = new Universite(2, "Universite Capitole", academie);
         //universite = new Universite(3, "Universite Jean Jaures", academie);
         
-        //academie = new Academie(2, "Nice");      
+        academie = new Academie(2, "Nice");      
         //universite = new Universite(4, "Polytech Nice", academie);
-        //universite = new Universite(5, "Universite Nice Sophia Antipolis", academie);  
+        universite = new Universite(5, "Universite Nice Sophia Antipolis", academie);  
         
         ///////////////////////////////////////////////////////////////////////////
         ////// ANCIENS
