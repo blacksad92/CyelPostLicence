@@ -413,8 +413,14 @@ public class AccueilEtudiant extends javax.swing.JFrame {
             tAreaInsctruction.setText("La première période est fini :\n"
                     + "L'ajout, la suppresion et le classement de voeux n'est plus possible");
         } else {
+            if (tabVoeu.length >= 5){
+                bt_ajouterVoeux.setEnabled(false);
+            }else
+            {
+                bt_ajouterVoeux.setEnabled(true);
+            }
             bt_enregistrerClassement.setEnabled(true);
-            bt_ajouterVoeux.setEnabled(true);
+            
             jTable_voeux.setEnabled(true);
                     tAreaInsctruction.setText("Pour classer vos voeux : \n"
                 + " - Double clic sur la cellule de la colonne \"ordre\".\n"

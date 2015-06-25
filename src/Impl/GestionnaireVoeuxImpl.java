@@ -54,8 +54,8 @@ public class GestionnaireVoeuxImpl extends CyelPostLicence.GestionnaireVoeuxPOA 
 
     public GestionnaireVoeuxImpl() {
         ////// NOUVEAUX : Pour scénario
-        academie = new Academie(1, "Toulouse");
-        //academie = new Academie(2, "Nice");
+        //academie = new Academie(1, "Toulouse");
+        academie = new Academie(2, "Nice");
 
         ///////////////////////////////////////////////////////////////////////////
         ////// ANCIENS
