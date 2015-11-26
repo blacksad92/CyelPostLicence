@@ -17,7 +17,7 @@ import org.omg.CosNaming.NamingContext;
 
 /**
  *
- * @author Linkro
+ * @author Linkro\RVABRE
  */
 public class ClientEtudiant {
 
@@ -43,7 +43,7 @@ public class ClientEtudiant {
             org.omg.CORBA.Object distantAcces = nameRoot.resolve(nameToFind);
             System.out.println("Objet '" + idObj + "' trouve aupres du service de noms. IOR de l'objet :");
             System.out.println(orb.object_to_string(distantAcces));
-
+	    System.out.println("Wouallez");
             //Creation de l'objet distant gestAcces
             gestAcces = CyelPostLicence.GestionnaireAccesHelper.narrow(distantAcces);
 
