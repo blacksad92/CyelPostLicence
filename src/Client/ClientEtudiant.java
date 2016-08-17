@@ -21,7 +21,7 @@ import org.omg.CosNaming.NamingContext;fd
  *
  * @author Linkro\RVABRE
  */
-public class ClientEtudiant23 {
+public class Etudiant {
 
     public CyelPostLicence.GestionnaireAcces gestAcces;
     public CyelPostLicence.GestionnaireVoeux gestVoeux;
