@@ -17,10 +17,6 @@ import CyelPostLicence.Voeu;
 import Outils.CorbaName;
 import org.omg.CosNaming.NamingContext;fd
 
-/**
- *
- * @author Linkro\RVABRE
- */
 public class Etudiant {
 
     public CyelPostLicence.GestionnaireAcces gestAcces;
