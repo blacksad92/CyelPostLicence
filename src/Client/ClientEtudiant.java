@@ -19,12 +19,12 @@ import org.omg.CosNaming.NamingContext;fd
  *
  * @author Linkro\RVABRE
  */
-public class ClientEtudiant {
+public class Etudiant {
 
     public CyelPostLicence.GestionnaireAcces gestAcces;
     public CyelPostLicence.GestionnaireVoeux gestVoeux;
     public CyelPostLicence.GestionnaireReferentiel gestReferentiel;
-    public Etudiant monEtudiant;
+    public Etudiant myStudent;
 
     public ClientEtudiant(String args[]) {
         try {
