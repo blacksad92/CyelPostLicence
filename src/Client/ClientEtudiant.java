@@ -5,6 +5,8 @@
  */
 package Client;
 
+/* test */
+
 import CyelPostLicence.Academie;
 import CyelPostLicence.AcademieIncorrecte;
 import CyelPostLicence.Etudiant;
