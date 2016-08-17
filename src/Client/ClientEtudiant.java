@@ -21,14 +21,14 @@ import org.omg.CosNaming.NamingContext;fd
  *
  * @author Linkro\RVABRE
  */
-public class ClientEtudiant {
+public class ClientEtudiant23 {
 
     public CyelPostLicence.GestionnaireAcces gestAcces;
     public CyelPostLicence.GestionnaireVoeux gestVoeux;
     public CyelPostLicence.GestionnaireReferentiel gestReferentiel;
-    public Etudiant monEtudiant;
+    public Etudiant test;
 
-    public ClientEtudiant(String args[]) {
+    public ClientEtudian(String args[]) {
         try {
             // Intialisation de l'orb
             org.omg.CORBA.ORB orb = org.omg.CORBA.ORB.init(args, null);
